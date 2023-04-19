@@ -20,7 +20,7 @@ export const ChatRoom = ({setRoom,selectedRoom,room,...props}) => {
             className={`td-chat-room ${selectedRoom.id===room.id && 'td-chat-room_active'} d-flex align-items-center border-bottom px-2 py-3 w-100`}>
             <div className='img-user position-relative'>
                 <Image
-                    src={room.members[0].profile_pic}
+                    src={room.members[0].logo||room.members[0].profile_pic}
                     className='rounded-circle'
                     width={'60'}
                     height={'60'}

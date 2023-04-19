@@ -26,7 +26,7 @@ export default function MyChat() {
     const [selectedChatRoom,setSelectedChatRoom] = useState({})
     const [showEmojis,setShowEmojis] = useState(false)
     const socket = io('https://treasuredeal.com:9090', {
-        query: "id=" + user.id + "&user_type=Merchant",
+        query: "id=" + user.id + "&user_type=User",
     });
     useEffect(()=>{
         // const connectListener = data => {
@@ -63,32 +63,36 @@ export default function MyChat() {
         isLoading:isChatRoomsDataLoading,
         reFetch:refetchChatRoomsData
     } = useApi(()=> getChatRooms(user.token,langVal,currency))
+
     const {
-        data:chatRoomMessagesData,
-        isLoading:isChatRoomMessagesDataLoading,
-        reFetch:refetchChatRoomMessagesData
+        data:roomMessages,
+        isLoading:isRoomMessagesLoading,
+        reFetch:refetchRoomMessages
     } = useApi(()=> getChatRoomMessages(null,user.token,langVal,currency),false)
 
+    useEffect(()=>{
+        console.log(isRoomMessagesLoading);
+    },[isRoomMessagesLoading])
 
     useEffect(()=>{
         if (selectedChatRoom.id) {
             console.log('enter chat')
-            socket.emit('enterChat', {user_id:user.id,user_type:'Merchant',room_id:selectedChatRoom.id});
-            refetchChatRoomMessagesData(() => getChatRoomMessages(selectedChatRoom.id, user.token, langVal, currency))
+            socket.emit('enterChat', {user_id:user.id,user_type:'User',room_id:selectedChatRoom.id});
+            refetchRoomMessages(() => getChatRoomMessages(selectedChatRoom.id, user.token, langVal, currency))
         }
         return () => {
             if (selectedChatRoom.id) {
                 console.log('exit chat')
-               socket.emit('exitChat', {user_id:user.id,user_type:'Merchant',room_id:selectedChatRoom.id});
+               socket.emit('exitChat', {user_id:user.id,user_type:'User',room_id:selectedChatRoom.id});
             }
         }
     },[selectedChatRoom])
     
     useEffect(()=>{
-        if (chatRoomMessagesData) {
-            setAllChat(chatRoomMessagesData.messages.data.reverse())
+        if (roomMessages) {
+            setAllChat(roomMessages.messages.data.reverse())
         }
-    },[chatRoomMessagesData])
+    },[roomMessages])
 
     //#region Typing functions
     const emit = (action, data) => {
@@ -102,12 +106,11 @@ export default function MyChat() {
     useEffect(() => {
         if (message && !isTyping) {
             emit('stoppedTyping', 'stopped event trigger function')
-            socket.emit('stoppedTyping', {sender_id:user.id,sender_type:'Merchant',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id});
+            socket.emit('stoppedTyping', {sender_id:user.id,sender_type:'User',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id});
         }
     }, [isTyping])
     const typingMessage = (v) => {
-        // emit('typing', 'send start typing event function');
-        socket.emit('typing', {sender_id:user.id,sender_type:'Merchant',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id});
+        socket.emit('typing', {sender_id:user.id,sender_type:'User',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id});
         setMessage(v)
         clearTimeout(typingTimer);
     }
@@ -130,7 +133,7 @@ export default function MyChat() {
     }
     //#endregion
 
-    useEffect(() => {bottomRef.current?.scrollIntoView({ behavior: "smooth" })}, [allChat]);
+    // useEffect(() => {bottomRef.current?.scrollIntoView({ behavior: "smooth" })}, [allChat]);
 
     const onSent = () => {
         if(message !== ''){
@@ -154,7 +157,7 @@ export default function MyChat() {
             setShowEmojis(false)
             setAllChat(current =>  [...current, newObj]);
 
-            socket.emit('sendMessage', {sender_id:user.id,sender_type:'Merchant',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id,type:'text',body:message});
+            socket.emit('sendMessage', {sender_id:user.id,sender_type:'User',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id,type:'text',body:message});
             setMessage('');
         }
 
@@ -219,7 +222,7 @@ export default function MyChat() {
                             {selectedChatRoom.id && <div className='head-chat d-flex justify-content-between align-items-center px-3 bg-white border-bottom border-start'>
                                 <div className='d-flex align-items-center w-100 bg-transparent'>
                                     <Image
-                                        src={selectedChatRoom.members[0].profile_pic}
+                                        src={selectedChatRoom.members[0].logo||selectedChatRoom.members[0].profile_pic}
                                         className='rounded-circle'
                                         width={'40'}
                                         height={'40'}
@@ -247,8 +250,7 @@ export default function MyChat() {
                                     <h5 className='m-0 mt-3'>Click Any Chat</h5>
                                 </div>}
                                 <div className='height-view-scroll all-chat p-3'>
-                                    {isChatRoomMessagesDataLoading
-                                        ? <LoadData/>
+                                    {(selectedChatRoom.id && isRoomMessagesLoading) ? <LoadData/>
                                         :
                                         allChat.length > 0 ?
                                         // allChat.length > 0 ?
@@ -275,7 +277,7 @@ export default function MyChat() {
                                         </div>
                                     }
                                 </div>
-                                {!isChatRoomMessagesDataLoading && <div className='d-flex justify-content-between align-items-center p-3 border-top position-relative'>
+                                {!isRoomMessagesLoading && <div className='d-flex justify-content-between align-items-center p-3 border-top position-relative'>
                                     <button className='bg-transparent' onClick={()=>setShowEmojis(!showEmojis)}>
                                         <i className='icon-happy fs-3'/>
                                     </button>
