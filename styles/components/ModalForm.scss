@@ -1,0 +1,24 @@
+@import "styles/abstracts/variables";
+@import "styles/abstracts/mixins";
+
+.td-modal-form{
+  width: 600px;
+  &-body{
+    padding: 40px 25px 0;
+    .auth{
+      width: 100%;
+    }
+    img{
+      max-width: 140px;
+    }
+  }
+  &-footer{
+    border-top: 1px solid $input;
+    @include flexItem(flex, center, flex-end, '', '');
+    button{
+      width: 120px;
+      height: 45px;
+      font-size: 15px;
+    }
+  }
+}

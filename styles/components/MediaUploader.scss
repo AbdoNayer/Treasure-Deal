@@ -1,0 +1,52 @@
+@import "styles/abstracts/variables";
+
+.td-media-uploader-wrapper{
+  background-color: $white;
+  width: 100%;
+  height: 150px;
+  color: $black;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border: 1px dashed $input;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  label {
+    cursor: pointer;
+    user-select: none;
+  }
+  input {
+    display: none;
+  }
+  .td-media-wrapper {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .td-no-media{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & p{
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: $grey;
+      &:first-of-type{
+        font-weight: bold;
+      }
+      &:last-of-type{
+        font-size: 14px;
+        color: $black;
+      }
+      & label{
+        color: $main;
+      }
+    }
+  }
+}

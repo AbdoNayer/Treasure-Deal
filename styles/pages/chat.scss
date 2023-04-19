@@ -1,0 +1,77 @@
+// Mixin
+@import '../abstracts/mixins';
+@import '../abstracts/variables';
+
+.chat{
+    .head-chat{
+        height: 70px;
+    }
+    .img-user{
+        .active-in{
+            @include positionItem(absolute, 40px, initial, initial, 0, initial);
+            background-color: #1AB64F;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+        }
+    }
+    .icon-circle{
+        width: 25px;
+        height: 25px;
+    }
+    .height-view-scroll{
+        height: 530px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    .over-section-pepole{
+        height: 617px;
+        .td-chat-room{
+            cursor: pointer;
+            transition: all 200ms ease-in-out 50ms;
+            &:hover{
+                box-shadow: 0 0 1px 1px $main;
+            }
+            &_active{
+                box-shadow: 0 0 1px 1px $main;
+            }
+        }
+    }
+    .all-chat{
+        background-color: #EEF1F8;
+        .sender{
+            &::after{
+                content: "";
+                width: 0;
+                height: 0;
+                border-top: 5px solid transparent;
+                border-right: 10px solid #fff;
+                border-bottom: 5px solid transparent;
+                @include positionItem(absolute, 23px, initial, initial, initial, initial);
+                left: 7px;
+            }
+        }
+        .receive{
+            &::after{
+                content: "";
+                width: 0;
+                height: 0;
+                border-top: 5px solid transparent;
+                border-left: 10px solid $mainOpacity;
+                border-bottom: 5px solid transparent;
+                @include positionItem(absolute, 23px, initial, initial, initial, initial);
+                right: 7px;
+            }
+        }
+    }
+    .box-info-chat{
+        @include positionItem(absolute, 0, initial, 0, initial, initial);
+        z-index: 9;
+    }
+    .td_emojipicker{
+        position: absolute;
+        bottom: 70px;
+        left: 50px;
+    }
+}

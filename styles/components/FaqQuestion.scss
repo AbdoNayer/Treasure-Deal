@@ -1,0 +1,18 @@
+@import "styles/abstracts/variables";
+
+.td_faq_question{
+  border: 1px solid $input;
+  border-radius: 5px;
+  padding: 17px;
+  .td_title_wrapper{
+    cursor: pointer;
+  }
+  .td_collapse{
+    border: 3px solid $main;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-weight: bolder;
+    font-size: 25px;
+  }
+}

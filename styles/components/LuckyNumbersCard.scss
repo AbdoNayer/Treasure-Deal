@@ -1,0 +1,104 @@
+@import "styles/abstracts/variables";
+@import "styles/abstracts/mixins";
+
+
+@keyframes pulse-purple {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(163, 21, 157, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 5px rgba(163, 21, 157, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(163, 21, 157, 0);
+  }
+}
+@keyframes pulse-yellow {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(251, 191, 17, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(251, 191, 17, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(251, 191, 17, 0);
+  }
+}
+
+.td-lucky-card{
+  user-select: none;
+  width: 189.5px;
+  background-color: #fbeaf5;
+  overflow: hidden;
+  border-radius: 20px;
+  &-header{
+    border-radius: 5px 5px 0 0;
+    padding: 4px;
+    background-image: url('/img/sh-grid.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  &-body{
+    padding: 5px;
+    border: 1px solid $main;
+    .logo-grid{
+      @include positionItem(absolute, 50%, initial, 0, 0, translateY(-50%));
+    }
+    .td-lucky-title{
+      @include flexItem(flex,center,center,'','');
+      // border-bottom: 1px solid $main;
+      font-size: 11px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    .td-lucky-nums-wrapper{
+      @include flexItem(flex, center, initial, row, wrap);
+      .td-lucky-num{
+        @include flexItem(flex,center,center,'','');
+        width: 18px;
+        height: 18px;
+        margin: 3.5px;
+        margin-bottom: 5px;
+        border: 1px solid $main;
+        border-radius: 4px;
+        font-size: 9px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 500ms ease-in-out;
+      }
+      .td-active-primary{
+        background-color: $main;
+        color: $white;
+        transform: scale(1);
+        animation: pulse-purple 2s infinite;
+      }
+      .td-active-secondary{
+        border-color: $second;
+        background-color: $second;
+        color: $white;
+        transform: scale(1);
+        animation: pulse-yellow 2s infinite;
+      }
+    }
+  }
+  &-footer{
+    padding: 5px 20px;
+    padding-bottom: 7px;
+    background-image: url('/img/sh-grid.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 0 0 5px 5px;
+    @include flexItem(flex, center, flex-end, '', '');
+    span{
+      cursor: pointer;
+    }
+  }
+}

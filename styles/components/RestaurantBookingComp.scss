@@ -1,0 +1,102 @@
+@import "styles/abstracts/variables";
+
+.td_booking_comp{
+  &_dine_option, &_people{
+    .td-select-lucky-number{
+      transition: all 200ms ease-in-out;
+      &:hover{
+        box-shadow: 0 0 5px 2px $main;
+      }
+    }
+  }
+  &_availability{
+    &_wrapper{
+      .td_input_date{
+        height: 45px;
+        background-color: $input;
+        border-radius: 5px;
+      }
+      .calendar-booking{
+        .react-calendar{
+          width: 100%;
+          margin-top: 5px;
+          .react-calendar__navigation{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            button:disabled{
+              background-color: transparent;
+            }
+            .react-calendar__navigation__arrow{
+              width: 30px;
+              height: 30px;
+              min-width: 30px;
+              border: 1px solid $main;
+              border-radius: 50%;
+              padding: 0;
+              margin: 0 10px;
+            }
+          }
+          .react-calendar__tile{
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            abbr{
+              width: 35px;
+              height: 35px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 5px;
+            }
+          }
+          .react-calendar__tile--active{
+            abbr{
+              background-color: $main;
+            }
+          }
+          abbr[title] {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+  &_time{
+    .td_time_display{
+      font-size: 18px;
+      border: 1px solid $input;
+      background-color: transparent;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+      &:hover{
+        box-shadow: 0 0 5px 2px $main;
+      }
+    }
+    .td_not_available{
+      background-color: $input !important;
+      cursor: not-allowed;
+      &:hover{
+        box-shadow: unset;
+      }
+    }
+    .td_selected{
+      background-color: $main;
+      color: $white;
+      cursor: default;
+      &:hover{
+        box-shadow: unset;
+      }
+    }
+  }
+  .box-result{
+    input{
+      padding: 10px 15px;
+      font-size: 15px;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+// Font Family
+@mixin fontFamily($size, $name){
+    font: $size 'Poppins', $name;
+}
+
+// Transition
+@mixin transition($time){
+    transition: all $time ease-in-out;
+    -o-transition: all $time ease-in-out;
+    -moz-transition: all $time ease-in-out;
+    -webkit-transition: all $time ease-in-out;
+}
+  
+// Position Item
+@mixin positionItem($position, $top, $bottom, $left, $right, $translate){
+    position: $position;
+    top: $top;
+    bottom: $bottom;
+    transform: $translate;
+    left: $left;
+    right: $right;
+    margin: auto;
+}
+
+// Flex Item
+@mixin flexItem($display, $items, $content, $direction, $wrap){
+    display: $display;
+    align-items: $items;
+    justify-content: $content;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+}

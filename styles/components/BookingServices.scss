@@ -1,0 +1,39 @@
+@import "styles/abstracts/variables";
+
+.td_booking_services{
+  .td_services_wrapper{
+    border: 1px solid $input;
+    border-radius: 5px;
+    .td_radio_select{
+      width: fit-content;
+      padding: 10px;
+      cursor: pointer;
+      label{
+        cursor: pointer;
+      }
+      input{
+        cursor: pointer;
+        accent-color: $main;
+        height: 18px;
+        width: 18px;
+        box-sizing: content-box;
+      }
+    }
+  }
+  .td_service_provider{
+    .td_gender_wrapper{
+      .td_gender{
+        border-radius: 5px;
+        border: 1px solid $input;
+        cursor: pointer;
+        height: 100px;
+        width: 150px;
+        transition: all 200ms ease-in-out;
+      }
+      .td_selected_gender{
+        background-color: $main;
+        color: $white;
+      }
+    }
+  }
+}

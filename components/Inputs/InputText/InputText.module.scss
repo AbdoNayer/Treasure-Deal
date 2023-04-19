@@ -1,0 +1,43 @@
+@import "../../../styles/abstracts/variables";
+@import "../../../styles/abstracts/mixins";
+
+.td_input_wrapper{
+  .td_input{
+    position: relative;
+    span{
+      @include positionItem(absolute, 50%, initial, initial, initial, translateY(-50%));
+      font-size: 25px;
+      cursor: pointer;
+      [dir="ltr"] & {
+        right: 20px;
+      }
+      [dir="rtl"] & {
+        left: 20px;
+      }
+    }
+  }
+}
+
+.td_input_with_select{
+  .td_input{
+    input{
+      [dir="ltr"] & {
+        padding-left: 5px;
+        border-left-style: none;
+        border-radius: 0 5px 5px 0;
+      }
+      [dir="rtl"] & {
+        padding-right: 5px;
+        border-right-style: none;
+        border-radius: 5px 0 0 5px;
+      }
+    }
+  }
+}
+.td_input_error{
+  .td_input{
+    input{
+      border-color: $red;
+    }
+  }
+}

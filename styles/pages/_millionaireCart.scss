@@ -1,0 +1,212 @@
+@import "styles/abstracts/variables";
+@import "styles/abstracts/mixins";
+
+.td-card-body{
+    .td-voucher-body-content-bundles{
+        border: 1px solid $main;
+        border-radius: 10px 0px 0px 10px;
+        border-right: 0;
+        padding: 10px !important;
+        .in-card-loop{
+            height: 190px;
+            top: 0;
+            .bundel-id{
+                @include positionItem(absolute, 75px, initial, -25px, initial, rotate(270deg));
+                z-index: 9;
+                span{
+                    font-size: 12px;
+                }
+            }
+            .td-voucher-card{
+                position: relative;
+                top: 0;
+                .td-voucher-card-price{
+                    font-size: 22px;
+                    .td_currency{
+                        font-size: 12px;
+                        top: 1px;
+                    }
+                    .td_price_factor{
+                        top: 11px;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+        .td-subscription{
+            .td-renew{
+                &-checkbox{
+                    width: 17px;
+                    height: 19px;
+                    input{
+                        width: 17px;
+                        height: 17px;
+                        accent-color: $main;
+                    }
+                }
+                h6{
+                    font-size: 12px;
+                }
+            }
+            &-select{
+                &-wrapper{
+                    .css-1f43avz-a11yText-A11yText + div{
+                        height: 30px !important;
+                        min-height: 30px !important;
+                        border: 1px solid #d7d7d7 !important;
+                        padding: 0 !important;
+                        width: 170px;
+                        div{
+                            font-size: 11px !important;
+                            margin: 0 !important;
+                            padding: 0 3px !important;
+                        }
+                        &:focus, &:hover{
+                            border-color: $main !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .body-list-card{
+        background-color: #EEEEEE;
+        border-radius: 0px 10px 10px 0px;
+        height: 250px;
+        .body-list-number{
+            // overflow-x: hidden;
+            // overflow-y: scroll;
+            // -webkit-overflow-scrolling: touch;
+            // will-change: scroll-position;
+            // contain: size style layout;
+            // height: 410px;
+            .number-list{
+                border-bottom: 1px solid $second;
+                border-top: 1px solid $second;
+                .position-relative{
+                    .mb-3:last-child{
+                        margin: 0 !important;
+                    }
+                }
+                &::after{
+                    content: "";
+                    @include positionItem(absolute, 0, initial, 0, initial, initial);
+                    width: 1px;
+                    height: 30px;
+                    background-color: $second;
+                }
+                &::before{
+                    content: "";
+                    @include positionItem(absolute, 0, initial, initial, 0, initial);
+                    width: 1px;
+                    height: 30px;
+                    background-color: $second;
+                }
+                & > div{
+                    &::after{
+                        content: "";
+                        @include positionItem(absolute, initial, -24px, -24px, initial, initial);
+                        width: 1px;
+                        height: 30px;
+                        background-color: $second;
+                    }
+                    &::before{
+                        content: "";
+                        @include positionItem(absolute, initial, -24px, initial, -24px, initial);
+                        width: 1px;
+                        height: 30px;
+                        background-color: $second;
+                    }
+                }
+                .num-lis{
+                    .num-span{
+                        width: 110px;
+                        background-color: $main;
+                        height: 50px;
+                        margin: auto;
+                        font-size: 13px;
+                        text-align: center;
+                        line-height: 18px;
+                    }
+                    span{
+                        width: 24px;
+                        height: 24px;
+                        background-color: $main;
+                        color: $white;
+                        border-radius: 5px;
+                        margin: 0 2px;
+                        font-size: 11px;
+                        @include flexItem(flex, center, center, row, initial);
+                        &:nth-child(6), &:nth-child(7){
+                            background-color: $second;
+                            color: $black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.view-check-num{
+    margin-top: 50px;
+    table{
+        border: 0;
+        border-bottom: 1px solid #DDD;
+        th, td{
+            font-size: 13px !important;
+            border: 0;
+        }
+        tbody{
+            tr:nth-child(even){
+                background-color: rgba(163, 21, 157, 0.2);
+            }
+        }
+    }
+}
+
+.bg-voukum{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    border-radius: 10px;
+    margin: 15px 0;
+    padding: 15px 25px;
+    p{
+        font-size: 13px;
+    }
+    span{
+        font-size: 12px;
+    }
+    h3{
+        font-size: 17px;
+        margin: 0;
+    }
+    button{
+        height: 40px;
+        font-size: 14px;
+    }
+    &:nth-child(odd){
+        flex-direction: row-reverse;
+    }
+    @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+            background-image: url('/img/BG-#{$i}.png');
+        }
+    }
+}
+
+.footer-chick-out{
+    & > div:first-child{
+        border-bottom: 1px solid #EEEEEE;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+    .btn-chickout{
+        button{
+            width: 190px;
+            font-size: 14px;
+        }
+    }
+}

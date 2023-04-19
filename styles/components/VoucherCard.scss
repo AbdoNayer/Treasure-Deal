@@ -1,0 +1,52 @@
+@import "styles/abstracts/variables";
+
+.in-card-loop{
+  height: 460px;
+  overflow-y: auto;
+  position: relative;
+  top: -30px;
+  .td-voucher-card{
+    width: 100%;
+    position: relative;
+    z-index: 9;
+    @for $i from 1 through 30 {
+      &:nth-child(#{$i}) {
+        position: absolute;
+        top: $i * 30px;
+      }
+    }
+    &-price, &-date, &-terms{
+      position: absolute;
+      color: $main;
+    }
+    &-price{
+      top: 10px;
+      right: 10%;
+      font-size: 45px;
+      font-weight: bold;
+      .td_currency{
+        position: absolute;
+        font-size: 15px;
+        top: 10px;
+      }
+      .td_price_factor{
+        position: absolute;
+        font-size: 15px;
+        top: 30px;
+      }
+    }
+    &-date{
+      bottom: 15px;
+      left: 7%;
+      font-size: 13px;
+    }
+    &-terms{
+      bottom: 15px;
+      right: 3%;
+      width: 120px;
+      text-align: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
+  }
+}

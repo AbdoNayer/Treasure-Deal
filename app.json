@@ -1,0 +1,143 @@
+{
+    "language" : [
+        {
+            "val"       : "ar",
+            "flag"      : "eg",
+            "name"      : "AR"
+        },
+        {
+            "val"       : "en",
+            "flag"      : "gb",
+            "name"      : "EN"
+        }
+    ],
+    "currency" : [
+        {
+            "val"       : "AED",
+            "flag"      : "ae"
+        },
+        {
+            "val"       : "EGP",
+            "flag"      : "eg"
+        },
+        {
+            "val"       : "SAR",
+            "flag"      : "sa"
+        },
+        {
+            "val"       : "ARS",
+            "flag"      : "ar"
+        },
+        {
+            "val"       : "USD",
+            "flag"      : "us"
+        },
+        {
+            "val"       : "INR",
+            "flag"      : "in"
+        }
+    ],
+    "categoryListHeader" : [
+        {
+            "link"      : "/the-millionaire-voucher",
+            "resultLink": "/results/millionaire-draw",
+            "name"      : "category.millionaire",
+            "color"     : "bgSecondColor text-white",
+            "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "link"      : "/raffleillionaire-bundle",
+            "resultLink": "/results/raffellionaire-draw",
+            "name"      : "category.raffleillionaire",
+            "color"     : "bgMainColor text-white",
+            "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "link"      : "/luxury-cars-voucher",
+            "resultLink": "/",
+            "name"      : "category.cars",
+            "color"     : "bgPurpleColor text-white",
+            "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "link"      : "/luxury-villas-voucher",
+            "resultLink": "/",
+            "name"      : "category.villas",
+            "color"     : "bgGreenColor text-white",
+            "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "link"      : "/luxury-watches-voucher",
+            "resultLink": "/",
+            "name"      : "category.watches",
+            "color"     : "bgOrangeColor text-white",
+            "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "link"      : "/bride-&-groom-voucher",
+            "resultLink": "/",
+            "name"      : "category.bride",
+            "color"     : "bgBlueColor text-white",
+            "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        }
+    ],
+    "imgSlider" : [
+        {
+            "img" : "/img/banner.png"
+        },
+        {
+            "img" : "/img/9.png"
+        },
+        {
+            "img" : "/img/banner.png"
+        }
+    ],
+    "itemCategory" : [
+        {
+            "img"   : "/img/banner.png",
+            "name"  : "AutoMobiles"
+        },
+        {
+            "img"   : "/img/banner.png",
+            "name"  : "Hotels"
+        },
+        {
+            "img"   : "/img/banner.png",
+            "name"  : "Electronics"
+        },
+        {
+            "img"   : "/img/banner.png",
+            "name"  : "Home Appliances"
+        },
+        {
+            "img"   : "/img/banner.png",
+            "name"  : "Food"
+        },
+        {
+            "img"   : "/img/banner.png",
+            "name"  : "Fashion"
+        }
+    ],
+    "itemTable" : [
+        {
+            "date"      : "23-08-2022",
+            "series"    : "TDTM-2022-0026",
+            "arrNum"    : [ "1", "9", "6", "45", "54", "34" ]
+        },
+        {
+            "date"      : "23-08-2022",
+            "series"    : "TDTM-2022-0026",
+            "arrNum"    : [ "1", "9", "6", "45", "54", "34" ]
+        },
+        {
+            "date"      : "23-08-2022",
+            "series"    : "TDTM-2022-0026",
+            "arrNum"    : [ "1", "9", "6", "45", "54", "34" ]
+        },
+        {
+            "date"      : "23-08-2022",
+            "series"    : "TDTM-2022-0026",
+            "arrNum"    : [ "1", "9", "6", "45", "54", "34" ]
+        }
+    ]
+}

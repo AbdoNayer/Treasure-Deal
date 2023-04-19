@@ -1,0 +1,620 @@
+{
+    "header" : {
+        "buyNow"                : "Buy Now",
+        "results"               : "Results",
+        "winners"               : "Winners & Good Causes"
+    },
+    "footer" : {
+        "company"               : "Company",
+        "myAccount"             : "My Account",
+        "information"           : "Information",
+        "followUs"              : "Follow us",
+        "cart"                  : "Cart",
+        "helpCenter"            : "Help Center",
+        "text"                  : "lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus numquam et exercitationemanimi sint laudantium deserunt,",
+        "text2"                 : "Get updates about our latest prize money.",
+        "copyRight"             : "@ TREASURE DEAL 2022. All Rights Reserved",
+        "Terms"                 : "Terms & Conditions",
+        "Policy"                : "Privacy Policy",
+        "becomePartner"         : "Become A Partner",
+        "becomeLogin"           : "Partner Login"
+    },
+    "auth" : {
+        "signIn"                : "Sign In",
+        "signUp"                : "Sign Up",
+        "donLogin"              : "successfully Registered",
+        "warningMsg"            : "Something went wrong",
+        "succPhone"             : "successfully Enter New Password",
+        "sentCode"              : "The code has been sent",
+        "activateEmail"         : "Activate your email",
+        "activateNow"           : "Activate Now",
+        "doneLogOut"            : "Signed out successfully",
+        "loginFirst"            : "You Must Login First"
+    },
+    "user" : {
+        "logOut"                : "LogOut",
+        "perDetails"            : "Personal Details",
+        "changePassword"        : "Change Password",
+        "changeNumber"          : "Change Phone Number",
+        "changeEmail"           : "Change Email Address",
+        "chooseFile"            : "Choose File",
+        "TDLibrary"             : "TD Library",
+        "profile" : {
+            "title": "My Account",
+            "header": {
+                "phone": "Phone No:",
+                "email": "Email Address",
+                "TD": "TD Id : ",
+                "nationality": "Nationality"
+            },
+            "referral": {
+                "title": "Referral Code",
+                "subTitle": "Generate Code",
+                "buttonMessage": "REFERRAL",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the",
+                "comp" : {
+                    "dateIssue" : "Date of Issue",
+                    "expireDate" : "Expire Date",
+                    "participate" : "# Participate"
+                }
+            },
+            "influencers": {
+                "title": "Invite Influencers",
+                "titleCom": "My Influencers",
+                "subTitle": "Add Influencers",
+                "buttonMessage": "INVITE",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the"
+            },
+            "businessServices": {
+                "title": "Business Services",
+                "subTitle": "Add Services",
+                "buttonMessage": "SERVICES",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the"
+            },
+            "enquiry": {
+                "title": "Enquiry",
+                "subTitle": "Check Enquiry",
+                "buttonMessage": "ENQUIRY",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the",
+                "compo" : {
+                    "date"  : "Date",
+                    "package" : "Package",
+                    "merchant"  : "Merchant"
+                }
+            },
+            "myChat": {
+                "title": "My Chat",
+                "subTitle": "Messages",
+                "buttonMessage": "CHAT",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the"
+            },
+            "booking": {
+                "title": "My Booking Calendar",
+                "subTitle": "Upcoming Events",
+                "buttonMessage": "CALENDAR",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the"
+            },
+            "orders": {
+                "title": "My Orders",
+                "buttonMessage": "VIEW ORDERS",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus"
+            },
+            "bundle": {
+                "title": "My Bundle",
+                "subTitle": "15 Bundles",
+                "buttonMessage": "VOUCHERS",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus"
+            },
+            "wallet": {
+                "title": "My Wallet",
+                "subTitle": "AED 100.00",
+                "buttonMessage": "ADD CREDIT",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus"
+            },
+            "coins": {
+                "title": "My TD Coins",
+                "subTitle": "140000.00 TD",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus"
+            },
+            "draw": {
+                "title": "My Draw",
+                "subTitle": "Check your draw",
+                "buttonMessage": "DRAW DETAILS",
+                "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus"
+            },
+            "earn": {
+                "title": "Earn More",
+                "subTitle": "AED 1000.00",
+                "buttonMessage": "EARN MORE",
+                "secondaryButton": "ALAND12461"
+            },
+            "favourites": {
+                "title": "Favourites",
+                "subTitle": "Add your favorites number",
+                "buttonMessage": "ADD FAVOURITES"
+            },
+            "partners": {
+                "title": "Lucky Partners",
+                "subTitle": "Add your partner",
+                "buttonMessage": "PARTNERS"
+            },
+            "Redeem" : {
+                "redeem"            : "Redeem Voucher Result",
+                "earnHere"          : "Your earn here",
+                "noResult"          : "No Result Yet",
+                "bundleName"        : "Bundle Name",
+                "merchantName"      : "Merchant Name",
+                "redeemDate"        : "Redeem Date",
+                "raffleID"          : "Raffle ID",
+                "redeemedHistory"   : "Redeemed History",
+                "historyHere"       : "History Here",
+                "bookingHistory"    : "Booking History",
+                "bookingHere"       : "Booking Here",
+                "bookingDetails"    : "Booking Details",
+                "editBooking"       : "Edit My Booking",
+                "approved"          : "Approved"
+            },
+            "address" : {
+                "address"           : "address",
+                "addressHere"       : "Your Address Here"
+            }
+        }
+    },
+    "login" : {
+        "email_or_phone_label"              : "Enter Phone Or Email",
+        "password_label"                    : "Password",
+        "forgot_password"                   : "Forgot Your Password ?",
+        "new_account"                       : "You Don't Have An Account ?",
+        "login_button"                      : "Sign In",
+        "form_message"                      : "Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit. Autem Doloremque Inventore Possimus Quidem Sequi Totam! Ad Blanditiis Ex Expedita Incidunt Iure Libero Molestias Natus, Nulla Officia Pariatur Possimus Repudiandae Tempora.",
+        "country_selector_placeholder"      : "Code",
+        "country_selector_required_error_message"   : "Select country code",
+        "continueWith"                      : "Or continue with",
+        "phone_email_error_messages"        : {
+            "numbers_only"          : "Phone should be numbers only",
+            "phone_required"        : "Phone number is required",
+            "phone_min_length"      : "Phone number should be at least 9 digits",
+            "phone_max_length"      : "Phone number should be 10 digits at most",
+            "email_required"        : "Email is required",
+            "email_format"          : "Email must be valid..(email@domain.com)"
+        },
+        "password_required"         : "Password is required",
+        "password_min_length"       : "Password should be at least 6 characters"
+    },
+    "register" : {
+        "header"        : "Your Personal Information",
+        "labels": {
+            "name"              : "Name *",
+            "first_name"        : "First Name *",
+            "last_name"         : "Last Name *",
+            "phone"             : "Phone Number *",
+            "email"             : "Email *",
+            "dob"               : "Date of Birth *",
+            "gender"            : "Gender *",
+            "password"          : "Password *",
+            "confirm_password"  : "Confirm Password *",
+            "nationality"       : "Nationality *",
+            "country"           : "Residence Country *",
+            "identification"    : "Identification # (Optional)"
+        },
+        "form_errors": {
+            "business_name"        : "Business Name is required",
+            "first_name"        : "First name is required",
+            "last_name"         : "Last name is required",
+            "country_code"      : "Select country code",
+            "phone": {
+                "required"      : "Phone number is required",
+                "matches"       : "Phone should be numbers only",
+                "min"           : "Phone number should be at least 9 digits",
+                "max"           : "Phone number should be 10 digits at most",
+                "exist"         : "This phone already exists"
+            },
+            "email": {
+                "required"      : "Email is required",
+                "email"         : "Email must be valid..(email@domain.com)",
+                "exist"         : "This email already exists"
+            },
+            "dob"           : "Date of birth is required",
+            "gender"        : "Gender is required",
+            "password": {
+                "required"      : "Password is required",
+                "min"           : "Password should be at least 6 characters"
+            },
+            "confirm_password": {
+                "required"      : "Confirm password is required",
+                "matches"       : "Passwords must match"
+            },
+            "nationality"       : "Nationality is required",
+            "country"           : "Residence Country is required*"
+        },
+        "placeholders": {
+            "select"        : "select..."
+        },
+        "register_button"   : "Submit",
+        "register_button_Cancel"   : "Cancel"
+    },
+    "app" : {
+        "home"                  : "Home",
+        "aboutUs"               : "About Us",
+        "myBundle"              : "My Bundle",
+        "earnMore"              : "Earn More",
+        "clickHere"             : "Click Here",
+        "redeem"                : "Redeem",
+        "resultDate"            : "Result Date",
+        "drawSeries"            : "Draw Series",
+        "ticketNumbers"         : "Ticket Numbers",
+        "ourCategory"           : "Our Category",
+        "drawResults"           : "Draw Results",
+        "details"               : "Details",
+        "drawDetails"           : "Draw Details",
+        "downloadDeal"          : "Download Now",
+        "treasureDeal"          : "Treasure Deal",
+        "downloadApp"           : "Download our app and buy Buddle's play games",
+        "newsletter"            : "Newsletter",
+        "subscribe"             : "Subscribe",
+        "numberCompleted"       : "The required number has been completed",
+        "loadingData"           : "Loading data",
+        "loading"               : "Loading...",
+        "EmptyData"             : "Empty Data",
+        "voucherResults"        : "Redeemed Voucher Results",
+        "notFound"              : "Not Found Result",
+        "serNumber"             : "series Number",
+        "ticNumber"             : "tickrt Number",
+        "delete"                : "delete",
+        "gohome"                : "go to home",
+        "404"                   : "not found page",
+        "HowTo"                 : "How To Play",
+        "theBundle"             : "The Millionaire Bundle",
+        "raffl&Oth"             : "Raffleillionaire & Others",
+        "pastShows"             : "Past Draw Shows",
+        "watchNow"              : "Watch Now",
+        "chatWhatsapp"          : "Chat On Whatsapp",
+        "seeAllNoty"            : "See All Notification",
+        "notifications"         : "Notifications",
+        "noAvailable"           : "No Services Available",
+        "confirmation"          : "Confirmation",
+        "loadMore"              : "Load More",
+        "congratulation"        : "Congratulation! Your Booking is done our Marchant will contact you soon Or you can contact Marchant through Phone Calls or Chat",
+        "myChat"                : "My Chat"
+    },
+    "category" : {
+        "millionaire"           : "The Millionaire",
+        "raffleillionaire"      : "Raffleillionaire",
+        "cars"                  : "Luxury Cars",
+        "villas"                : "Luxury Villas",
+        "watches"               : "Luxury Watches",
+        "bride"                 : "Bride & Groom"
+    },
+    "verify_number": {
+        "title"                     : "Verify your phone number",
+        "disclaimer_message"        : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio.Lorem ipsum dolor sit amet consectetur adipisicing elit.Reiciendis tempore voluptates doloremque eligend"
+    },
+    "verify_email": {
+        "title"                     : "Verify your email",
+        "disclaimer_message"        : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio.Lorem ipsum dolor sit amet consectetur adipisicing elit.Reiciendis tempore voluptates doloremque eligend"
+    },
+    "forget_password": {
+        "title"                     : "Verify your phone number",
+        "email_or_phone_label"      : "Enter phone number or email",
+        "enterEmail"                : "Enter your email",
+        "next"                      : "Next",
+        "disclaimer_message"        : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio.Lorem ipsum dolor sit amet consectetur adipisicing elit.Reiciendis tempore voluptates doloremque eligend"
+    },
+    "reset_password": {
+        "labels": {
+            "otp"                   : "Enter OTP",
+            "new_password"          : "New Password*",
+            "confirm_new_password"  : "Confirm New Password*"
+        },
+        "reset"                     : "Reset"
+    },
+    "millionaire": {
+        "voucher": {
+            "title": "BUY YOUR BUNDLES",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+            "subTitle": "BUNDLES",
+            "brief": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+            "subscription": "Subscription",
+            "renew": "Automatically renew this multi-draw when it expires",
+            "price": "Bundle Price",
+            "total": "Total : ",
+            "nextButton": "Next",
+            "cardTermsMini": "Bundle use Terms and Conditions",
+            "cardTermsFull": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
+        },
+        "lotto": {
+            "title": "ALWAYS A GREAT TIME TO WIN",
+            "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the",
+            "subTitle": "The Millionaire",
+            "buttons": {
+                "clearAll": "Clear All",
+                "quickPickAll": "Quick Pick",
+                "addBundle": "Add Bundle",
+                "continueShopping": "Continue Shopping",
+                "viewCart": "View Cart"
+            },
+            "pop_ups": {
+                "save_favorite": {
+                    "saveFavouriteTitle": "Add My Favourite Number",
+                    "saveFavouriteLabel": "You can save your favourite number here",
+                    "saveFavouritePlaceholder": "Lucky number name",
+                    "saveFavouriteButton": "Save"
+                },
+                "load_favourite": {
+                    "loadFavouriteTitle": "Select Your Lucky Number",
+                    "loadFavouriteButton": "Apply"
+                },
+                "bundle_limit": {
+                    "title": "Bundle Limit",
+                    "message": "you can't add more bundles"
+                },
+                "add_bundle": {
+                    "title": "Add Bundle",
+                    "message": "A new Bundle of 5 will be added to your cart"
+                },
+                "error_popup": {
+                    "no_bundles": {
+                        "title": "Error",
+                        "message": "please add bundle to continue",
+                        "button": "OK"
+                    },
+                    "no_lines": {
+                        "title": "Error",
+                        "message": "please make sure all lines selected",
+                        "button": "OK"
+                    }
+                }
+            },
+            "enterNumbers" : "You must enter numbers first"
+        },
+        "cart" : {
+            "shoppingCart"          : "Shopping Cart",
+            "RaffelID"              : "Raffel ID : ",
+            "totalPrice"            : "Total Price",
+            "CHECKOUT"              : "Checkout"
+        },
+        "checkout" : {
+            "yourOrder"                     : "Your Order",
+            "product"                       : "Product",
+            "cartSubtotal"                  : "Cart Subtotal",
+            "Vat"                           : "Vat",
+            "orderTotal"                    : "Order Total",
+            "total"                         : "Total",
+            "enterReferralCode"             : "Enter your referral code here",
+            "applyHere"                     : "Apply Here",
+            "paymentMode"                   : "Payment Mode",
+            "TDWallet"                      : "TD Wallet",
+            "TDCoins"                       : "TD Coins",
+            "creditCard"                    : "Credit / Debit Card",
+            "yourBalance"                   : "Your balance ",
+            "yourCoins"                     : "Your coins ",
+            "paypal"                        : "Paypal",
+            "cardNumber"                    : "Card Number",
+            "expiry"                        : "Expiry",
+            "nameCard"                      : "Name On Card",
+            "CVV"                           : "CVV",
+            "saveCard"                      : "Save Card",
+            "payNow"                        : "Pay Now"
+        }
+    },
+    "raffleillionaire" : {
+        "num"                           : "50,000,000.00",
+        "seaNumber"                     : "Search Number",
+        "selOption"                     : "Select Option",
+        "TD"                            : "TD",
+        "hereBest"                      : "Here is the random ticket we have selected for you.Wish you all the best",
+        "clickSelection"                : "Click on this ticket to add to your selection",
+        "all"                           : "All",
+        "odd"                           : "OOD",
+        "even"                          : "Even",
+        "myLucky"                       : "My Lucky",
+        "clickLucky"                    : "Click on your horoscope to see your lucky number",
+        "pickTickets"                   : "Pick Your Tickets",
+        "addPartner"                    : "Add My lucky partner here join together get chance to win with my lucky partners",
+        "ticketAlready"                 : "Ticket already chosen, please choose another one",
+        "youBundles"                    : "you can't add more bundles",
+        "newBundle"                     : "A new Bundle of 30 will be added to your cart",
+        "alreadyChosen"                 : "Already Chosen"
+    },
+    "shoppingCart" : {
+        "SI"                    : "SI",
+        "bundleId"              : "Bundle Id",
+        "bundleType"            : "Bundle Type",
+        "subscription"          : "Subscription",
+        "discount"              : "Discount",
+        "price"                 : "Price",
+        "multiBundle"           : "Multi Bundle",
+        "subTotal"              : "Sub Total",
+        "totalDiscount"         : "Total Discount",
+        "VAT"                   : "VAT",
+        "checkCart"             : "Check your cart",
+        "pleaseCheck"           : "Please check you have selected the details of your bundle"
+    },
+    "modal_pop_up": {
+        "close": "close"
+    },
+    "becomePartner" : {
+        "joinNow"               : "Join Now",
+        "businessName"          : "Business Name",
+        "sellWith"              : "Sell more with",
+        "smartDeals!"           : "Smarter Deals!",
+        "numbersTalk"           : "Numbers talk. So, we’ve created this platform to give you additional insights and help grow your business in all directions.",
+        "whatWeDo"              : "What We Do",
+        "thingsWell"            : "The things we’ve made happen that work a little too well",
+        "ourMerchant"           : "Our Merchant",
+        "partnersBenefit"       : "How Our Partners Benefit",
+        "joinUs"                : "Join Us",
+        "letUsBefore"           : "Let us grow your sales and customer loyalty like never before.",
+        "userFriendly"          : "User-Friendly",
+        "weHaveDesigned"        : "We have designed A user-friendly app with a range of customizable offers and loyalty options suited to your business needs. We enhance the customer experience, with an easy-to-redeem system via early booking reservations and lifetime redeems"
+    },
+    "result" : {
+        "millionaire" : {
+            "yTicketNumber"             : "Enter Your Ticket Number Here",
+            "check"                     : "Check",
+            "clear"                     : "Clear",
+            "perviousResults"           : "Pervious Draw Results",
+            "prizePolicy"               : "Prize Matching Policy",
+            "prizeraws"                 : "Prize Per Draws",
+            "numbersDraws"              : "Numbers Draws",
+            "buyTickets"                : "Buy Tickets",
+            "totalWinners"              : "Total Winners",
+            "ticketChecker"             : "Ticket Checker",
+            "detailedResults"           : "Detailed Results"
+        }
+    },
+    "ordersProfile" : {
+        "allOrders"             : "All Orders",
+        "bundleOrder"           : "Bundle Order",
+        "bookingOrder"          : "Booking Order",
+        "confirmationNo"        : "Confirmation No",
+        "date"                  : "Date",
+        "type"                  : "Type",
+        "status"                : "Status",
+        "paymentMethod"         :  "Payment Method",
+        "amount"                : "Amount",
+        "noOrders"              : "No orders yet"
+    },
+    "bundlesProfile" : {
+        "orderNo"               : "Order No",
+        "totalVouchers"         : "Total Vouchers",
+        "usedVouchers"          : "Used Vouchers",
+        "balanceVouchers"       : "Balance Vouchers",
+        "expiryDate"            : "Expiry Date",
+        "noBundles"             : "no bundles"
+    },
+    "favouritesProfile" : {
+        "addNumber"                     : "Add My Favourites Number",
+        "savedNumber"                   : "Saved Favourites Number",
+        "name"                          : "Name",
+        "favouriteNumber"               : "Favourite Number",
+        "action"                        : "Action",
+        "noFound"                       : "No saved numbers found"
+    },
+    "luckyProfile" : {
+        "addPartners"                   : "Add My Lucky Partners",
+        "sendInivitation"               : "Send Inivitation",
+        "savedPartners"                 : "Saved Partners"
+    },
+    "draw" : {
+        "details"                           : "Here you can see the draw details",
+        "grandPrize"                        : "Grand Draw Prize",
+        "selectedNumber"                    : "Selected Number Here",
+        "ticketType"                        : "Ticket Type",
+        "drawSeries"                        : "Draw Series",
+        "drawDate"                          : "Draw Date",
+        "winnings"                          : "Winnings",
+        "results"                           : "Results",
+        "prizeValue"                        : "Prize Value",
+        "noWin"                             : "No Win",
+        "win"                               : "Win",
+        "raffleID"                          : "Raffle ID :",
+        "refferalCode"                      : "Refferal Code :",
+        "prizePolicy"                       : "Prize Matching Policy",
+        "yourTicket"                        : "Your Ticket",
+        "otherDetails"                      : "Other Details",
+        "datePurchase"                      : "Date of Purchase",
+        "rafferalCode"                      : "Rafferal Code",
+        "purchasedBundle"                   : "Purchased Bundle",
+        "entryDetails"                      : "Entry Details"
+    },
+    "booking" : {
+        "serviceType"                   : "Service type",
+        "selectDuration"                : "Select duration",
+        "premiumProperty"               : "Premium Property",
+        "rent"                          : "Rent",
+        "buy"                           : "Buy",
+        "selectTime"                    : "Select preferred time",
+        "closed"                        : "Closed",
+        "selected"                      : "Selected",
+        "selectedAddress"               : "Selected Address",
+        "addAddress"                    : "Add New Address",
+        "addressBook"                   : "Address Book",
+        "address"                       : "Address :",
+        "phone"                         : "Phone :",
+        "name"                          : "Name :",
+        "apartment"                     : "Apartment",
+        "house"                         : "House",
+        "office"                        : "Office",
+        "selectMap"                     : "Select From Map",
+        "additionalDir"                 : "Additional Directions ( Optional )",
+        "noSeSelected"                  : "No service selected",
+        "makeSureSe"                    : "Make sure to select service before booking",
+        "NoEmSelected"                  : "No employee selected",
+        "makeSureEm"                    : "make sure to select at least 1 employee for this service",
+        "noLocation"                    : "No location found",
+        "makeSureLo"                    : "make sure to add location on map to continue",
+        "noResSelected"                 : "No Reservation time selected",
+        "makeSureRe"                    : "Make sure to select reservation time before booking",
+        "adultsCount"                   : "Adults Count",
+        "makeSureSp"                    : "Make sure to specify how many Adults will be attending",
+        "childrenCount"                 : "Children Count",
+        "makeSureKid"                   : "Make sure to specify how many kids will be attending",
+        "category" : {
+            "mail"                  : "Mail",
+            "restaurant"            : "Restaurant",
+            "hotels"                : "Hotels",
+            "automobiles"           : "Automobiles",
+            "leisure"               : "Leisure",
+            "health"                : "Health & Care",
+            "services"              : "Soft Services",
+            "flights"               : "Flights",
+            "appliances"            : "Home Appliances",
+            "electronics"           : "Electronics",
+            "property"              : "Dubai Property"
+        },
+        "header" : {
+            "recommended"           : "Recommended You",
+            "seeVouchers"           : "See Vouchers",
+            "noBooking"             : "No Booking",
+            "seeMore"               : "See More"
+        },
+        "details" : {
+            "map"                   : "Map",
+            "features"              : "Features",
+            "about"                 : "About",
+            "gallery"               : "Gallery",
+            "vouchers"              : "Vouchers",
+            "voucherResults"        : "Voucher Results",
+            "myVouchers"            : "My Vouchers",
+            "terms"                 : "Terms and Conditions",
+            "location"              : "Location",
+            "validUntil"            : "Valid Until",
+            "booking"               : "Booking",
+            "redeemed"              : "Redeemed",
+            "branch"                : "Branch",
+            "contBooking"           : "Continue Booking",
+            "Menus"                 : "Menus"
+        },
+        "Reserve" : {
+            "reserveTable"          : "Reserve Table",
+            "return"                : "return",
+            "chooseOption"          : "Choose Option",
+            "availability"          : "Availability",
+            "checkAvailability"     : "Check Availability",
+            "bookingRequest"        : "Booking Request Form",
+            "addressDetails"        : "Address Details",
+            "foodMeals"             : "Food Meals",
+            "adults"                : "Adults",
+            "children"              : "Children",
+            "additionalNote"        : "Additional Note",
+            "smokingArea"           : "Smoking Area",
+            "childrenChair"         : "Children Chair",
+            "email"                 : "Email",
+            "phone"                 : "Phone",
+            "note"                  : "Note:",
+            "cancellation"          : "Cancellation Policy",
+            "sendBooKing"           : "Send BooKing Request",
+            "country"               : "Country",
+            "city"                  : "City"
+        },
+        "feedback" : {
+            "Overall"               : "Overall",
+            "Services"              : "Services",
+            "Ambience"              : "Ambience",
+            "Attraction"            : "Attraction",
+            "rateStars"             : "Rate Your Stars",
+            "tellComments"          : "Tell your comments"
+        }
+    }
+}

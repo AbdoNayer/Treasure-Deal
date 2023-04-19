@@ -1,0 +1,39 @@
+@import "styles/abstracts/variables";
+
+.td_car_booking{
+  border: 1px solid $input;
+  border-radius: 5px;
+  .td_car_info_wrapper{
+    border-bottom: 1px solid $input;
+  }
+
+  .td_img_wrapper{
+    width: 200px;
+    height: 180px;
+    // overflow: hidden;
+    .td-car-gallery-swiper{
+      width: 100%;
+      height: 100%;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+  }
+  .td_person_details{
+    width: fit-content;
+  }
+  .select-ponier{
+    width: 150px;
+    div{
+        font-size: 11px !important;
+    }
+    .css-1f43avz-a11yText-A11yText + div{
+        div{
+            font-size: 13px !important;
+        }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+export { default as Header } from './Header';
+export { default as Footer } from './Footer';
+export { default as Functions } from './Functions';
+export { default as Slider } from './Slider';
+export { default as TabsMobile } from './TabsMobile';
+export { default as HeadPage } from './HeadPage';
+export { default as Layout } from './Layout';
+export { default as Breadcrumb } from './Breadcrumb';
+export { default as LoadingPage } from './LoadingPage';
+export { default as LoadData } from './LoadData';
+export { default as EmptyData } from './EmptyData';
+export { default as TicketCheckerResult } from './ResultsCops/TicketCheckerResult';
+export { default as ItemResult } from './ResultsCops/ItemResult';
+export { default as Feedback } from './Feedback';
+export { default as BuyTicketsCard } from './BuyTicketsComp';
+export { default as ItemNotification } from './ItemNotification';

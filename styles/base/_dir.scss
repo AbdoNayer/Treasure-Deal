@@ -1,0 +1,214 @@
+// Dir LTR
+html[dir=ltr] {
+
+    // Body App
+    body{
+        direction: ltr;
+    }
+
+    // Footer
+    footer{
+        .head-box{
+            .link-footer{
+                a{
+                    &::before{
+                        left: 0px;
+                    }
+                }
+            }
+        }
+        .end-footer{
+            a{
+                &:first-child{
+                    padding-right: 15px;
+                    border-right: 1px solid $second;
+                }
+            }
+        }
+    }
+
+    // Media Grid
+    @media (max-width: 1000px) {
+
+        // Header
+        .list-head{
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+    }
+
+    // Form Auth
+    .auth{
+        .select-add{
+            &.phone-select{
+                .css-1f43avz-a11yText-A11yText + div{
+                    border-right: 0px !important;   
+                }
+            }
+        }
+        .td_disclaimer{
+            span{
+                color: $main;
+                cursor: pointer;
+            }
+        }
+    }
+
+    // Bread Crumb
+    .bread-crumb{
+        .link-head {
+            &::after {
+                content: "";
+                left: 0;
+                border-left: 15px solid #F7F7F7;
+            }
+            &::before {
+                content: "";
+                right: -15px;
+                border-left: 15px solid #EAECF1;
+            }
+        }
+    }
+
+    // The Millionare
+    .td-voucher{
+        &-body{
+          &-content{
+            &-brief{
+              .td-price-info{
+                &-buttons{
+                  button{
+                      &:first-of-type{
+                        border-radius: 5px 0 0 5px;
+                      }
+                      &:last-of-type{
+                        border-radius: 0 5px 5px 0;
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+
+    // notification
+    .x-noty{
+        button{
+            right: -10px;
+        }
+    }
+
+    // Events
+    .ev-poster{
+        .c-img{
+            right: 30px;
+        }
+    }
+
+}
+// Dir RTL
+html[dir=rtl] {
+
+    // Body App
+    body{
+        direction: rtl;
+    }
+
+    // Footer
+    footer{
+        .head-box{
+            .link-footer{
+                a{
+                    &::before{
+                        right: 0px;
+                    }
+                }
+            }
+        }
+        .end-footer{
+            a{
+                &:first-child{
+                    padding-left: 15px;
+                    border-left: 1px solid $second;
+                }
+            }
+        }
+    }
+
+    // Media Grid
+    @media (max-width: 1000px) {
+
+        // Header
+        .list-head{
+            right: 0;
+            transform: translateX(100%);
+        }
+
+    }
+
+    // Form Auth
+    .auth{
+        .select-add{
+            &.phone-select{
+                .css-1f43avz-a11yText-A11yText + div{
+                    border-left: 0px !important;   
+                }
+            }
+        }
+    }
+
+    // Bread Crumb
+    .bread-crumb{
+        .link-head {
+            &::after {
+                content: "";
+                left: 0;
+                border-right: 15px solid #F7F7F7;
+            }
+            &::before {
+                content: "";
+                right: -15px;
+                border-right: 15px solid #EAECF1;
+            }
+        }
+    }
+
+    // The Millionare
+    .td-voucher{
+        &-body{
+          &-content{
+            &-brief{
+              .td-price-info{
+                &-buttons{
+                  button{
+                      &:first-of-type{
+                        border-radius: 0 5px 5px 0;
+                      }
+                      &:last-of-type{
+                        border-radius: 5px 0 0 5px;
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+
+    // notification
+    .x-noty{
+        button{
+            left: -10px;
+        }
+    }
+
+    // Events
+    .ev-poster{
+        .c-img{
+            left: 30px;
+        }
+    }
+
+}

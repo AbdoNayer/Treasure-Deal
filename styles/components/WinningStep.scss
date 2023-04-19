@@ -1,0 +1,51 @@
+@import "styles/abstracts/variables";
+
+.td_winning_step{
+  .td_step_image{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 6px solid $main;
+    position: relative;
+    &:after{
+      content:'';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -36px;
+      margin: 0 auto;
+      width: 0;
+      height: 0;
+      border-left: 20px solid $main;
+      border-bottom: 15px solid transparent;
+      border-top: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-radius: 5px;
+    }
+    img{
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+  }
+  .td_step_description_wrapper{
+    padding: 0 10px;
+    color: $main;
+    .td_step_description{
+      padding-bottom: 4px;
+      font-size: 20px;
+      position: relative;
+      border-bottom:  2px solid $main;
+    }
+    .td_step_details{
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-height: 100px;
+      padding: 10px;
+    }
+
+  }
+
+}

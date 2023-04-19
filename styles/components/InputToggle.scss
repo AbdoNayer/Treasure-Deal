@@ -1,0 +1,89 @@
+.td-input-toggle{
+  font-size: 10px;
+  & label {
+    font-size: 15px;
+    width: 5.5em;
+    height: 2em;
+    background-color: #efefef;
+    border-radius: 2em;
+    transition: background-color 300ms ease-in;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    position: relative;
+
+    .td-circle {
+      width: 1.4em;
+      height: 1.4em;
+      border: 0.2em solid $white;
+      border-radius: 50%;
+      position: absolute;
+      left: 0.3em;
+      transition: all 0.5s;
+      background: $white;
+    }
+
+    .td-tag {
+      color: $main;
+      transition: all 0.5s;
+      padding-left: 2.9em;
+
+      .td-on {
+        display: none;
+      }
+
+      .td-dis {
+        display: none;
+      }
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  input:disabled ~ .td-label {
+    background-color: $grey;
+
+    .td-circle {
+      background-color: $white;
+    }
+
+    .td-tag {
+      padding-left: 2.9em;
+      color: $white;
+
+      .td-dis {
+        display: block;
+      }
+
+      .td-off {
+        display: none;
+      }
+    }
+
+  }
+
+  input:checked ~ .td-label {
+    background-color: $main;
+
+    .td-circle {
+      left: calc(100% - 1.4em - 0.3em);
+    }
+
+    .td-tag {
+      color: $second;
+      padding-left: 1em;
+
+      .td-on {
+        display: block;
+      }
+
+      .td-off {
+        display: none;
+      }
+    }
+  }
+}

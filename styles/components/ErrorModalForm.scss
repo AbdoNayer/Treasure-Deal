@@ -1,0 +1,14 @@
+@import "styles/abstracts/variables";
+
+.td-error-modal-form{
+  padding: 50px;
+  &-logo{
+    font-size: 80px;
+  }
+  &-title{
+    font-size: 25px;
+  }
+  &-message{
+    font-size: 18px;
+  }
+}

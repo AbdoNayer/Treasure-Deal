@@ -1,0 +1,73 @@
+@import "styles/abstracts/variables";
+@import "styles/abstracts/mixins";
+
+.td-voucher{
+  &-body{
+    &-subTitle{
+      .td-subTitle{
+        font-size: 29px;
+      }
+    }
+    &-content{
+      &-brief{
+        .td-subscription{
+          &-wrapper{
+            width: 24px;
+            height: 24px;
+            input{
+              height: 100%;
+              width: 100%;
+              accent-color: $main;
+            }
+          }
+        }
+        .td-subscription-select{
+          .td-renew{
+            &-checkbox{
+              width: 24px;
+              height: 24px;
+              input{
+                height: 100%;
+                width: 100%;
+                accent-color: $main;
+              }
+            }
+          }
+        }
+        .td-price-info{
+          &-buttons{
+            button{
+              height: 45px;
+              width: 45px;
+              font-size: 25px;
+              background-color: $white;
+              border: 1px solid $input;
+              @include flexItem(flex, center, center, row, initial);
+              &:disabled{
+                cursor: not-allowed;
+              }
+            }
+            span{
+              @include flexItem(flex, center, center, row, initial);
+              height: 45px;
+              width: 45px;
+              border-top: 1px solid $input;
+              border-bottom: 1px solid $input;
+            }
+          }
+        }
+      }
+      &-next{
+        margin-bottom: 100px;
+      }
+    }
+  }
+}
+
+.td-subscription-select-wrapper{
+  z-index: 10;
+  .css-1f43avz-a11yText-A11yText + div{
+      height: 55px !important;
+      padding: 0 !important;
+  }
+}

@@ -1,0 +1,18 @@
+@import "styles/abstracts/variables";
+
+.td-select-lucky-number{
+  border: 1px solid $input;
+  border-radius: 3px;
+  padding: 10px;
+  cursor: pointer;
+  label{
+    cursor: pointer;
+  }
+  input{
+    cursor: pointer;
+    accent-color: $main;
+    height: 18px;
+    width: 18px;
+    box-sizing: content-box;
+  }
+}

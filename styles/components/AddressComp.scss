@@ -1,0 +1,31 @@
+@import "styles/abstracts/variables";
+
+.td_address_comp{
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid $input;
+  .td_header{
+    height: 50px;
+    .td_default_address{
+
+    }
+    .td_address_actions{
+      span{
+        cursor: pointer;
+      }
+    }
+  }
+  .td_body{
+    max-height: 200px;
+    overflow-y: scroll;
+    .td_lhs{
+
+    }
+    .td_rhs{
+
+    }
+  }
+  .td_footer{
+    border-top: 1px solid $input;
+  }
+}

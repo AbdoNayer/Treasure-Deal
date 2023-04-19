@@ -1,0 +1,308 @@
+// Font Import Cdn
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+// Mixin
+@import '../abstracts/mixins';
+@import '../abstracts/variables';
+
+// Local Style Page
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    outline: none !important;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden !important;
+    font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
+}
+
+a, button, input, textarea, i{
+    @include transition(0.5s);
+}
+
+img{
+    object-fit: cover;
+}
+
+a{
+    text-decoration: none !important;
+    cursor: pointer;
+    color: $black;
+    &:hover{
+        color: $main;
+    }
+}
+
+i{
+    vertical-align: middle;
+}
+
+h1,h2,h3,h4,h5,h6,p{
+    margin: 10px 0;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li{
+    display: inline-block;
+}
+
+// Input Style
+
+label{
+    font-size: 19px;
+}
+
+input {
+    border: 1px solid #707070;
+    border-radius: 5px;
+    padding: 14px 25px;
+    font-size: 18px;
+    transition: border-color 200ms ease-out;
+    width: 100%;
+    &:focus, &:hover{
+      border-color: $main;
+    }
+}
+
+textarea {
+    border: 1px solid #707070;
+    border-radius: 5px;
+    padding: 14px 25px;
+    font-size: 18px;
+    min-height: 180px;
+    resize: none;
+    transition: border-color 200ms ease-out;
+    width: 100%;
+    &:focus, &:hover{
+      border-color: $main;
+    }
+}
+
+// Style Scroll Site
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+// Color Classes
+
+.mainColor{
+    color: $main
+}
+
+.secondColor{
+    color: $second
+}
+
+.redColor{
+    color: $red
+}
+
+.blueColor{
+    color:$blue
+}
+
+.greenColor{
+    color:$green
+}
+
+.orangeColor{
+    color:$orange
+}
+
+.purpleColor{
+    color:$purple
+}
+
+.yallowColor{
+    color: #FFC107
+}
+
+.grayColor{
+    color: #D5D3CE;
+}
+
+// Bg Classes
+
+.bgMainColor{
+    background-color: $main !important
+}
+
+.bgSecondColor{
+    background-color: $second !important
+}
+
+.bgRedColor{
+    background-color: $red
+}
+
+.bgBlueColor{
+    background-color: $blue
+}
+
+.bgGreenColor{
+    background-color: $green
+}
+
+.bgAzrqColor{
+    background-color: $azrq;
+}
+
+.bgOrangeColor{
+    background-color: $orange
+}
+
+.bgPurpleColor{
+    background-color: $purple
+}
+
+.bgBageColor{
+    background-color: $bage
+}
+
+.bgGrayColor{
+    background-color: #ECEBEB;
+}
+
+.bgWhiteColor{
+    background-color: $white;
+}
+
+.border-dotted{
+    border-bottom: 2px dotted $main
+}
+
+// Class Important
+
+.overlay{
+    @include positionItem(fixed, 0, initial, initial, 0, translateX(100%));
+    @include transition(0.3s);
+    height: 100%;
+    width: 100%;
+    z-index: 998;
+    background-color: rgba(0,0,0,0.6);              
+}
+
+.back{
+    transform: translate(0) !important;
+}
+
+.main-body{
+    min-height: 500px;
+}
+
+.bx-shadow{
+    -webkit-box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+}
+
+.old-shadow{
+    box-shadow: 0 3px 6px #00000029;
+}
+
+.border-main{
+    border: 1px solid $main;
+}
+
+.border-main-def{
+    border-bottom: 1px solid #DDD;
+}
+
+.btn-button{
+    width: 120px;
+    height: 45px;
+    border-radius: 5px;
+    &:hover{
+        transform: scale(0.9);
+    }
+}
+
+.table{
+    border-color: $main;
+    vertical-align: middle;
+    td{
+        padding: 15px;
+    }
+    th{
+        padding: 30px;
+    }
+}
+
+.icon-shuffle2{
+    font-size: 16px !important;
+}
+
+.height-view{
+    min-height: 600px;
+}
+
+.height-view-scroll{
+    height: 500px;
+    overflow-y: auto;
+}
+
+.bg-img{
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.BG-1{
+    background-image: url('/img/BG-1.png');
+}
+.BG-2{
+    background-image: url('/img/BG-2.png');
+}
+.BG-3{
+    background-image: url('/img/BG-3.png');
+}
+.BG-4{
+    background-image: url('/img/BG-4.png');
+}
+.BG-5{
+    background-image: url('/img/BG-5.png');
+}
+.BG-6{
+    background-image: url('/img/BG-6.png');
+}
+.BG-7{
+    background-image: url('/img/BG-7.png');
+}
+
+.modal-height-view{
+    min-height: 300px;
+}
+
+// Fonts Sizs
+
+.small-font-10{
+    font-size: 10px;
+}
+
+.small-font-11{
+    font-size: 11px;
+}
+
+.small-font-12{
+    font-size: 12px;
+}
+
+.small-font-13{
+    font-size: 13px;
+}
+
+.rotate{
+    transform: rotate(180deg);
+}

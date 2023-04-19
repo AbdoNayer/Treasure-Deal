@@ -1,0 +1,11 @@
+@import "styles/abstracts/variables";
+
+.td_map_marker{
+  transform-origin: left top;
+  transform: translate(-50%, -100%);
+  span{
+    font-size: 20px;
+    color: $main;
+    font-weight: bold;
+  }
+}
