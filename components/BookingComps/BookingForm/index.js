@@ -265,7 +265,7 @@ export const BookingForm = ({time,checkInDate,merchantId,voucherId,checkHasAdult
             <div className="p-4 rounded-3 old-shadow box-result my-5 mt-3 pt-1">
                 <h4>{t('booking.Reserve.bookingRequest')}</h4>
                 <div>{totalPrice > 0 && <h5>{currency} {employeesState.length > 0 ? totalPrice*employeesState.length : totalPrice}</h5>}</div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard</p>
                 <div className="d-flex align-items-center my-3 border-dotted pb-3">
                     {time && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1">TIME : {time}</h6>}
                     <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mx-3">{checkDateMsg.checkIn} : {checkInDate.toLocaleDateString(undefined,dateOptions)}</h6>
@@ -440,7 +440,7 @@ export const BookingForm = ({time,checkInDate,merchantId,voucherId,checkHasAdult
                     <div className="d-flex">
                         <span className="mainColor fw-light">{t('booking.Reserve.note')}</span>
                         <p className="fw-light m-0 mx-2">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
                         </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-end mt-3">

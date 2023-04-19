@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-export default function breadCrumb(props) {
+export default function BreadCrumb(props) {
 
     const router                        = useRouter();
     const pathnames                     = router.pathname.split(`/`).filter(x => x);

@@ -85,7 +85,7 @@ export const LuckyPartnersProfileComp = ({...props}) => {
                               partnersInfo.map(invite=> <PartnerInvitationRow key={invite.id} invite={invite} deletePartnerInvitation={deletePartnerInvitation}/>)
                               :
                               <div className={'modal-height-view position-relative text-center d-flex align-items-center justify-content-center w-100'}>
-                                <h5 className="text-danger">{t('')}You don't have any partners saved</h5>
+                                <h5 className="text-danger">{t('')}You dont have any partners saved</h5>
                             </div>
                       }
                   </div>

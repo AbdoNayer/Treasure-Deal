@@ -73,7 +73,7 @@ export default function HelpCenter() {
             <div className={'container'}>
                 <div className="td_header">
                     <h1>Help Center</h1>
-                    <p className='mt-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                    <p className='mt-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto</p>
                 </div>
                 <div className='how-to-play py-4 my-4'>
                     <h3 className='text-center my-5'>How to participate</h3>
@@ -129,7 +129,7 @@ export default function HelpCenter() {
                 <div className="py-4">
                     <div className="pb-5">
                         <h3 className='text-center my-4'>Still Have Questions?</h3>
-                        <p className='mt-4 text-center fs-5'>can't find the answer you are looking for? please chat with our friendly team</p>
+                        <p className='mt-4 text-center fs-5'>cant find the answer you are looking for? please chat with our friendly team</p>
                     </div>
                     <form onSubmit={handleSubmit(submitHandler)} className="row mt-4 w-75 m-auto">
                         <div className="col-4">

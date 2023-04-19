@@ -29,7 +29,7 @@ export default  function TicketCheckerResult ({ inVal,drawDetails,drawType, valu
             <div className='row align-items-center'>
                 <div className='col-md-2 col-xs-12'>
                     <div className=''>
-                        <Image style={{ objectFit:"contain" }} width={90} height={90} src='/img/TD.png' />
+                        <Image style={{ objectFit:"contain" }} width={90} height={90} src='/img/TD.png' alt={'result background'}/>
                     </div>
                 </div>
                 <div className='col-md-7 col-xs-12'>

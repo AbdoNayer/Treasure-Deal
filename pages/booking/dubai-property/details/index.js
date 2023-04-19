@@ -129,11 +129,11 @@ export default function PropertyDetails() {
                         <br />
                         Area for Barbecue 
                         <br />
-                        Children's Playground
+                            {"Children\'s Playground"}
                         <br /> 
                         Gym 
                         <br />  <br /><br />
-                        Enjoy the abundance of natural light, modern design, graceful layout, and natural materials palette. Each facility features at least one private terrace, which is ideal for relaxing and taking in the scenery. On the terrace, there is a children's playground as well as a barbecue. The condo has a modern appearance with gray marble in the foyer and first-class amenities.
+                            {"Enjoy the abundance of natural light, modern design, graceful layout, and natural materials palette. Each facility features at least one private terrace, which is ideal for relaxing and taking in the scenery. On the terrace, there is a children\'s playground as well as a barbecue. The condo has a modern appearance with gray marble in the foyer and first-class amenities."}
                         </p>
                     </div>
                     <div className=''>
@@ -194,7 +194,7 @@ export default function PropertyDetails() {
                             <div className="d-flex">
                                 <span className="mainColor fw-light">{t('booking.Reserve.note')}</span>
                                 <p className="fw-light m-0 mx-2">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
                                 </p>
                             </div>
                             <div className="d-flex align-items-center justify-content-end mt-3">

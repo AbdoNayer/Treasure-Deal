@@ -38,8 +38,8 @@ function MyApp({ Component, pageProps }) {
               <HeadPage namePage='treasure-deal' />
                 <FirebaseInit />
               <Header />
-              {/* <LoadingPage /> */}
-              {/*{ router.pathname !== '/' ?  <Breadcrumb /> : null }*/}
+               {/*<LoadingPage />*/}
+              { router.pathname !== '/' ?  <Breadcrumb /> : null }
               <TabsMobile />
               <Functions />
               <div className="main-body position-relative">

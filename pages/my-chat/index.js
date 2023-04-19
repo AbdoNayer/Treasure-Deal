@@ -83,7 +83,6 @@ export default function MyChat() {
             }
         }
     },[selectedChatRoom])
-
     
     useEffect(()=>{
         if (chatRoomMessagesData) {
@@ -251,7 +250,7 @@ export default function MyChat() {
                                     {isChatRoomMessagesDataLoading
                                         ? <LoadData/>
                                         :
-                                        chatRoomMessagesData.messages.data.length > 0 ?
+                                        allChat.length > 0 ?
                                         // allChat.length > 0 ?
                                             allChat.map((chat, i)=> (
                                             <div ref={bottomRef} key={chat.id} className={`${chat.is_sender ? 'sender' : 'justify-content-end receive'} position-relative p-3 d-flex`}>

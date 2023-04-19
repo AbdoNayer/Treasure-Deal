@@ -32,7 +32,7 @@ export default function Winners() {
                         <div className='col-md-6 col-xs-12'>
                             <div className='info'>
                                 <h4 className=''>{t('header.winners')}</h4>
-                                <p className='mt-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                                <p className='mt-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                             </div>
                         </div>
                         <div className='col-md-6 col-xs-12'>
@@ -47,7 +47,7 @@ export default function Winners() {
                   <div className='row'>
                       {winnersData.shows.length > 0 &&
                           winnersData.shows.map(show =>
-                              <div className='col-md-4 col-xs-12'>
+                              <div className='col-md-4 col-xs-12' key={show.id}>
                                   <div className='block-video my-3 overflow-hidden rounded-3 position-relative text-center old-shadow'>
                                       <div className='video-img position-relative'>
                                           <Image src={'/img/na_may_18.png'} quality='100' alt='img' width={100} height={100} />

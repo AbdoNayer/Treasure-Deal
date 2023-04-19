@@ -1,8 +1,10 @@
+import Image from "next/image";
+
 export const WinningSteps = ({step,index,...props}) => {
     return (
         <div className={`td_winning_step col-md-4 col-xs-12 d-flex my-5 ${index===0 && 'order-0'}`} {...props}>
             <div className="td_step_image me-3">
-                <img src={step.image} alt=""/>
+                <Image style={{ objectFit:"contain" }} width={90} height={90} src={step.image} alt={'winning steps'}/>
             </div>
             <div className="td_step_description_wrapper">
                 <div className="td_step_description text-center">

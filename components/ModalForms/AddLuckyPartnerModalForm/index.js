@@ -43,8 +43,8 @@ export const AddLuckyPartnerModalForm = ({tickets,singleTicket,selectedLuckyPart
             <div className="raffleillionaire mb-3">
                 <div className='over-card-bundle d-flex flex-wrap'>
                     {tickets && tickets.map(ticket =>
-                        <div className="mx-2 d-flex align-items-center">
-                            <label className="check-box" key={ticket}>
+                        <div className="mx-2 d-flex align-items-center" key={ticket}>
+                            <label className="check-box">
                                 <input type="radio" name="radio"
                                     onChange={e=>
                                         setSelectedTicketCartId(

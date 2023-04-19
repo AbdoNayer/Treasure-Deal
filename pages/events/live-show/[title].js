@@ -103,7 +103,7 @@ export default function TitleName() {
                     </div>
 
                     <div className='text-center mb-5'>
-                        <p className='grayColor mb-3'>You've viewed 9 of 50 items</p>
+                        <p className='grayColor mb-3'>You viewed 9 of 50 items</p>
                         <button className='btn-button w-auto px-5 border-main bg-white'>Load more</button>
                     </div>
 

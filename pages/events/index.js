@@ -95,7 +95,7 @@ export default function Events() {
                                 </div>
                                 <Link href={'/events/live-show'} className='info-event p-3 bg-white rounded-3 old-shadow'>
                                     <h4>Private Events</h4>
-                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 </Link>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ export default function Events() {
                                 </div>
                                 <div className='info-event p-3 bg-white rounded-3 old-shadow'>
                                     <h4>Private Events</h4>
-                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@ export default function Events() {
                                 </div>
                                 <div className='info-event p-3 bg-white rounded-3 old-shadow'>
                                     <h4>Private Events</h4>
-                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 </div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ export default function Events() {
                                 </div>
                                 <div className='info-event p-3 bg-white rounded-3 old-shadow'>
                                     <h4>Private Events</h4>
-                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@ export default function Events() {
                                 </div>
                                 <div className='info-event p-3 bg-white rounded-3 old-shadow'>
                                     <h4>Private Events</h4>
-                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 </div>
                             </div>
                         </div>
@@ -150,14 +150,14 @@ export default function Events() {
                                 </div>
                                 <div className='info-event p-3 bg-white rounded-3 old-shadow'>
                                     <h4>Private Events</h4>
-                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p className='m-0 small-font-13'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div className='text-center mb-5'>
-                        <p className='grayColor mb-3'>You've viewed 9 of 50 items</p>
+                        <p className='grayColor mb-3'>You viewed 9 of 50 items</p>
                         <button className='btn-button w-auto px-5 border-main bg-white'>Load more</button>
                     </div>
 
