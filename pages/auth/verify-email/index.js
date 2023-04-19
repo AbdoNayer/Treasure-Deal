@@ -6,7 +6,7 @@ import { verifyAuthEmail, verifyAuthEmailResend } from "../../../redux-toolkit/a
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-export default function verifyEmail() {
+export default function VerifyEmail() {
     const { t }                         = useTranslation();
     const [otpCode,setOtpCode]          = useState('');
     const dispatch                      = useDispatch();

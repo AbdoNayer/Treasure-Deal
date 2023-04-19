@@ -6,7 +6,7 @@ import { verifyAuth, verifyAuthResend } from "../../../redux-toolkit/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-export default function verifyCode() {
+export default function VerifyCode() {
 
     const { t }                         = useTranslation();
     const langVal                       = useSelector((state) => state.language.language);
