@@ -107,6 +107,24 @@ html[dir=ltr] {
         }
     }
 
+    // Up To Page
+    .up-to-page{
+        left: 30px;
+    }
+
+    // Go chat Btn
+    .go-chat{
+        right: 30px;
+        left: auto;
+    }
+
+    // Form Search
+    .form-search{
+        button{
+            right: 20px;
+        }
+    }
+
 }
 // Dir RTL
 html[dir=rtl] {
@@ -208,6 +226,24 @@ html[dir=rtl] {
     .ev-poster{
         .c-img{
             left: 30px;
+        }
+    }
+
+    // Up To Page
+    .up-to-page{
+        right: 30px;
+    }
+
+    // Go chat Btn
+    .go-chat{
+        left: 30px;
+        right: auto;
+    }
+
+    // Form Search
+    .form-search{
+        button{
+            left: 20px;
         }
     }
 

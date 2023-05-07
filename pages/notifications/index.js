@@ -15,7 +15,7 @@ import Toastify from "toastify-js";
 export default function Notifications() {
     
     const { t }                                         = useTranslation();
-    const [ type, setType ]                             = useState('seen');
+    const [ type, setType ]                             = useState('');
     const [ isloaded, setIsloaded ]                     = useState(true);
     const dispatch                                      = useDispatch();
     const langVal                                       = useSelector((state) => state.language.language);
@@ -66,7 +66,7 @@ export default function Notifications() {
 
                 <h3 className='my-5 text-center'>{ t('app.notifications') }</h3>
 
-                <div className="d-flex justify-content-center align-items-center my-4">
+                {/* <div className="d-flex justify-content-center align-items-center my-4">
 
                     <button onClick={() => chickNoty('seen')} className={type === 'seen' ? 'btn-button mx-2 bgMainColor text-white' : 'btn-button mx-2 border-main mainColor bg-transparent'}>
                         Seen
@@ -76,7 +76,7 @@ export default function Notifications() {
                         Not Seen
                     </button>
 
-                </div>
+                </div> */}
 
                 <div className="height-view d-flex justify-content-center align-items-center position-relative">
                 { isloaded ? <LoadData/> : null }

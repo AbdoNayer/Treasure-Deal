@@ -55,11 +55,20 @@ export default function BookingDetails() {
 
     const [currentBookingPage,setCurrentBookingPage] = useState(1)
     //#region Booking History
+    const filterOptions = [
+        {label:'all',value:'all'},
+        {label:'new',value:'new'},
+        {label:'accepted',value:'accepted'},
+        {label:'rejected',value:'rejected'},
+        {label:'canceled',value:'canceled'},
+        {label:'finished',value:'finished'},
+    ]
+    const [bookingFilter,setBookingFilter] = useState('all')
     const {
         data:bookingHistoryData,
         isLoading:isBookingHistoryLoading,
         reFetch:refetchBookingHistory
-    } = useApi(()=> getBookingHistory(currentBookingPage,user.token,langVal,currency,merchant_id),router.isReady)
+    } = useApi(()=> getBookingHistory(currentBookingPage,bookingFilter,user.token,langVal,currency,merchant_id),router.isReady)
     //#endregion
 
     //#region Merchant Details
@@ -73,7 +82,7 @@ export default function BookingDetails() {
         if (merchant_id) {
             reFetch(() => getMerchantDetails(user.token, langVal,currency, merchant_id))
             refetchRedeems(()=>  getAllRedeems(currentRedeemPage,user.token,langVal,currency,merchant_id))
-            refetchBookingHistory(()=>  getBookingHistory(currentBookingPage,user.token,langVal,currency,merchant_id))
+            refetchBookingHistory(()=>  getBookingHistory(currentBookingPage,bookingFilter,user.token,langVal,currency,merchant_id))
         }
     },[merchant_id])
     //#endregion
@@ -83,8 +92,8 @@ export default function BookingDetails() {
     },[currentRedeemPage])
 
     useEffect(()=>{
-        refetchBookingHistory(()=>  getBookingHistory(currentBookingPage,user.token,langVal,currency,merchant_id))
-    },[currentBookingPage])
+        refetchBookingHistory(()=>  getBookingHistory(currentBookingPage,bookingFilter,user.token,langVal,currency,merchant_id))
+    },[currentBookingPage,bookingFilter])
 
     //#region Merchant Services
     const {
@@ -194,8 +203,24 @@ export default function BookingDetails() {
                 if (redeemsData.redeems.length > 0) return <RedeemedVouchers openModal={openModal} currentPage={currentRedeemPage} updatePage={page=>setCurrentRedeemPage(page)} redeems={redeemsData.redeems} pagination={redeemsData.pagination} refetchRedeems={refetchRedeems}/>;
                 else return <div className={'text-center text-danger fs-3 p-5 my-5'}>No redeemed vouchers yet</div>
             case 'booking':
-                if (bookingHistoryData.orders.length > 0) return <BookingHistory  refetchBooking={refetchBookingHistory} bookingHistory={bookingHistoryData.orders} currentPage={currentBookingPage} updatePage={page=>setCurrentBookingPage(page)} pagination={bookingHistoryData.pagination} />;
-                else return <div className={'text-center text-danger fs-3 p-5 my-5'}>No booking orders yet</div>
+                return <>
+                    <div className={'w-25 select-ponier'}>
+                        <InputSelect
+                            placeholder={'select filter...'}
+                            onChange={e=> setBookingFilter(e.value)}
+                            options={filterOptions}
+                        />
+                    </div>
+                    {bookingHistoryData.orders.length > 0
+                        ? <BookingHistory refetchBooking={refetchBookingHistory}
+                                        bookingHistory={bookingHistoryData.orders}
+                                        currentPage={currentBookingPage}
+                                        updatePage={page => setCurrentBookingPage(page)}
+                                        pagination={bookingHistoryData.pagination}/>
+                        : <div className={'text-center text-danger fs-3 p-5 my-5'}>No booking orders yet</div>
+
+                    }
+                </>
         }
     }
 

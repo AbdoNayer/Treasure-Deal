@@ -1,7 +1,7 @@
 import {AccountInfo} from "../../components/AccountInfo";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { 
     ProfileHeader,
     LuckyPartnersProfileComp,
@@ -20,10 +20,16 @@ import {
     Enquiry,
     MyChat
 } from "../../components/ProfileComps";
+import {getProfileAuth} from "../../redux-toolkit/actions";
+import {useApi} from "../../hooks/useApi";
+import {retry} from "@reduxjs/toolkit/query";
 
 export default function MyAccount() {
 
-    const user = useSelector((state) => state.user.user);
+    const dispatch        = useDispatch()
+    const user            = useSelector((state) => state.user.user);
+    const currency        = useSelector((state) => state.currency.currency);
+    const langVal         = useSelector((state) => state.language.language);
     const { t }     = useTranslation();
     const accountInfoArray = [
         {
@@ -255,6 +261,9 @@ export default function MyAccount() {
             [key]: key === name
         }),showState))
     }
+    // useEffect(()=>{
+    //     dispatch(getProfileAuth(langVal,user.token,currency))
+    // },[])
 
     return (
         <div className='container'>
@@ -262,18 +271,22 @@ export default function MyAccount() {
                 <h3 className='mb-4 fw-light'>{t("user.profile.title")}</h3>
                 <ProfileHeader user={user}/>
                 <div className="row act-profile">
-                    <div className="col-12">
-                        <AccountInfo
-                            title={accountInfoArray[0].title}
-                            subTitle={accountInfoArray[0].subTitle}
-                            description={accountInfoArray[0].description}
-                            icon={accountInfoArray[0].icon}
-                            buttonMessage={accountInfoArray[0].buttonMessage}
-                            buttonClick={accountInfoArray[0].buttonClick}
-                        />
-                    </div>
-                    {showState[accountInfoArray[0].name] && <div className="col-12">{accountInfoArray[0].component}</div>}
-                    {accountInfoArray.filter(item=> item.id!==1).map((item,idx)=>
+                    {/*<div className="col-12">*/}
+                    {/*    <AccountInfo*/}
+                    {/*        title={accountInfoArray[0].title}*/}
+                    {/*        subTitle={accountInfoArray[0].subTitle}*/}
+                    {/*        description={accountInfoArray[0].description}*/}
+                    {/*        icon={accountInfoArray[0].icon}*/}
+                    {/*        buttonMessage={accountInfoArray[0].buttonMessage}*/}
+                    {/*        buttonClick={accountInfoArray[0].buttonClick}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
+                    {/*{showState[accountInfoArray[0].name] && <div className="col-12">{accountInfoArray[0].component}</div>}*/}
+                    {accountInfoArray
+                        .filter(item=> {
+                            if (user.is_freelancer) return item.id !== 3
+                            else return ![1, 2, 4].includes(item.id)
+                        }).map((item,idx)=>
                         <div key={item.id}>
                             <div className="col-12 mt-3">
                                 <AccountInfo

@@ -78,6 +78,18 @@
           background: $main;
         }
       }
+      .td_tile_active.react-calendar__tile--now{
+        background-color: lighten(rgb(220, 220, 0), 30%);
+        color: $main;
+        text-decoration: underline $main 1px;
+        text-underline-offset: 6px;
+        transition: all 250ms ease-in 50ms;
+        &:hover,&:focus{
+          border: 5px solid $main;
+          background:lighten(rgb(220, 220, 0), 30%);
+          color: $main;
+        }
+      }
       padding: 20px 30px 25px;
       &__weekdays {
         abbr[title] {
@@ -143,28 +155,44 @@
       //background: none;
       text-align: center;
       line-height: 16px;
+      position: relative;
+      .td_tile_reservation{
+        color: $second;
+        font-size: 12px;
+        margin-top: 5px;
+      }
 
       &:disabled {
         background-color: rgb(240, 240, 240);
       }
-
-      &--now {
-        $bgcolor: lighten(rgb(220, 220, 0), 30%);
-        color: $main;
-        text-decoration: underline $main 1px;
-        text-underline-offset: 6px;
-      }
-
       &--hasActive {
         $bgcolor: lighten(rgb(0, 110, 220), 30%);
         background: $bgcolor;
       }
-
       &--active {
-        $bgcolor: rgb(0, 110, 220);
+        //background-color: rgb(0, 110, 220);
         background: $main;
         color: $white;
-        color: white;
+      }
+
+      &--now {
+        //$bgcolor: lighten(rgb(220, 220, 0), 30%);
+        //color: $main;
+        //text-decoration: underline $main 1px;
+        //text-underline-offset: 6px;
+        background-color: lighten(rgb(220, 220, 0), 30%);
+        color: $main;
+        text-decoration: underline $main 1px;
+        text-underline-offset: 6px;
+        transition: all 250ms ease-in 50ms;
+        &:hover,&:focus{
+          border: 5px solid $main;
+          background:lighten(rgb(220, 220, 0), 30%);
+          color: $main;
+        }
+        .td_tile_reservation{
+          color: $main;
+        }
       }
     }
 

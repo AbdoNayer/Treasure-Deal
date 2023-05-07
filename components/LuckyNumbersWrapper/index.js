@@ -24,7 +24,7 @@ export const LuckyNumbersWrapper = ({selectedLines,luckyCounter,checkCardEmpty,s
                 <button className='bg-transparent mainColor mx-2' onClick={deleteBundle}>
                     {isDeleting
                         ? <span className={'fs-5 spinner-border spinner-border-sm'}/>
-                        : <span className={'icon-trash-2 fs-5 '}/>
+                        : <span className={'icon-bin fs-5 '}/>
                     }
                 </button>
             </div>

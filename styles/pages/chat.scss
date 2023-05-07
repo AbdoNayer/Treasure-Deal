@@ -20,21 +20,21 @@
         height: 25px;
     }
     .height-view-scroll{
-        height: 530px;
+        height: 600px;
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
     }
     .over-section-pepole{
-        height: 617px;
+        height: 500px;
         .td-chat-room{
             cursor: pointer;
             transition: all 200ms ease-in-out 50ms;
             &:hover{
-                box-shadow: 0 0 1px 1px $main;
+                background-color: #f3f3f3;
             }
             &_active{
-                box-shadow: 0 0 1px 1px $main;
+                background-color: #f3f3f3;
             }
         }
     }

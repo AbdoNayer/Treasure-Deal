@@ -18,16 +18,20 @@ export default function MyChat() {
     const currency                      = useSelector((state) => state.currency.currency);
     const langVal                       = useSelector((state) => state.language.language);
     const chat                          = useSelector((state) => state.chat.chat);
-    const router                        = useRouter()
     const { t }                         = useTranslation();
     const bottomRef                     = useRef(null);
     const [ allChat, setAllChat ]       = useState([]);
 
-    const [selectedChatRoom,setSelectedChatRoom] = useState({})
-    const [showEmojis,setShowEmojis] = useState(false)
+    const [selectedChatRoom,setSelectedChatRoom]    = useState({});
+    const [showEmojis,setShowEmojis]                = useState(false);
+
     const socket = io('https://treasuredeal.com:9090', {
+        transports  : ['websocket'],
         query: "id=" + user.id + "&user_type=User",
     });
+
+    useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" })}, [allChat]);
+
     useEffect(()=>{
         // const connectListener = data => {
         //     console.log('connect', 'connected to socket from web', data)
@@ -43,6 +47,7 @@ export default function MyChat() {
             })
         }
     },[])
+
     useEffect(()=>{
         socket.on('typingRes',(data)=>console.log('typing event data ',data))
         socket.on('stoppedTypingRes',(data)=>console.log('stopped typing event data ',data))
@@ -71,10 +76,6 @@ export default function MyChat() {
     } = useApi(()=> getChatRoomMessages(null,user.token,langVal,currency),false)
 
     useEffect(()=>{
-        console.log(isRoomMessagesLoading);
-    },[isRoomMessagesLoading])
-
-    useEffect(()=>{
         if (selectedChatRoom.id) {
             console.log('enter chat')
             socket.emit('enterChat', {user_id:user.id,user_type:'User',room_id:selectedChatRoom.id});
@@ -98,6 +99,7 @@ export default function MyChat() {
     const emit = (action, data) => {
         console.log(action, data)
     }
+
     const [message, setMessage] = useState('');
     const [isTyping,setIsTyping] = useState(false)
     let typingTimer;
@@ -105,13 +107,24 @@ export default function MyChat() {
 
     useEffect(() => {
         if (message && !isTyping) {
-            emit('stoppedTyping', 'stopped event trigger function')
             socket.emit('stoppedTyping', {sender_id:user.id,sender_type:'User',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id});
         }
     }, [isTyping])
+
     const typingMessage = (v) => {
-        socket.emit('typing', {sender_id:user.id,sender_type:'User',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id});
-        setMessage(v)
+        const newText = v
+        setMessage(newText);
+        if (newText && (!message || !isTyping)) {
+            socket.emit('typing', {sender_id:user.id,sender_type:'User',receiver_id:selectedChatRoom.members[0].id,receiver_type:selectedChatRoom.members[0].type.split('\\')[2],room_id:selectedChatRoom.id});
+        }
+        if (!isTyping){
+            clearTimeout(typingTimer)
+            setIsTyping(true)
+        }
+        // else if (!newText && message) {
+        //     console.log("input has no value emit event");
+        // }
+        // setMessage(v)
         clearTimeout(typingTimer);
     }
     const doneTyping = () => setIsTyping(prevState => prevState ? false : prevState)
@@ -121,19 +134,10 @@ export default function MyChat() {
             onSent();
             return;
         }
-        console.log('typing')
         clearTimeout(typingTimer);
         typingTimer = setTimeout(doneTyping, doneTypingInterval);
     }
-    const keyDownFnc = (e) => {
-        if (!isTyping){
-            clearTimeout(typingTimer)
-            setIsTyping(true)
-        }
-    }
     //#endregion
-
-    // useEffect(() => {bottomRef.current?.scrollIntoView({ behavior: "smooth" })}, [allChat]);
 
     const onSent = () => {
         if(message !== ''){
@@ -147,12 +151,13 @@ export default function MyChat() {
             let strTime             = hours + ':' + minutes + ' ' + AMPM;
 
             const newObj = {
-                body     : message,
-                is_sender: 1,
-                id       : uuidv4(),
-                name     : '',
-                type     : 'text',
-                duration : 0
+                body        : message,
+                created_dt  : strTime,
+                is_sender   : 1,
+                id          : uuidv4(),
+                name        : '',
+                type        : 'text',
+                duration    : 0
             }
             setShowEmojis(false)
             setAllChat(current =>  [...current, newObj]);
@@ -172,88 +177,73 @@ export default function MyChat() {
             <div className='container mw-100 p-0 m-0'>
                 <div className='row p-0 m-0'>
                     <div className='col-md-4 col-xs-12 p-0'>
-                        <div className='head-chat d-flex justify-content-between align-items-center px-3 bg-white border-bottom'>
-                            <h6 className='m-0'>{t('app.myChat')}</h6>
+                        <div className='head-chat px-3 bg-white border-bottom'>
+                            {/* <h6 className='m-0'>{t('app.myChat')}</h6> */}
                             {/*<button className='icon-circle rounded-circle d-flex justify-content-center align-items-center'>*/}
                             {/*    <i className='icon-search-interface-symbol grayColor'/>*/}
                             {/*</button>*/}
+                            <div className='form-search position-relative mt-3'>
+                                <input className='rounded-pill w-100 border small-font-13' placeholder={t('user.profile.myChat.searchChat')} />
+                                <button className='icon-search grayColor fs-6 bg-transparent' />
+                            </div>
                         </div>
                         <div className='over-section-pepole height-view-scroll bg-white'>
                             {chat.room.id !== 0 && <NewChat selectedRoom={selectedChatRoom} setRoom={(room)=>setSelectedChatRoom(room)}/>}
-
-                            {chatRoomsData.rooms.map(room =>
-                            // {roomsArr.rooms.map(room =>
+                            {
+                                chatRoomsData.rooms.map(room =>
                                 <ChatRoom
                                     key={room.id}
                                     room={room}
                                     setRoom={()=>setSelectedChatRoom(room)}
                                     selectedRoom={selectedChatRoom}
-                                />)}
-                            {/*{*/}
-                            {/*    arrChat.map((item, i) => (*/}
-                            {/*        <button key={i} onClick={() => onOpenChat(item.chat)} className='d-flex align-items-center border-bottom px-2 py-3 w-100 bg-transparent'>*/}
-                            {/*            <div className='img-user position-relative'>*/}
-                            {/*                <Image*/}
-                            {/*                    src={item.image}*/}
-                            {/*                    className='rounded-circle'*/}
-                            {/*                    width={'60'}*/}
-                            {/*                    height={'60'}*/}
-                            {/*                    alt='user'*/}
-                            {/*                />*/}
-                            {/*                { item.active && <span className='active-in'/> }*/}
-                            {/*            </div>*/}
-                            {/*            <div className='px-2 flex-fill'>*/}
-                            {/*                <div className='d-flex justify-content-between align-items-center mb-2'>*/}
-                            {/*                    <h6 className='m-0 fw-bold'>{ item.name }</h6>*/}
-                            {/*                    <strong className='grayColor small-font-12'>{ item.time }</strong>*/}
-                            {/*                </div>*/}
-                            {/*                <div className='d-flex justify-content-between align-items-center'>*/}
-                            {/*                    <h6 className='text-overflow m-0 grayColor'>{ item.message }</h6>*/}
-                            {/*                    { item.count > 0 && <span className='icon-circle rounded-circle d-flex justify-content-center align-items-center bgMainColor text-white small-font-13'>{ item.count }</span> }*/}
-                            {/*                </div>*/}
-                            {/*            </div>*/}
-                            {/*        </button>*/}
-                            {/*    ))*/}
-                            {/*}*/}
+                                />
+                            )}
                         </div>
                     </div>
                     <div className='col-md-8 col-xs-12 p-0'>
                         <div className='bg-white'>
-                            {selectedChatRoom.id && <div className='head-chat d-flex justify-content-between align-items-center px-3 bg-white border-bottom border-start'>
-                                <div className='d-flex align-items-center w-100 bg-transparent'>
-                                    <Image
-                                        src={selectedChatRoom.members[0].logo||selectedChatRoom.members[0].profile_pic}
-                                        className='rounded-circle'
-                                        width={'40'}
-                                        height={'40'}
-                                        alt='user'
-                                    />
-                                    <div className='px-2'>
-                                        <h6 className='m-0 fw-bold'>{selectedChatRoom.members[0].name}</h6>
-                                        <strong className='grayColor small-font-12'>10:00 AM</strong>
+                            {
+                                selectedChatRoom.id && 
+                                <div className='head-chat d-flex justify-content-between align-items-center px-3 bg-white border-bottom border-start'>
+                                    <div className='d-flex align-items-center w-100 bg-transparent'>
+                                        <Image
+                                            src={selectedChatRoom.members[0].logo||selectedChatRoom.members[0].profile_pic}
+                                            className='rounded-circle'
+                                            width={'40'}
+                                            height={'40'}
+                                            alt='user'
+                                        />
+                                        <div className='px-2'>
+                                            <h6 className='m-0 fw-bold'>{selectedChatRoom.members[0].name}</h6>
+                                            <strong className='grayColor small-font-12'>10:00 AM</strong>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="dropdown">
-                                    <button className='icon-circle rounded-circle d-flex justify-content-center align-items-center' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i className='icon-list grayColor'/>
-                                    </button>
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <button className='p-2 bg-transparent w-100'>
-                                            Delete Chat
+                                    <div className="dropdown">
+                                        <button className='icon-circle bg-transparent rounded-circle d-flex justify-content-center align-items-center' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i className='icon-more-vertical fs-5 grayColor'/>
                                         </button>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <button className='p-2 bg-transparent w-100'>
+                                                {t('user.profile.myChat.deleteChat')}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>}
+                            }
                             <div className='border-start position-relative'>
-                                {!selectedChatRoom.id && <div className='box-info-chat d-flex justify-content-center flex-column align-items-center bg-white w-100 h-100'>
-                                    <i className='icon-chat mainColor fs-3'/>
-                                    <h5 className='m-0 mt-3'>Click Any Chat</h5>
-                                </div>}
+                                {
+                                    !selectedChatRoom.id && 
+                                    <div className='box-info-chat d-flex justify-content-center flex-column align-items-center bg-white w-100 h-100'>
+                                        <i className='icon-chat mainColor fs-3'/>
+                                        <h5 className='m-0 mt-3'>Click Any Chat</h5>
+                                    </div>
+                                }
                                 <div className='height-view-scroll all-chat p-3'>
-                                    {(selectedChatRoom.id && isRoomMessagesLoading) ? <LoadData/>
-                                        :
+                                    {
+                                        (selectedChatRoom.id && isRoomMessagesLoading) ? 
+                                        <LoadData/>
+                                        : 
                                         allChat.length > 0 ?
-                                        // allChat.length > 0 ?
                                             allChat.map((chat, i)=> (
                                             <div ref={bottomRef} key={chat.id} className={`${chat.is_sender ? 'sender' : 'justify-content-end receive'} position-relative p-3 d-flex`}>
                                                 <div className={`${chat.is_sender ? 'bg-white' : 'mainOpacity'} py-2 px-3 rounded-3`}>
@@ -262,49 +252,44 @@ export default function MyChat() {
                                                 </div>
                                             </div>
                                         ))
-                                        // allChat.map((item, i)=> (
-                                        //     <div ref={bottomRef} key={item.id} className={`${item.type === 'receive' ? 'justify-content-end receive' : 'sender'} position-relative p-3 d-flex`}>
-                                        //         <div className={`${item.type === 'sender' ? 'bg-white' : 'mainOpacity'} py-2 px-3 rounded-3`}>
-                                        //             <span className='grayColor d-block text-end small-font-12'>{ item.time }</span>
-                                        //             <h6 className='m-0 mt-2 fw-bold'>{ item.massage }</h6>
-                                        //         </div>
-                                        //     </div>
-                                        // ))
                                         :
                                         <div className='creat-chat d-flex justify-content-center flex-column align-items-center w-100 h-100'>
-                                            <i className='icon-chat mainColor fs-3'/>
+                                            <i className='icon-info mainColor fs-3'/>
                                             <h5 className='m-0 mt-3'>write new massage</h5>
                                         </div>
                                     }
                                 </div>
-                                {!isRoomMessagesLoading && <div className='d-flex justify-content-between align-items-center p-3 border-top position-relative'>
-                                    <button className='bg-transparent' onClick={()=>setShowEmojis(!showEmojis)}>
-                                        <i className='icon-happy fs-3'/>
-                                    </button>
-                                    {showEmojis &&
-                                        <div className="td_emojipicker">
-                                            <Picker
-                                                data={data}
-                                                onEmojiSelect={(emoji)=>setMessage(prevState => (prevState.concat(emoji.native)))}
-                                                theme={'light'}
-                                                previewPosition={null}
-                                                exceptEmojis={['transgender_flag','rainbow-flag']}
+                                {
+                                    !isRoomMessagesLoading && 
+                                    <div className='d-flex justify-content-between align-items-center p-3 border-top position-relative'>
+                                        <button className='bg-transparent' onClick={()=>setShowEmojis(!showEmojis)}>
+                                            <i className='icon-happy fs-3'/>
+                                        </button>
+                                        {
+                                            showEmojis &&
+                                            <div className="td_emojipicker">
+                                                <Picker
+                                                    data={data}
+                                                    onEmojiSelect={(emoji)=>setMessage(prevState => (prevState.concat(emoji.native)))}
+                                                    theme={'light'}
+                                                    previewPosition={null}
+                                                    exceptEmojis={['transgender_flag','rainbow-flag']}
+                                                />
+                                            </div>
+                                        }
+                                        <div className='flex-fill px-3'>
+                                            <input
+                                                onKeyUp={keyUpFnc}
+                                                className='rounded-pill'
+                                                value={message}
+                                                onChange={(e) => typingMessage(e.target.value)}
                                             />
                                         </div>
-                                    }
-                                    <div className='flex-fill px-3'>
-                                        <input
-                                            onKeyDown={keyDownFnc}
-                                            onKeyUp={keyUpFnc}
-                                            className='rounded-pill'
-                                            value={message}
-                                            onChange={(e) => typingMessage(e.target.value)}
-                                        />
+                                        <button className='bg-transparent' onClick={onSent}>
+                                            <i className='icon-send-message fs-3 mainColor'/>
+                                        </button>
                                     </div>
-                                    <button className='bg-transparent' onClick={onSent}>
-                                        <i className='icon-send-message fs-3 mainColor'/>
-                                    </button>
-                                </div>}
+                                }
                             </div>
                         </div>
                     </div>

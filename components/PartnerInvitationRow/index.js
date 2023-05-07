@@ -19,7 +19,7 @@ export const PartnerInvitationRow = ({invite,deletePartnerInvitation,...props}) 
             <div className="col-4" onClick={handleDelete}>
                 {isDeleting
                     ? <span className={'fs-5 spinner-border spinner-border-sm mainColor'}/>
-                    : <span className="icon-trash-2 mainColor fs-5"/>
+                    : <span className="icon-bin mainColor fs-5"/>
                 }
             </div>
         </div>

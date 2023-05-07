@@ -14,3 +14,4 @@ export { default as ItemResult } from './ResultsCops/ItemResult';
 export { default as Feedback } from './Feedback';
 export { default as BuyTicketsCard } from './BuyTicketsComp';
 export { default as ItemNotification } from './ItemNotification';
+export { default as BtnGoChat } from './BtnGoChat';

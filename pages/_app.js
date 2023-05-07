@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import { useRouter } from 'next/router';
-import { Layout, HeadPage, Header, Footer, Functions, TabsMobile, Breadcrumb, LoadingPage } from '../components';
+import { Layout, HeadPage, Header, Footer, Functions, TabsMobile, Breadcrumb, LoadingPage, BtnGoChat } from '../components';
 import store from '../redux-toolkit/store/store';
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -18,7 +18,6 @@ import {FirebaseInit} from "../components/FirebaseInit";
 let persistor = persistStore(store);
 
 function MyApp({ Component, pageProps }) {
-
 
   const router                        = useRouter();
 
@@ -42,6 +41,7 @@ function MyApp({ Component, pageProps }) {
               { router.pathname !== '/' ?  <Breadcrumb /> : null }
               <TabsMobile />
               <Functions />
+              { router.pathname !== '/my-chat' ?  <BtnGoChat /> : null }
               <div className="main-body position-relative">
                 <Component {...pageProps} />
               </div>

@@ -10,12 +10,14 @@ export default function CheckedFound() {
 
     const langVal                       = useSelector((state) => state.language.language);
     const currency                      = useSelector((state) => state.currency.currency);
+    const user                          = useSelector((state) => state.user.user);
     const dispatch                      = useDispatch();
     const router                        = useRouter();
 
-    // const socket = io('https://treasuredeal.com:9090', {
-    //     query: "id=" + user.id + "&user_type=Merchant",
-    // });
+    const socket    = io('https://treasuredeal.com:9090', {
+        transports  : ['websocket'],
+        query       : "id=" + `${user ? user.id : null}` + "&user_type=User",
+    });
 
     const fetchData = () => {
         
@@ -40,20 +42,16 @@ export default function CheckedFound() {
     
     useEffect(() => { fetchData(); }, []);
 
-    // useEffect(()=>{
-    //     if (router.pathname !== '/become-partner') router.push('/become-partner')
-    // },[router.pathname])
-
-    // useEffect(()=>{
-    //     if (user.id){
-    //         socket.emit('online', {sender_id:user.id,sender_type:'Merchant'});
-    //     }
-    //     return () => {
-    //         if (user.id) {
-    //             socket.emit('stoppedOnline', {sender_id:user.id,sender_type:'Merchant'});
-    //         }
-    //     }
-    // },[])
+    useEffect(()=>{
+        if (user){
+            socket.emit('online', {sender_id:user.id,sender_type:'User'});
+        }
+        return () => {
+            if (user) {
+                socket.emit('stoppedOnline', {sender_id:user.id,sender_type:'User'});
+            }
+        }
+    },[])
 
   }
   

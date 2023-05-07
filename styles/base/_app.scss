@@ -73,7 +73,7 @@
 .up-to-page{
     width: 60px;
     height: 60px;
-    @include positionItem(fixed, initial, 50px, 30px, initial, initial);
+    @include positionItem(fixed, initial, 50px, initial, initial, initial);
     @include flexItem(flex, center, center, row, initial);
     background-color: $second;
     border-radius: 5px;
@@ -81,6 +81,16 @@
     color: $black;
     i{
         font-size: 40px;
+    }
+}
+
+// Form Search
+.form-search{
+    input{
+        height: 50px;
+    }
+    button{
+        @include positionItem(absolute, 50%, initial, initial, initial, translateY(-50%));
     }
 }
 

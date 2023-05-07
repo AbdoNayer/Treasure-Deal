@@ -116,7 +116,7 @@ export const RaffelillionaireCart = ({cartData,subscriptions}) => {
                             <button className={'bg-transparent'}>
                                 {isDeleteLoading
                                     ? <span className={'fs-5 spinner-border spinner-border-sm mainColor'}/>
-                                    : <span className={'icon-trash-2 mainColor fs-5 '} onClick={()=> deleteLine(cartData.lines[0].ticket.join(''))}/>
+                                    : <span className={'icon-bin mainColor fs-5 '} onClick={()=> deleteLine(cartData.lines[0].ticket.join(''))}/>
                                 }
                             </button>
                         </div>

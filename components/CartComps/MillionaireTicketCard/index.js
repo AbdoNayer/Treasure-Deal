@@ -24,7 +24,7 @@ export const MillionaireTicketCard = ({bundle,editLineClick}) => {
               {/* {bundle[1] && <button className='mainColor ms-auto' onClick={deleteWithLoading}>
                   {isDeleteLoading
                       ? <span className={'fs-5 spinner-border spinner-border-sm'}/>
-                      : <span className={' fs-5 icon-trash-2'}/>
+                      : <span className={' fs-5 icon-bin'}/>
                   }
               </button>
               } */}

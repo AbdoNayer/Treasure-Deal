@@ -1,7 +1,18 @@
 import { InputSelect } from "../../Inputs/InputSelect";
+import {getEnquiryDetailsData} from "../../../redux-toolkit/actions/axiosCalls";
+import {useSelector} from "react-redux";
+import {useApi} from "../../../hooks/useApi";
 
-export const EnquiryDetails = () => {
+export const EnquiryDetails = ({enquiryId}) => {
+    const langVal                                       = useSelector((state) => state.language.language);
+    const user                                          = useSelector((state) => state.user.user);
+    const currency                                      = useSelector((state) => state.currency.currency);
 
+    const {
+        data:enquiryDetails,
+        isLoading:isEnquiryDetailsLoading,
+        reFetch:refetchEnquiryDetails
+    } = useApi(()=> getEnquiryDetailsData(enquiryId,user.token,langVal,currency))
     const genderOptions = [
         {label: 'Payment In Cash', value: 'Payment In Cash'},
         {label: 'Cash', value: 'Cash'},

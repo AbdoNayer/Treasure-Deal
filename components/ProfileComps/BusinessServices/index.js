@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InputSelect } from "../../Inputs/InputSelect";
 import { InputText } from "../../Inputs/InputText";
-import { showModalAction } from "../../../redux-toolkit/actions";
+import {getProfileAuth, showModalAction} from "../../../redux-toolkit/actions";
 import { ModalForm } from "../../ModalForms/ModalForm";
 import Image from 'next/image';
 import {getFreeLanceRequestData, newFreeLanceRequest} from "../../../redux-toolkit/actions/axiosCalls";
@@ -177,6 +177,7 @@ export const BusinessServices = ({...props}) =>  {
             .then(r=> {
                 setSubmitRequestLoading(false)
                 clickView()
+                dispatch(getProfileAuth(langVal,user.token,currency))
             })
             .catch(e=> setSubmitRequestLoading(false));
     }

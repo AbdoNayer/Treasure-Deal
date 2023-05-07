@@ -1,6 +1,5 @@
 import axios from "axios";
 import CONST from "../consts";
-import Toastify from 'toastify-js';
 
 export const headerConfig = (lang,currency,token,multiPart=false) => {
     if (multiPart) {
@@ -35,6 +34,38 @@ export const headerConfig = (lang,currency,token,multiPart=false) => {
             }
         }
     }
+}
+
+export const illusionBody = {
+        "profile": {
+            "password":"Tr!3@sUrEDe@L2023",
+            "code":"TreasureDealQR",
+            "tokenNumber":"0ccd04b3-3bf2-4680-a64e-6a894316a1d2"
+        }
+}
+
+export const illusionDetailsBody = (hotelCode) => ({
+    "Profile": {
+        "password": "Tr!3@sUrEDe@L2023",
+        "code": "TreasureDealQR",
+        "tokenNumber": "0ccd04b3-3bf2-4680-a64e-6a894316a1d2"
+    },
+    "SearchCriteria": {
+        // "StartDate": formatDate(startDate),
+        // "EndDate": formatDate(endDate),
+        // "StartDate": 20200920,
+        // "EndDate": 20200924,
+        "HotelCode": hotelCode
+    }
+})
+
+
+
+const illusionHeaders = {
+    // "Content-Type": "application/json",
+    // "Cookie": "ApplicationGatewayAffinity=6bd22ba08ccf7c22c79b8b132e4808a0; ApplicationGatewayAffinityCORS=6bd22ba08ccf7c22c79b8b132e4808a0",
+    // "Content-Length": 18739,
+    "Access-Control-Allow-Origin": "*",
 }
 
 //#region Orders
@@ -151,6 +182,28 @@ export const getMerchantServices = async ( token, lang, currency, merchantId='' 
 
 //#endregion
 
+//#region Illusion Booking
+export const getIllusionHotels = async ( page, country='AE' ) => {
+    const res = (await axios.post(`${CONST.illusionUrl}hotellist?pageNumber=${page}&pageSize=4&countryCode=${country}`,
+    illusionBody,
+    {
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+      },
+    }
+    ))
+    return res.data
+};
+export const getIllusionHotelDetails = async ( hotelCode ) => {
+    const res = (await axios.post(`${CONST.illusionUrl}details`
+        ,illusionDetailsBody(hotelCode)
+    ))
+    return res.data
+};
+//#endregion
+
 //#region Categories and Malls
 export const getAllCategories = async ( token='', lang, currency, parentId='' ) => {
     const res = await axios.get(`${CONST.url}categories?parent_id=${parentId}`,
@@ -208,9 +261,16 @@ export const checkDateAvailability = async ( token, lang, currency,availabilityD
     return res.data.data
 };
 
-export const getBookingHistory = async ( page, token, lang, currency, merchantId='' ) => {
-    const res = await axios.get(`${CONST.url}booking/booking-history?page=${page}${merchantId && `&merchant_id=${merchantId}`}`
+export const getBookingHistory = async ( page, status, token, lang, currency, merchantId='' ) => {
+    const res = await axios.get(`${CONST.url}booking/booking-history?page=${page}${status!=='all' ? `&status=${status}` : ''}${merchantId && `&merchant_id=${merchantId}`}`
         ,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+
+export const getBookingCalendar = async ( token, lang, currency ) => {
+    const res = await axios.get(`${CONST.url}booking/calendar`,
         headerConfig(lang,currency,token)
     )
     return res.data.data
@@ -427,10 +487,54 @@ export const getFreeLanceRequestData = async ( token, lang, currency ) => {
     )
     return res.data.data
 };
+
 export const newFreeLanceRequest = async ( freelancerData, token, lang, currency ) => {
     const res = await axios.post(`${CONST.url}freelancer/new-request`,
         freelancerData,
         headerConfig(lang,currency,token,true)
+    )
+    return res.data.data
+};
+
+export const getFreeLancersInvitations = async ( page, token, lang, currency ) => {
+    const res = await axios.get(`${CONST.url}freelancer/freelancer-invitations?page=${page}`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+
+export const inviteFreeLanceRequest = async ( freelancerData, token, lang, currency ) => {
+    const res = await axios.post(`${CONST.url}freelancer/invite-freelancer`,
+        freelancerData,
+        headerConfig(lang,currency,token,true)
+    )
+    return res.data.data
+};
+
+export const deleteFreeLancersInvitation = async ( invitationId, token, lang, currency ) => {
+    const res = await axios.delete(`${CONST.url}freelancer/delete-freelancer-invitation?id=${invitationId}`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+//#endregion
+
+//#region Enquires
+export const getEnquiresData = async ( page, token, lang, currency ) => {
+    const res = await axios.get(`${CONST.url}enquiries?page=${page}`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+export const getEnquiryDetailsData = async ( enquiryId, token, lang, currency ) => {
+    const res = await axios.get(`${CONST.url}enquiries/details?id=${enquiryId}`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+export const chaneEnquiryStatus = async ( enquiryId, enquiryData, token, lang, currency ) => {
+    const res = await axios.post(`${CONST.url}enquiries/change-status?id=${enquiryId}`,
+        headerConfig(lang,currency,token)
     )
     return res.data.data
 };
@@ -444,7 +548,6 @@ export const createChatRoom = async ( chatData, token, lang, currency ) => {
     )
     return res.data.data
 };
-
 export const getChatRooms = async ( token, lang, currency ) => {
     const res = await axios.get(`${CONST.url}get-rooms`,
         headerConfig(lang,currency,token)
@@ -469,3 +572,4 @@ export const deleteChatRoomMessage = async ( messageId ,token, lang, currency ) 
     )
     return res.data.data
 };
+//#endregion

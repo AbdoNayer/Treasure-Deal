@@ -34,7 +34,7 @@ export const FavouriteLuckyRow = ({item,deleteLucky,editLucky,...props}) => {
                     <button className={'bg-transparent fs-5'} onClick={()=>handleDelete(item.id)}>
                         {isDeleting
                             ? <span className={'spinner-border spinner-border-sm mainColor'}/>
-                            : <span className={'icon-trash-2 mainColor '}/>
+                            : <span className={'icon-bin mainColor '}/>
                         }
                     </button>
                     <button className="icon-edit mainColor bg-transparent fs-5 mx-2" onClick={handleEdit} />

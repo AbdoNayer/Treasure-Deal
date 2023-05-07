@@ -5,6 +5,7 @@ import {useApi} from "../../../hooks/useApi";
 import {getBookingHistory} from "../../../redux-toolkit/actions/axiosCalls";
 import {BookingHistory} from "../../MerchantComps/BookingHistory";
 import {useEffect, useState} from "react";
+import {InputSelect} from "../../Inputs/InputSelect";
 
 export const AllBookingHistory = ({...props}) => {
     const { t }                                         = useTranslation();
@@ -12,18 +13,26 @@ export const AllBookingHistory = ({...props}) => {
     const langVal                                       = useSelector((state) => state.language.language);
     const currency                                          = useSelector((state) => state.currency.currency);
     const [currentPage,setCurrentPage] = useState(1)
-
+    const [bookingFilter,setBookingFilter] = useState('all')
+    const filterOptions = [
+        {label:'all',value:'all'},
+        {label:'new',value:'new'},
+        {label:'accepted',value:'accepted'},
+        {label:'rejected',value:'rejected'},
+        {label:'canceled',value:'canceled'},
+        {label:'finished',value:'finished'},
+    ]
     //#region bookingHistory
     const [firstLoading,setFirstLoading] = useState(true)
     const {
         data:bookingHistory,
         isLoading:isBookingHistoryLoading,
         reFetch:refetchBookingHistory
-    } = useApi(()=> getBookingHistory(currentPage,user.token,langVal,currency))
+    } = useApi(()=> getBookingHistory(currentPage,bookingFilter,user.token,langVal,currency))
 
     useEffect(()=>{
         refetchBookingHistory()
-    },[currentPage])
+    },[currentPage,bookingFilter])
     useEffect(()=>{
         if (isBookingHistoryLoading===false){
             setFirstLoading(false)
@@ -35,6 +44,14 @@ export const AllBookingHistory = ({...props}) => {
 
     return (
         <div className="result-items">
+            <div className={'w-25 select-ponier my-3'}>
+                <InputSelect
+                    className={''}
+                    placeholder={'select filter...'}
+                    onChange={e=> setBookingFilter(e.value)}
+                    options={filterOptions}
+                />
+            </div>
             {bookingHistory.orders.length > 0
                 ? <BookingHistory
                     allMerchants

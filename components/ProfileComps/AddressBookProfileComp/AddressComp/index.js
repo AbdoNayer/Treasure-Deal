@@ -45,7 +45,7 @@ export const AddressComp = ({address,handleEdit,handleDelete,refetchAddresses,..
                     <span className="icon-edit-3 mainColor fs-4 mx-3" onClick={()=>handleEdit(address)} />
                     {isDeleting
                         ? <span className={'spinner-border spinner-border-sm mainColor'}/>
-                        : <span className="icon-trash-2 mainColor fs-4" onClick={handleDeleteAddress}/>
+                        : <span className="icon-bin mainColor fs-4" onClick={handleDeleteAddress}/>
                     }
                 </div>
             </div>

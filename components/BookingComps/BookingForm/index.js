@@ -21,7 +21,7 @@ import {useApi} from "../../../hooks/useApi";
 import {ErrorModalForm} from "../../ModalForms/ErrorModalForm";
 import {useRouter} from "next/router";
 
-export const BookingForm = ({time,checkInDate,merchantId,voucherId,checkHasAdultsCount,defaultAddressId,defaultOrderId,checkOutDate='',checkVoucherType,checkAddressByVoucherType,serviceState,employeesState,voucherType,...props}) => {
+export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId,checkHasAdultsCount,defaultAddressId,defaultOrderId,checkOutDate='',checkVoucherType,checkAddressByVoucherType,serviceState,employeesState,voucherType,...props}) => {
     const { t }                                             = useTranslation();
     const dispatch                                          = useDispatch()
     const dateOptions                                       = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -158,6 +158,7 @@ export const BookingForm = ({time,checkInDate,merchantId,voucherId,checkHasAdult
             voucher_id:voucherId,
             date:convertDate(checkInDate),
             date_to: checkVoucherType()==='booking_type_2' ? convertDate(checkOutDate) : '',
+            gender: (voucherType==='cleaner'||voucherType==='pest_control') ? serviceGender : undefined,
             time,
             table_option: voucherType==='table' ? 'dinner' : undefined,
             voucher_type:voucherType,

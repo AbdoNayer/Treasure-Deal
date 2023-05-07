@@ -52,7 +52,7 @@ export default function Winners() {
                                       <div className='video-img position-relative'>
                                           <Image src={'/img/na_may_18.png'} quality='100' alt='img' width={100} height={100} />
                                           <div className='over'>
-                                              <span className='icon-play1' />
+                                              <span className='icon-youtube' />
                                           </div>
                                       </div>
                                       <div className='video-info'>

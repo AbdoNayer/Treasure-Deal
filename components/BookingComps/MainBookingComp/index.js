@@ -31,6 +31,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
     //#region set services and employees
     const [serviceState,setServiceState] = useState([])
     const [employeesState,setEmployeesState] = useState([])
+    const [serviceGender,setServiceGender] = useState('Male')
 
     const addEmployee = (person) => {
         setEmployeesState(prevState =>
@@ -211,12 +212,6 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
     },[dateStart])
     //#endregion
 
-    //#region cars and rooms array
-    useEffect(()=>{
-        console.log(convertDate(dateStart));;
-    },[dateStart])
-    //#endregion
-
     return (
         <div className={'td_booking_comp'}>
             <div className="td_booking_comp_header">
@@ -239,7 +234,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                         />
                     }
                 </div>}
-                {(voucherType==='cleaner'||voucherType==='pest_control') && <BookingGender />}
+                {(voucherType==='cleaner'||voucherType==='pest_control') && <BookingGender serviceGender={serviceGender} setServiceGender={setServiceGender} />}
                 <div className="td_booking_comp_availability mb-5">
                     <div className="row">
                         <div className="col-6 mb-4">
@@ -392,6 +387,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                                 checkAddressByVoucherType={checkAddressByVoucherType}
                                 serviceState={serviceState}
                                 employeesState={employeesState}
+                                serviceGender={serviceGender}
                                 time={selectedTime}
                                 checkInDate={dateStart}
                                 checkVoucherType={checkVoucherType}

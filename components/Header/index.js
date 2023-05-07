@@ -231,20 +231,29 @@ export default function Header() {
                                                     {countNoty && countNoty.count !== 0 ? <strong>{countNoty.count}</strong> : null}
                                                 </button>
                                                 <ul className="d-flex align-items-center flex-column justify-content-center dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
-                                                        {
-                                                            allNotifications.slice(0, 3).map((item, i) => (
-                                                                <Link key={i} href={'/'} className='border-main-def w-100 p-2 d-block'>
-                                                                    <div className='info'>
-                                                                        <h6 className='fw-light m-0 mt-1'>{item.title}</h6>
-                                                                        <h6 className='fw-light m-0 mt-1'>{item.body}</h6>
-                                                                        <p className='fw-light m-0 text-end mainColor'>{ item.created_at }</p>
-                                                                    </div>
-                                                                </Link>
-                                                            ))
-                                                        }
-                                                    <Link href={'/notifications'} className='my-2 fs-6 text-decoration-underline w-100 px-2 text-center'>
-                                                        {t('app.seeAllNoty')}
-                                                    </Link>
+                                                    {
+                                                        allNotifications.length > 0 ?
+                                                        <div>
+                                                            {
+                                                                allNotifications.slice(0, 3).map((item, i) => (
+                                                                    <Link key={i} href={'/'} className='borderMainColor w-100 p-2 d-block'>
+                                                                        <div className='info'>
+                                                                            <h6 className='fw-light m-0 mt-1'>{item.title}</h6>
+                                                                            <h6 className='fw-light m-0 mt-1'>{item.body}</h6>
+                                                                            <p className='fw-light m-0 text-end mainColor'>{ item.created_at }</p>
+                                                                        </div>
+                                                                    </Link>
+                                                                ))
+                                                            }
+                                                            <Link href={'/notifications'} className='mx-2 my-3 d-flex align-items-center justify-content-center'>
+                                                                <p className='mainColor my-0 small-font-13'>{t('app.seeAllNoty')}</p>
+                                                            </Link>
+                                                        </div>
+                                                        :
+                                                        <div className='py-4 px-2 text-center'>
+                                                            <h6 className='text-danger small-font-13'>{t('app.notFoNoty')}</h6>
+                                                        </div>
+                                                    }
                                                 </ul>
                                         </div>
                                         <Link href={'/shopping-cart'} className="mx-2 count-num text-dark none-mobile" onClick={() => fadeMenu()}>

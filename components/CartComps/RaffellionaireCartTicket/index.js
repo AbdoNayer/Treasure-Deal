@@ -17,7 +17,7 @@ export const RaffellionaireCartTicket = ({item,deleteLine}) => {
               <button onClick={deleteWithLoading}>
                   {isDeleting
                       ? <span className={'fs-5 spinner-border spinner-border-sm'}/>
-                      : <span className={'icon-trash-2 fs-4 mainColor fw-light'}/>
+                      : <span className={'icon-bin fs-4 mainColor fw-light'}/>
                   }
               </button>
           </td>

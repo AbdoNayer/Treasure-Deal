@@ -132,7 +132,7 @@ textarea {
 }
 
 .grayColor{
-    color: #D5D3CE;
+    color: #888888;
 }
 
 // Bg Classes
@@ -183,6 +183,10 @@ textarea {
 
 .border-dotted{
     border-bottom: 2px dotted $main
+}
+
+.mainOpacity{
+    background-color: $mainOpacity;
 }
 
 // Class Important
@@ -283,6 +287,9 @@ textarea {
 
 .modal-height-view{
     min-height: 300px;
+}
+.modal-height-view-mini{
+    min-height: 100px;
 }
 
 // Fonts Sizs

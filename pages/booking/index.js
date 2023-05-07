@@ -12,7 +12,7 @@ import {
     getAllCities,
     getAllCountries,
     getAllMalls,
-    getAllMerchants
+    getAllMerchants, getIllusionHotels
 } from "../../redux-toolkit/actions/axiosCalls";
 import {useDispatch, useSelector} from "react-redux";
 import {LoadData, EmptyData} from "../../components";
@@ -24,6 +24,9 @@ import {locationReducer, resetLocationReducer} from "../../redux-toolkit/reducer
 import { useRouter } from "next/router";
 import {HotelStars} from "../../components/HotelStars";
 import {Pagination} from "../../components/Pagination";
+import {getCode} from 'country-list'
+import {groupBy} from "lodash";
+import {HotelItems} from "../../components/MerchantComps/HotelItems";
 
 export default function Booking() {
     
@@ -112,7 +115,7 @@ export default function Booking() {
         reFetch:reFetchMerchants,
     } = useApi(()=> getAllMerchants(user.token,langVal,currency,currentPage
         ,categoryId,subCategoryId,mallId
-        ,selectedCountry,selectedCity,searchName
+        ,selectedCountry.value,selectedCity,searchName
         ,!!userLocation.lat,userLocation.lat,userLocation.long))
     const [dataLoadComplete,setDataLoadComplete] = useState(!!merchantsData)
     useEffect(()=>{
@@ -126,9 +129,28 @@ export default function Booking() {
             didMount.current = true;
             return;
         }
-        reFetchMerchants()
+        if (categoryId === 2) refetchIllusionHotels()
+        else reFetchMerchants()
     },[currentPage])
     //#endregion
+
+    const [illusionHotelsArray,setIllusionHotelsArray] = useState([])
+    const {
+        data:illusionHotels,
+        isLoading:isIllusionHotelsLoading,
+        reFetch:refetchIllusionHotels
+    } = useApi(()=> getIllusionHotels(currentPage,selectedCountry.label),false)
+    useEffect(()=>{
+        if (categoryId === 2) refetchIllusionHotels()
+    },[categoryId])
+    useEffect(()=>{
+        if (categoryId === 2) {
+            console.log('illusionHotels',illusionHotels);
+            console.log('illusion cities',illusionHotels.CountryList[0]);
+            console.log('illusion hotels array',illusionHotelsArray);
+            setIllusionHotelsArray(illusionHotels.CountryList[0]?.CityList?.map(city => city.HotelList.Hotel).flat())
+        }
+    },[illusionHotels])
     
     //#region Categories and Malls
     const {
@@ -186,12 +208,22 @@ export default function Booking() {
         data:citiesData,
         isLoading:isCitiesLoading,
         reFetch:refetchCites
-    } = useApi(()=> getAllCities(user.token,langVal,currency,selectedCountry),!!selectedCountry)
+    } = useApi(()=> getAllCities(user.token,langVal,currency,selectedCountry.value),!!selectedCountry)
+    useEffect(()=>{
+        console.log(countriesData?.countries.find(country => country.id === 234));
+    },[countriesData])
     useEffect(()=>{
         if (selectedCountry) {
             setSelectedCity('')
-            reFetchMerchants()
-            refetchCites(() => getAllCities(user.token, langVal,currency, selectedCountry))
+            if (categoryId===2) {
+                refetchIllusionHotels(()=> getIllusionHotels(
+                    currentPage,
+                    selectedCountry.label === 'Aland Islands' ? getCode('Åland Islands') : getCode(selectedCountry.label),
+                ))
+            } else {
+                reFetchMerchants()
+                refetchCites(() => getAllCities(user.token, langVal,currency, selectedCountry.value))
+            }
         }
     },[selectedCountry])
     useEffect(()=>{
@@ -320,21 +352,24 @@ export default function Booking() {
                         }
                     </Swiper>
                 </div>
-                <div className="links-filter my-3 px-4">
+                {categoryId !== 2 && <div className="links-filter my-3 px-4">
                     {categoryId
                         ? subCategories.map(item => (
-                            categoryId===2
-                                ? <button key={item.id} onClick={()=>setSubCategoryId(item.id)} className={`${subCategoryId===item.id? 'td_active' : ''}`}>
+                            categoryId === 2
+                                ? <button key={item.id} onClick={() => setSubCategoryId(item.id)}
+                                          className={`${subCategoryId === item.id ? 'td_active' : ''}`}>
                                     <HotelStars starsNumber={Number(item.name)}/>
                                 </button>
-                                : <button key={item.id} onClick={()=>setSubCategoryId(item.id)} className={`${subCategoryId===item.id? 'td_active' : ''}`}>{item.name}</button>
+                                : <button key={item.id} onClick={() => setSubCategoryId(item.id)}
+                                          className={`${subCategoryId === item.id ? 'td_active' : ''}`}>{item.name}</button>
                         ))
                         : mallsData && mallsData.malls.map(item => (
-                            <button key={item.id} onClick={()=>setMallId(item.id)} className={`${mallId===item.id? 'td_active' : ''}`}>{item.name}</button>
+                            <button key={item.id} onClick={() => setMallId(item.id)}
+                                className={`${mallId === item.id ? 'td_active' : ''}`}>{item.name}</button>
                         ))
 
                     }
-                </div>
+                </div>}
             </div>
 
             <div className="">
@@ -384,8 +419,12 @@ export default function Booking() {
             <div className="d-flex justify-content-between align-items-center mb-5">
                 <div className='d-flex align-items-center'>
                     {categoryId && <div className="select-active d-flex align-items-center">
+                        {/*{
+                            "id": 234,
+                            "name": "United Arab Emirates"
+                        }*/}
                         <InputSelect
-                            onChange={country => setSelectedCountry(country.value)}
+                            onChange={country => setSelectedCountry(country)}
                             isLoading={isCountriesLoading}
                             options={countriesData?.countries.map(country => ({
                                 label: country.name,
@@ -394,7 +433,7 @@ export default function Booking() {
                             placeholder={t('booking.Reserve.country')}
                         />
                     </div>}
-                    {categoryId && selectedCountry && <div className="select-active d-flex align-items-center mx-3">
+                    {categoryId && categoryId!==2 && selectedCountry && <div className="select-active d-flex align-items-center mx-3">
                         <InputSelect
                             isLoading={isCitiesLoading}
                             options={citiesData?.cities.map(city => ({label:city.name,value:city.id}))}
@@ -402,11 +441,13 @@ export default function Booking() {
                             placeholder={t('booking.Reserve.city')}
                         />
                     </div>}
-                    <div className="filter-action">
+                    {categoryId !== 2 && <div className="filter-action">
                         {categoryId && <div className="links-filter px-4">
-                            <button className={`${userLocation.lat && 'td_active'}`} onClick={checkLocation}>Show Nearby</button>
+                            <button className={`${userLocation.lat && 'td_active'}`} onClick={checkLocation}>Show
+                                Nearby
+                            </button>
                         </div>}
-                    </div>
+                    </div>}
                 </div>
                 <div className="block-search">
                     <input type={'text'} onChange={e=> setSearchName(e.target.value)}/>
@@ -476,35 +517,49 @@ export default function Booking() {
             {/*        </div>*/}
             {/*    </div>*/}
             {/*</div>*/}
-
-                {isMerchantsLoading
-                    ? <div className={'modal-height-view position-relative'}><LoadData/></div>
-                    : (merchantsData.merchants && merchantsData.merchants.length)
-                        ? merchantsData.merchants.map(item => (<div key={item.id} className="block-item-cate d-flex align-items-center p-2">
-                                <div className="img-item p-3">
-                                    <div className="old-shadow w-100 h-100 rounded-3 d-flex align-items-center justify-content-center">
-                                        <Image style={{ objectFit : "contain" }} width={70} height={70} alt='logo' src={item.logo} />
-                                    </div>
-                                </div>
-                                <div className="up-info-cate d-flex align-items-center justify-content-between px-2">
-                                    <div className="info-cate p-3">
-                                        <h4>{item.business_name}</h4>
-                                        <h6 className="fw-light">{item.map_desc}</h6>
-                                        <p className="fw-light">{item.description}</p>
-                                        <div className="d-flex">
-                                            {
-                                                item.vouchers.map(offer => (
-                                                    <span key={offer.id} className="bgMainColor p-1 rounded-1 text-white m-2 px-2">{parseInt(offer.discount_per)}%Off</span>
-                                                ))
-                                            }
+                {categoryId === 2
+                    ? <>
+                        {isIllusionHotelsLoading
+                            ? <div className={'modal-height-view position-relative'}><LoadData/></div>
+                            : (illusionHotelsArray?.length)
+                                ? illusionHotelsArray?.map(hotel => <HotelItems key={hotel.Code} hotel={hotel} hotelCode={hotel.Code}/>)
+                                : <EmptyData data={{text : 'app.notFound'}} />
+                        }
+                    </>
+                    : <>
+                        {isMerchantsLoading
+                            ? <div className={'modal-height-view position-relative'}><LoadData/></div>
+                            : (merchantsData.merchants && merchantsData.merchants.length)
+                                ? merchantsData.merchants.map(item => (
+                                    <div key={item.id} className="block-item-cate d-flex align-items-center p-2">
+                                        <div className="img-item p-3">
+                                            <div className="old-shadow w-100 h-100 rounded-3 d-flex align-items-center justify-content-center">
+                                                <Image style={{ objectFit : "contain" }} width={70} height={70} alt='logo' src={item.logo} />
+                                            </div>
+                                        </div>
+                                        <div className="up-info-cate d-flex align-items-center justify-content-between px-2">
+                                            <div className="info-cate p-3">
+                                                <h4>{item.business_name}</h4>
+                                                <h6 className="fw-light">{item.map_desc}</h6>
+                                                <p className="fw-light">{item.description}</p>
+                                                <div className="d-flex">
+                                                    {
+                                                        item.vouchers.map(offer => (
+                                                            <span key={offer.id} className="bgMainColor p-1 rounded-1 text-white m-2 px-2">{parseInt(offer.discount_per)}%Off</span>
+                                                        ))
+                                                    }
+                                                </div>
+                                            </div>
+                                            <Link href={{pathname: `booking/details`, query:{merchant_id: item.id}}} className='bgMainColor m-3 px-3 py-2 fw-light rounded-2 text-white'>{t('booking.header.seeVouchers')}</Link>
                                         </div>
                                     </div>
-                                    <Link href={{pathname: `booking/details`, query:{merchant_id: item.id}}} className='bgMainColor m-3 px-3 py-2 fw-light rounded-2 text-white'>{t('booking.header.seeVouchers')}</Link>
-                                </div>
-                            </div>))
-                        : 
-                        <EmptyData data={{text : 'app.notFound'}} />
+                                ))
+                                : <EmptyData data={{text : 'app.notFound'}} />
+                        }
+                    </>
                 }
+
+
                 <div className={'d-flex align-items-center justify-content-center my-5'}>
                     <Pagination
                         className="pagination-bar"

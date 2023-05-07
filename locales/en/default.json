@@ -63,6 +63,7 @@
                 "titleCom": "My Influencers",
                 "subTitle": "Add Influencers",
                 "buttonMessage": "INVITE",
+                "invitationsYet" : "No invitations yet",
                 "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the"
             },
             "businessServices": {
@@ -80,12 +81,15 @@
                     "date"  : "Date",
                     "package" : "Package",
                     "merchant"  : "Merchant"
-                }
+                },
+                "NEnquiresYet" : "No Enquires Yet"
             },
             "myChat": {
                 "title": "My Chat",
                 "subTitle": "Messages",
                 "buttonMessage": "CHAT",
+                "deleteChat" : "Delete Chat",
+                "searchChat" : "Search",
                 "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the"
             },
             "booking": {
@@ -270,6 +274,7 @@
         "watchNow"              : "Watch Now",
         "chatWhatsapp"          : "Chat On Whatsapp",
         "seeAllNoty"            : "See All Notification",
+        "notFoNoty"             : "Not Found Notifications",
         "notifications"         : "Notifications",
         "noAvailable"           : "No Services Available",
         "confirmation"          : "Confirmation",
@@ -584,7 +589,8 @@
             "redeemed"              : "Redeemed",
             "branch"                : "Branch",
             "contBooking"           : "Continue Booking",
-            "Menus"                 : "Menus"
+            "Menus"                 : "Menus",
+            "modalTitle"            : "Booking Details"
         },
         "Reserve" : {
             "reserveTable"          : "Reserve Table",

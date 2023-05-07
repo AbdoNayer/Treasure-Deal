@@ -20,17 +20,22 @@ export const BookingHistoryItem = ({order,handleCancelBooking,...props}) => {
     }
     const checkCancelBackGroundColor = () => {
         switch (order.status) {
-            case 'canceled':
-                return 'bg-danger';
             case 'new':
-                return 'bgGreenColor'
-
+                return 'bgBageColor';
+            case 'canceled':
+                return 'bgSecondColor';
+            case 'finished':
+                return 'bgAzrqColor text-white';
+            case 'accepted':
+                return 'bgGreenColor text-white';
+            case 'rejected':
+                return 'bg-danger text-white'
         }
     }
 
     const openModal = () => {
         dispatch(showModalAction(
-            <ModalForm title={t('booking.details.terms')}>
+            <ModalForm title={t('booking.details.modalTitle')}>
                 <BookingDetailsModalForm orderId={order.id}/>
             </ModalForm>
         ));
@@ -52,7 +57,7 @@ export const BookingHistoryItem = ({order,handleCancelBooking,...props}) => {
                         </div>
                         <div className='d-flex align-items-center'>
                             <span className="mx-2 fw-light">{t('ordersProfile.status')}</span>
-                            <button className={`${checkCancelBackGroundColor()} px-3 py-2 fw-light rounded-pill text-white`}>{order.status}</button>
+                            <button className={`${checkCancelBackGroundColor()} px-3 py-2 fw-light rounded-pill`}>{order.status}</button>
                         </div>
                     </div>
                     <h6 className="fw-light">{order.voucher.merchant}</h6>
