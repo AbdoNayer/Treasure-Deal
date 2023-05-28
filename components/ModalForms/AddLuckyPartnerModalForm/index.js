@@ -53,7 +53,7 @@ export const AddLuckyPartnerModalForm = ({tickets,singleTicket,selectedLuckyPart
                                 } value={ticket}/>
                                 <span className="checkmark"/>
                             </label>
-                            <TicketCard ticketMode={'select'} ticket={ticket} key={ticket}/>
+                            <TicketCard ticketMode={t('hotel.form.select')} ticket={ticket} key={ticket}/>
                         </div>
                     )}
                 </div>
@@ -68,7 +68,7 @@ export const AddLuckyPartnerModalForm = ({tickets,singleTicket,selectedLuckyPart
                     defaultValue={selectedLuckyPartners ? selectedLuckyPartners.map(partner=> ({label:partnersInfo.find(info=> info.id===partner.id).name,value:partner.id})) : 'Select'}
                 />
             </div>
-            <button className='btn-button bgMainColor text-white d-table m-auto my-4' onClick={addPartnerToBundle}>
+            <button className='btn-button bgMainColor text-white d-table m-auto my-5' onClick={addPartnerToBundle}>
                 {isAdding
                     ? <span className={'fs-5 spinner-border spinner-border-sm text-white'}/>
                     : <span>{t('millionaire.lotto.pop_ups.load_favourite.loadFavouriteButton')}</span>

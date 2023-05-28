@@ -26,6 +26,8 @@ export default function MyDraw() {
     const {draw_id} = router.query
     const currency                               = useSelector((state) => state.currency.currency);
 
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
+
     const {
         data,
         isLoading,
@@ -80,6 +82,8 @@ export default function MyDraw() {
 
 
     if (isLoading) return <LoadData/>
+
+    if(user === null) return null;
     return (
         <div className='my-draw container'>
             <div className="row">
@@ -97,11 +101,20 @@ export default function MyDraw() {
                             <div className='lis-number active d-flex align-items-center justify-content-center my-3'>
                                 {data.draw.type === 'millionaire'
                                     ? <>
-                                        {data.draw.numbers5.map(num => <span key={num} className='mx-1'>{num}</span>)}
-                                        {data.draw.numbers2.map(num => <span key={num} className='mx-1'>{num}</span>)}
+                                        {(data.draw.numbers5.length===0&&data.draw.numbers2.length===0)
+                                            ? <>Waiting for result</>
+                                            : <>
+                                                {data.draw.numbers5.map(num => <span key={num} className='mx-1'>{num}</span>)}
+                                                {data.draw.numbers2.map(num => <span key={num} className='mx-1'>{num}</span>)}
+                                            </>
+                                        }
                                     </>
                                     : <div className={'fw-bold fs-3'}>
-                                        TD- {data.draw.ticket}
+                                        {data.draw.ticket.length===0
+                                            ? <>Waiting for result</>
+                                            : <>TD- {data.draw.ticket}</>
+                                        }
+
                                     </div>
                                 }
                             </div>
@@ -232,8 +245,8 @@ export default function MyDraw() {
                                                                 <div className='lis-number d-flex align-items-center justify-content-center mx-1'>
                                                                     {data.draw.type === 'millionaire'
                                                                         ? <>
-                                                                            {line.luckynumber5.map(num => <span key={num} className={`mx-1 ${data.draw.numbers5.includes(num) && 'text-white bgMainColor'}`}>{num}</span>)}
-                                                                            {line.luckynumber2.map(num => <span key={num} className={`mx-1 ${data.draw.numbers2.includes(num) && 'text-white bgSecondColor'}`}>{num}</span>)}
+                                                                            {line.luckynumber5.map(num => <span key={num} className={`mx-1 ${data.draw.numbers5.includes(String(num)) && 'text-white bgMainColor'}`}>{num}</span>)}
+                                                                            {line.luckynumber2.map(num => <span key={num} className={`mx-1 ${data.draw.numbers2.includes(String(num)) && 'text-white bgSecondColor'}`}>{num}</span>)}
                                                                         </>
                                                                         : <div className={'fw-bold fs-5'}>
                                                                             TD- {line.ticket}
@@ -283,7 +296,7 @@ export default function MyDraw() {
 
                         <div className='my-5'>
                                 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column align-items-center">
                                         <h5 className='text-white'>{t('category.millionaire')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/the-millionaire-voucher/millionaire-lotto')}>
@@ -295,7 +308,7 @@ export default function MyDraw() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.raffleillionaire')}</h5>
                                         <button className='btn-button bg-white'  onClick={()=>router.push('/raffleillionaire-bundle/raffleillionaire')}>
@@ -314,10 +327,10 @@ export default function MyDraw() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.cars')}</h5>
-                                        <button className='btn-button bg-white'>
+                                        <button className='btn-button bg-white' onClick={()=>router.push('/luxury-cars-voucher/luxury-cars')}>
                                             {t('millionaire.lotto.buttons.addBundle')}
                                         </button>
                                     </div>
@@ -333,10 +346,10 @@ export default function MyDraw() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.villas')}</h5>
-                                        <button className='btn-button bg-white'>
+                                        <button className='btn-button bg-white' onClick={()=>router.push('/luxury-villas-voucher/luxury-villas')}>
                                             {t('millionaire.lotto.buttons.addBundle')}
                                         </button>
                                     </div>
@@ -352,10 +365,10 @@ export default function MyDraw() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.watches')}</h5>
-                                        <button className='btn-button bg-white'>
+                                        <button className='btn-button bg-white' onClick={()=>router.push('/luxury-watches-voucher/luxury-watches')}>
                                             {t('millionaire.lotto.buttons.addBundle')}
                                         </button>
                                     </div>
@@ -371,10 +384,10 @@ export default function MyDraw() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.bride')}</h5>
-                                        <button className='btn-button bg-white'>
+                                        <button className='btn-button bg-white' onClick={()=>router.push('/bride-&-groom-voucher/bride-&-groom')}>
                                             {t('millionaire.lotto.buttons.addBundle')}
                                         </button>
                                     </div>

@@ -49,8 +49,8 @@ export const InviteInfluencers = ({...props}) =>  {
     const { t }     = useTranslation();
 
     let inviteFreelancerSchema = yup.object().shape({
-        name:yup.string().required('name is required').min(3,'At least 3 characters'),
-        email:yup.string().email('must be valid email, mail@domain.com').required('email is required'),
+        name:yup.string().required(t('app.required')).min(3, t('app.AtLeastCharacters3')),
+        email:yup.string().email('must be valid email, mail@domain.com').required(t('app.required')),
     })
     const { register, handleSubmit, control, reset, watch, setValue, formState: { errors } } = useForm({
         mode:'onTouched',
@@ -65,7 +65,7 @@ export const InviteInfluencers = ({...props}) =>  {
                 reset();
                 refetchFreelancersInvitationsData();
                 Toastify({
-                    text: 'Invitation sent successfully',
+                    text: t('app.invituccessfully'),
                     duration: 3000,
                     gravity: "top",
                     position: langVal === 'en' ? "left" : "right",
@@ -94,7 +94,7 @@ export const InviteInfluencers = ({...props}) =>  {
             
             <div className="my-3">
                 <h4>{t('user.profile.influencers.title')}</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the</p>
+                <p>{t('app.infoDis')}</p>
             </div>
             
             <form onSubmit={handleSubmit(submitHandler)} className="d-flex align-items-center mb-4 form">
@@ -117,7 +117,7 @@ export const InviteInfluencers = ({...props}) =>  {
                 <button className="bgMainColor text-white rounded-2 align-self-end small-font-13">
                     {sendingInvite
                         ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
-                        : <>Send Invitation</>
+                        : <>{t('app.sendInvitation')}</>
                     }
                 </button>
                 <div className={'d-flex flex-column align-self-end mx-2 text-danger'}>
@@ -135,10 +135,11 @@ export const InviteInfluencers = ({...props}) =>  {
                     </div>
                     {
                         filteredObjs.length > 0 ?
-                            <table className={'table text-center'}>
+                            <div className="over-x">
+<table className={'table text-center'}>
                                 <thead>
                                     <tr>
-                                        <th className={'fw-light'}>Si.No</th>
+                                        <th className={'fw-light'}>{t('app.SiNo')}</th>
                                         <th className={'fw-light'}>{t('register.labels.name')}</th>
                                         <th className={'fw-light'}>{t('register.labels.email')}</th>
                                         <th className={'fw-light'}>{t('favouritesProfile.action')}</th>
@@ -165,6 +166,7 @@ export const InviteInfluencers = ({...props}) =>  {
                                 }
                                 </tbody>
                             </table>
+                            </div>
                         :
                         <div className={'modal-height-view position-relative text-center d-flex align-items-center justify-content-center'}>
                             <h4 className="text-danger">{t('user.profile.influencers.invitationsYet')}</h4>

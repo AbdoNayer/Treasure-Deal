@@ -42,9 +42,8 @@ html[dir=ltr] {
     .auth{
         .select-add{
             &.phone-select{
-                .css-1f43avz-a11yText-A11yText + div{
-                    border-right: 0px !important;   
-                }
+                border-right: 0px !important;
+                border-radius: 5px 0 0 5px;
             }
         }
         .td_disclaimer{
@@ -170,9 +169,8 @@ html[dir=rtl] {
     .auth{
         .select-add{
             &.phone-select{
-                .css-1f43avz-a11yText-A11yText + div{
-                    border-left: 0px !important;   
-                }
+                border-left: 0px !important;
+                border-radius: 5px 0 0 5px;
             }
         }
     }
@@ -182,12 +180,12 @@ html[dir=rtl] {
         .link-head {
             &::after {
                 content: "";
-                left: 0;
+                right: 0;
                 border-right: 15px solid #F7F7F7;
             }
             &::before {
                 content: "";
-                right: -15px;
+                left: -15px;
                 border-right: 15px solid #EAECF1;
             }
         }

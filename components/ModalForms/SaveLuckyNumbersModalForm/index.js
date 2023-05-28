@@ -33,9 +33,9 @@ export const SaveLuckyNumbersModalForm = ({luckynumber5,luckynumber2,...props}) 
   }
   return (
       <div>
-        <div className="d-flex align-items-center mb-5 saveNum">
+          <label>{t('millionaire.lotto.pop_ups.save_favorite.saveFavouriteLabel')}</label>
+        <div className="d-flex align-items-center mb-5 mt-3">
             <InputText
-              label={t('millionaire.lotto.pop_ups.save_favorite.saveFavouriteLabel')}
               placeholder={t('millionaire.lotto.pop_ups.save_favorite.saveFavouritePlaceholder')}
               onChange={e=> setInputValue(e.target.value)}
               errorMessage={errorMessage}

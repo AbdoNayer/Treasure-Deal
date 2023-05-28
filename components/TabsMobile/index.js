@@ -29,7 +29,7 @@ export default function TabsMobile() {
       }
       {
         user ?
-          <Link href={'/'} className='count-num'>
+          <Link href={'/notifications'} className='count-num'>
               <span className='icon-bell fs-4'></span>
               {countNoty && countNoty.count !== 0 ? <strong>{countNoty.count}</strong> : null}
           </Link>
@@ -38,7 +38,15 @@ export default function TabsMobile() {
       }
       {
         user ? 
-          <Link href={'/cart'}>
+          <Link href={'/my-chat'}>
+              <span className='icon-chat-in fs-4'></span>
+          </Link>
+        :
+        ''
+      }
+      {
+        user ? 
+          <Link href={'/shopping-cart'}>
               <span className='icon-shopping-cart fs-4'></span>
           </Link>
         :

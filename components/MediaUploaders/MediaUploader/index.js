@@ -36,7 +36,7 @@ export const MediaUploader = ({files,maxSize,initialUrl,updateBackendUrl,isMulti
                         </div>)
                         : <div className={'td-no-media'}>
                             {/*<p>Add a {title}</p>*/}
-                            <p>Drop your {fileTypesToString(files)} here. or <label htmlFor={id}>Browse</label></p>
+                            <p className="text-center">Drop your {fileTypesToString(files)} here. or <label htmlFor={id}>Browse</label></p>
                             <p>{fileSizesToString(files)}</p>
                         </div>
                     : fileObjs[0]?.url
@@ -45,7 +45,7 @@ export const MediaUploader = ({files,maxSize,initialUrl,updateBackendUrl,isMulti
                             </div>
                         : <div className={'td-no-media'}>
                             {/*<p>Add a {title}</p>*/}
-                            <p>Drop your {fileTypesToString(files)} here. or <label htmlFor={id}>Browse</label></p>
+                            <p className="text-center">Drop your {fileTypesToString(files)} here. or <label htmlFor={id}>Browse</label></p>
                             <p>{fileSizesToString(files)}</p>
                         </div>
                 }

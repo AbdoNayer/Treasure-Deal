@@ -18,13 +18,18 @@ export default  function RaffleillionaireBundle () {
     const currency                                      = useSelector((state) => state.currency.currency);
     const langVal                                       = useSelector((state) => state.language.language);
     const { t }                                         = useTranslation();
+    const router                                            = useRouter();
+
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
 
     const {
         data:raffData,
         isLoading:isRaffLoading,
-    } = useApi(()=> getBundleDetails(user.token,langVal,currency,'raffleillionaire'))
+    } = useApi(()=> getBundleDetails(user.token,langVal,currency,'raffleillionaire'), user !== null)
 
     if (isRaffLoading) return <LoadData/>
+
+    if(user === null) return null;
 
     return (
         <BuyVoucher

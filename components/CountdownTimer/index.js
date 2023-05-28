@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
+import { useTranslation } from "react-i18next";
 
 
 export const CountdownTimer = ({date}) => {
+    const { t }                                             = useTranslation();
     const calculateTimeLeft = () => {
         const year = new Date().getFullYear();
         const difference = +new Date(date) - +new Date();
@@ -35,7 +37,7 @@ export const CountdownTimer = ({date}) => {
     });
     return (
         <div>
-            {timerComponents.length ? <div className={'d-flex'}>{timerComponents}</div> : <div>All done</div>}
+            {timerComponents.length ? <div className={'d-flex'}>{timerComponents}</div> : <h5 className="text-white">{t('app.allDone')}</h5>}
         </div>
     )
 }

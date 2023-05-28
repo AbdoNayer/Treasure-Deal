@@ -58,37 +58,40 @@ export const BundlesProfileComp = ({...props}) => {
                     {!isLoading
                         ? <>
                             {filteredObjs.length > 0
-                                ? <table className="table text-center">
-                                    <thead>
-                                    <tr>
-                                        <th className="fw-light">{t('ordersProfile.type')}</th>
-                                        <th className="fw-light">{t('bundlesProfile.orderNo')}</th>
-                                        <th className="fw-light">{t('bundlesProfile.totalVouchers')}</th>
-                                        <th className="fw-light">{t('bundlesProfile.usedVouchers')}</th>
-                                        <th className="fw-light">{t('bundlesProfile.balanceVouchers')}</th>
-                                        <th className="fw-light">{t('bundlesProfile.expiryDate')}</th>
-                                        <th className="fw-light">{t('ordersProfile.status')}</th>
-                                        {/*<th className="fw-light">{t('bundlesProfile.totalVouchers')}</th>*/}
-                                        {/*<th className="fw-light">{t('bundlesProfile.usedVouchers')}</th>*/}
-                                        {/*<th className="fw-light">{t('bundlesProfile.balanceVouchers')}</th>*/}
-                                        {/*<th className="fw-light">{t('bundlesProfile.expiryDate')}</th>*/}
-                                        {/*<th className="fw-light">{t('ordersProfile.status')}</th>*/}
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        filteredObjs.map(bundle=> <tr key={bundle.id}>
-                                            <td>{bundle.type_text}</td>
-                                            <td>{bundle.order_no}</td>
-                                            <td>{bundle.total_vouchers}</td>
-                                            <td>{bundle.used_vouchers}</td>
-                                            <td>{bundle.balance_vouchers}</td>
-                                            <td>{bundle.expires_at}</td>
-                                            <td>{bundle.status_text}</td>
-                                        </tr>)
-                                    }
-                                    </tbody>
-                                </table>
+                                ? 
+                                <div className="over-x">
+                                    <table className="table text-center">
+                                        <thead>
+                                        <tr>
+                                            <th className="fw-light">{t('ordersProfile.type')}</th>
+                                            <th className="fw-light">{t('bundlesProfile.orderNo')}</th>
+                                            <th className="fw-light">{t('bundlesProfile.totalVouchers')}</th>
+                                            <th className="fw-light">{t('bundlesProfile.usedVouchers')}</th>
+                                            <th className="fw-light">{t('bundlesProfile.balanceVouchers')}</th>
+                                            <th className="fw-light">{t('bundlesProfile.expiryDate')}</th>
+                                            <th className="fw-light">{t('ordersProfile.status')}</th>
+                                            {/*<th className="fw-light">{t('bundlesProfile.totalVouchers')}</th>*/}
+                                            {/*<th className="fw-light">{t('bundlesProfile.usedVouchers')}</th>*/}
+                                            {/*<th className="fw-light">{t('bundlesProfile.balanceVouchers')}</th>*/}
+                                            {/*<th className="fw-light">{t('bundlesProfile.expiryDate')}</th>*/}
+                                            {/*<th className="fw-light">{t('ordersProfile.status')}</th>*/}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {
+                                            filteredObjs.map(bundle=> <tr key={bundle.id}>
+                                                <td>{bundle.type_text}</td>
+                                                <td>{bundle.order_no}</td>
+                                                <td>{bundle.total_vouchers}</td>
+                                                <td>{bundle.used_vouchers}</td>
+                                                <td>{bundle.balance_vouchers}</td>
+                                                <td>{bundle.expires_at}</td>
+                                                <td>{bundle.status_text}</td>
+                                            </tr>)
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
                                 : <div className={'modal-height-view position-relative text-center d-flex align-items-center justify-content-center w-100'}>
                                     <h4 className="text-danger">{t('bundlesProfile.noBundles')}</h4>
                                 </div>

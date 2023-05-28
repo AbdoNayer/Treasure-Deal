@@ -9,22 +9,13 @@ import Image from 'next/image';
 
 
 export default  function TheMillionaireVoucher () {
-    useEffect(()=>{
-        setIsLoadData(true)
-        dispatch(getMillionaire(user.token, langVal,currency)).then(()=>{
-            setIsLoadData(false);
-        }).catch(()=>{
-            setIsLoadData(false);
-        });
-    },[]);
-
     const { t }                                         = useTranslation();
     const router                                        = useRouter();
     const langVal                                       = useSelector((state) => state.language.language);
     const millionareInfo                                = useSelector((state) => state.millionVoucher.millionVoucher);
     const user                                          = useSelector((state) => state.user.user);
     const dispatch                                      = useDispatch();
-    const currency                                          = useSelector((state) => state.currency.currency);
+    const currency                                      = useSelector((state) => state.currency.currency);
 
     const [ isLoadData, setIsLoadData ]                    = useState(true);
     const [ isLoading, setIsLoading ]                      = useState(false);
@@ -32,6 +23,20 @@ export default  function TheMillionaireVoucher () {
     // const [ renewState, setRenewState ]                    = useState(false)
     const [ bundlesQuantity, setBundlesQuantity ]          = useState(1)
     const [ vouchersState, setVouchersState ]              = useState([]);
+
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
+
+    useEffect(()=>{
+        if (user) {
+            setIsLoadData(true)
+            dispatch(getMillionaire(user.token, langVal,currency)).then(()=>{
+                setIsLoadData(false);
+            }).catch(()=>{
+                setIsLoadData(false);
+            });
+        }
+    },[]);
+
 
     useEffect(()=>{
         setVouchersState([
@@ -90,6 +95,9 @@ export default  function TheMillionaireVoucher () {
     
     if(isLoadData) return ( <LoadData /> )
 
+    if(user === null) return null;
+
+
     return (
         <div className="py-5 container">
             <div className="td-voucher-header">
@@ -108,8 +116,8 @@ export default  function TheMillionaireVoucher () {
                     </div>
                     </div>
                     <div className="td-voucher-body-content-brief col-md-6 col-xs-12 px-5">
-                        {/* <p className="fw-light">{ millionareInfo.brief }</p>
-                        <div className='td-subscription d-flex align-items-center mt-3'>
+                        <p className="fw-light">{ millionareInfo.brief }</p>
+                        {/* <div className='td-subscription d-flex align-items-center mt-3'>
                            <div className="td-subscription-wrapper">
                            <input type="checkbox" onClick={e=> setSubscriptionState(e.target.checked)}/>
                            </div>
@@ -128,8 +136,8 @@ export default  function TheMillionaireVoucher () {
                         </div>} */}
                         <div className="td-price-info mt-5 d-flex justify-content-between align-items-end">
                         <div className="td-price-info-details">
-                            <div className="td-voucher-price fs-5 fw-bold">{t('millionaire.voucher.price')} {millionareInfo.price_per_bundle} x {bundlesQuantity}</div>
-                            <div className="td-voucher-total-price fs-4 fw-bold">{t('millionaire.voucher.total')} {Number(parseFloat(millionareInfo.price_per_bundle)*bundlesQuantity).toFixed(2)}</div>
+                            <div className="td-voucher-price fs-5 fw-bold">{t('millionaire.voucher.price')} {currency} {millionareInfo.price_per_bundle} x {bundlesQuantity}</div>
+                            <div className="td-voucher-total-price fs-4 fw-bold">{t('millionaire.voucher.total')} {currency} {Number(parseFloat(millionareInfo.price_per_bundle)*bundlesQuantity).toFixed(2)}</div>
                         </div>
                             <div className="td-price-info-buttons d-flex align-items-center">
                                 <button onClick={removeBundle} disabled={bundlesQuantity === 1}>

@@ -16,9 +16,6 @@ export default  function ItemNotification ({ item, ...props }) {
     const allNotifications                              = useSelector((state) => state.notifications.notifications);
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        console.log(allNotifications);
-    },[allNotifications])
     const deleteNotificationFunction = (id) => {
 
         setIsloaded(true);
@@ -27,7 +24,7 @@ export default  function ItemNotification ({ item, ...props }) {
                 setIsloaded(false)
                 dispatch(notificationsReducer(allNotifications.filter(noty => noty.id !== id)))
                 Toastify({
-                    text: 'NotificationComponent Removed',
+                    text: t('app.notiRemoved'),
                     duration: 3000,
                     gravity: "top",
                     position: langVal === 'en' ? "left" : "right",

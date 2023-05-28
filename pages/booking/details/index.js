@@ -18,7 +18,6 @@ import {LoadData, Feedback} from "../../../components";
 import {RedeemVoucherModalForm} from "../../../components/ModalForms/RedeemVoucherModalForm";
 import {MerchantVouchers} from "../../../components/MerchantComps/MerchantVouchers";
 import {RedeemedVouchers} from "../../../components/MerchantComps/RedeemedVouchers";
-import { FreeMode, Navigation, Thumbs } from "swiper";
 import {GalleryModalForm} from "../../../components/ModalForms/GalleryModalForm";
 import Image from 'next/image';
 import {BookingHistory} from "../../../components/MerchantComps/BookingHistory";
@@ -31,20 +30,14 @@ export default function BookingDetails() {
     const router                                        = useRouter();
     const user                                          = useSelector((state) => state.user.user);
     const langVal                                       = useSelector((state) => state.language.language);
-    const currency                                          = useSelector((state) => state.currency.currency);
+    const currency                                      = useSelector((state) => state.currency.currency);
 
     const [currentFilter,setCurrentFilter]              = useState('vouchers');
     const {merchant_id} = router.query
-    const galleryOptions = [
-        {id:1,src:'/img/001.png'},
-        {id:2,src:'/img/003.png'},
-        {id:3,src:'/img/002.png'},
-        {id:4,src:'/img/004.png'},
-        {id:5,src:'/img/9.png'},
-        {id:6,src:'/img/banner.png'},
-    ]
 
     const [currentRedeemPage,setCurrentRedeemPage] = useState(1)
+
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
     //#region Redeems
     const {
         data:redeemsData,
@@ -80,19 +73,19 @@ export default function BookingDetails() {
 
     useEffect(()=>{
         if (merchant_id) {
-            reFetch(() => getMerchantDetails(user.token, langVal,currency, merchant_id))
-            refetchRedeems(()=>  getAllRedeems(currentRedeemPage,user.token,langVal,currency,merchant_id))
-            refetchBookingHistory(()=>  getBookingHistory(currentBookingPage,bookingFilter,user.token,langVal,currency,merchant_id))
+            reFetch()
+            refetchRedeems()
+            refetchBookingHistory()
         }
     },[merchant_id])
     //#endregion
 
     useEffect(()=>{
-        refetchRedeems(()=>  getAllRedeems(currentRedeemPage,user.token,langVal,currency,merchant_id))
+        refetchRedeems()
     },[currentRedeemPage])
 
     useEffect(()=>{
-        refetchBookingHistory(()=>  getBookingHistory(currentBookingPage,bookingFilter,user.token,langVal,currency,merchant_id))
+        refetchBookingHistory()
     },[currentBookingPage,bookingFilter])
 
     //#region Merchant Services
@@ -121,7 +114,7 @@ export default function BookingDetails() {
                 <ModalForm title={t('booking.details.map')}>
                     <div className="mapouter">
                         <div className="gmap_canvas">
-                            <iframe id="gmap_canvas" src={`https://maps.google.com/maps?q=${data.merchants.lat},${data.merchants.lng}&z=15&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                            <iframe id="gmap_canvas" src={`https://maps.google.com/maps?q=${data.merchants.lat},${data.merchants.lng}&z=15&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"/>
                         </div>
                     </div>
                 </ModalForm>
@@ -198,13 +191,13 @@ export default function BookingDetails() {
     const checkFilter = (type) => {
         switch (type) {
             case 'vouchers':
-                return <MerchantVouchers openModal={openModal} vouchers={data.merchants.vouchers} updateVoucherId={updateVoucherId} updateSlug={updateSlug} type={data.merchants.type} />;
+                return <MerchantVouchers openModal={openModal} vouchers={data.merchants.vouchers} merchantId={data.merchants.id} updateVoucherId={updateVoucherId} updateSlug={updateSlug} shopType={data.merchants.shop_type} type={data.merchants.type} />;
             case 'redeem':
                 if (redeemsData.redeems.length > 0) return <RedeemedVouchers openModal={openModal} currentPage={currentRedeemPage} updatePage={page=>setCurrentRedeemPage(page)} redeems={redeemsData.redeems} pagination={redeemsData.pagination} refetchRedeems={refetchRedeems}/>;
                 else return <div className={'text-center text-danger fs-3 p-5 my-5'}>No redeemed vouchers yet</div>
             case 'booking':
                 return <>
-                    <div className={'w-25 select-ponier'}>
+                    <div className={'w-25 select-add select-full'}>
                         <InputSelect
                             placeholder={'select filter...'}
                             onChange={e=> setBookingFilter(e.value)}
@@ -225,6 +218,8 @@ export default function BookingDetails() {
     }
 
     if (isLoading) return <LoadData/>
+
+    if(user === null) return null;
 
     return (
       <div className="container booking details">
@@ -257,7 +252,7 @@ export default function BookingDetails() {
                             <div className='d-flex align-items-center justify-content-between my-4'>
                                 <div className='icon' onClick={()=>window.open(`tel:[${data.merchants.full_phone}]`)}>
                                     <i className='icon-call mainColor fs-3'/>
-                                    <span className='mx-2 fw-light'>+{data.merchants.full_phone}</span>
+                                    <span className='mx-2 fw-light'>{data.merchants.full_phone}</span>
                                 </div>
                                 {data.merchants.website && <div className='icon' onClick={() => window.open(data.merchants.website, "_blank")}>
                                     <i className='icon-internet mainColor fs-3'/>

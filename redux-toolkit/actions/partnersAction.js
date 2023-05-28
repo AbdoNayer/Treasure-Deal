@@ -30,6 +30,13 @@ export const getPartners = ( token, lang, currency ) => {
     }
 };
 
+export const getPartnerInvitations = async ( token, lang, currency ) => {
+    const res = await axios.get(`${CONST.url}lucky-partners/get-received-invitations`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+
 export const invitePartner = ( data, token, lang, currency ) => {
     return async(dispatch) => {
         await axios.post(`${CONST.url}lucky-partners/send-invitation`,

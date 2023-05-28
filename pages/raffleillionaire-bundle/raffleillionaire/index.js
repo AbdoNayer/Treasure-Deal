@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {useApi} from "../../../hooks/useApi";
 import {getTicketDetails} from "../../../redux-toolkit/actions/axiosCalls";
 import BuyTicketsComp from "../../../components/BuyTicketsComp";
+import { useRouter } from "next/router";
 
 export default function Raffleillionaire() {
     const user                                          = useSelector((state) => state.user.user);
@@ -12,11 +13,15 @@ export default function Raffleillionaire() {
     const langVal                                       = useSelector((state) => state.language.language);
     const { t }                                         = useTranslation();
     const [loadData,setLoadData]                        = useState(true)
+    const router                                            = useRouter();
+
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
+    
     const {
         data:typeDetails,
         isLoading:isTypeLoading,
         reFetch:refetchType
-    } = useApi(()=> getTicketDetails(user.token,langVal,currency,'raffleillionaire'))
+    } = useApi(()=> getTicketDetails(user.token,langVal,currency,'raffleillionaire'), user !== null)
     useEffect(()=>{
         if (typeDetails) {
             setLoadData(false)
@@ -24,6 +29,8 @@ export default function Raffleillionaire() {
     },[typeDetails])
 
     if (isTypeLoading && loadData) return <LoadData/>
+
+    if(user === null) return null;
     return (
         <div>
             <BuyTicketsComp

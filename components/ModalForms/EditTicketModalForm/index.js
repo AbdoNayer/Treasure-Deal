@@ -30,6 +30,7 @@ export const EditTicketModalForm = ({lineId,cartType,prevTicket,...props}) => {
 
     const didMount = useRef(false);
     const socket = io('https://treasuredeal.com:9090', {
+        transports      : ['websocket'],
         query: "id=" + user.id + "&user_type=User",
     });
 

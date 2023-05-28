@@ -16,6 +16,8 @@ export default function EditReservation() {
     const router                                            = useRouter();
     const {order_id} = router.query
 
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
+
     //#region Merchant Services
     const {
         data:merchantServices,
@@ -45,6 +47,8 @@ export default function EditReservation() {
     //#endregion
 
     if (isOrderDetailsLoading) return <LoadData />
+
+    if(user === null) return null;
 
     return (
         <div className={'container'}>

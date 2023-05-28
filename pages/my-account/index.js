@@ -18,31 +18,86 @@ import {
     InviteInfluencers,
     BusinessServices,
     Enquiry,
-    MyChat
 } from "../../components/ProfileComps";
 import {getProfileAuth} from "../../redux-toolkit/actions";
-import {useApi} from "../../hooks/useApi";
-import {retry} from "@reduxjs/toolkit/query";
+import {useRouter} from "next/router";
+import {MyEarnsProfileComp} from "../../components/ProfileComps/MyEarnsProfileComp";
 
 export default function MyAccount() {
 
-    const dispatch        = useDispatch()
-    const user            = useSelector((state) => state.user.user);
-    const currency        = useSelector((state) => state.currency.currency);
-    const langVal         = useSelector((state) => state.language.language);
-    const { t }     = useTranslation();
+    const dispatch          = useDispatch();
+    const router            = useRouter()
+    const user              = useSelector((state) => state.user.user);
+    const currency          = useSelector((state) => state.currency.currency);
+    const langVal           = useSelector((state) => state.language.language);
+    const { t }             = useTranslation();
+
+    const [showState,setShowState] = useState({
+        calendar:false,
+        orders:false,
+        bundle:false,
+        wallet:false,
+        draw:false,
+        earn:false,
+        favourites:false,
+        partners:false,
+        redeem:false,
+        redeemed:false,
+        booking:false,
+        address:false,
+        referral:false,
+        influencers:false,
+        businessServices:false,
+        enquiry:false,
+        myChat:false,
+    })
+    
+    const showComp = (name) => {
+        setShowState(Object.keys(showState).reduce((acc,key)=>({
+            ...acc,
+            [key]: key === name
+        }),showState))
+    }
+
+    const scrollToComp = (e) => {
+        e.preventDefault();
+        const scrollId = e.target.parentElement.parentElement.parentElement.id;
+        const elem = document.getElementById(scrollId);
+        console.log(elem?.getBoundingClientRect());
+        setTimeout(()=>{
+            elem?.scrollIntoView({
+                block:"start",
+                behavior:"smooth"
+            })
+            // window.scrollTo({
+            //     top: elem?.getBoundingClientRect().top,
+            //     behavior:"smooth"
+            // })
+        },100)
+        console.log(elem)
+        // console.log(e.target.parentElement.parentElement.id);
+    }
+
+    useEffect(()=>{
+        dispatch(getProfileAuth(langVal,user.token,currency))
+    },[])
+
+    if (!user) {
+        router.push('/auth/login');
+        return <></>
+    }
     const accountInfoArray = [
-        {
-            id: 1,
-            icon:"/img/Artboard.png",
-            title:t("user.profile.referral.title"),
-            subTitle:t("user.profile.referral.subTitle"),
-            description:t("user.profile.referral.description"),
-            buttonMessage:t("user.profile.referral.buttonMessage"),
-            name: "referral",
-            buttonClick: ()=> showComp('referral'),
-            component: <ReferralCode />,
-        },
+        // {
+        //     id: 1,
+        //     icon:"/img/Artboard.png",
+        //     title:t("user.profile.referral.title"),
+        //     subTitle:t("user.profile.referral.subTitle"),
+        //     description:t("user.profile.referral.description"),
+        //     buttonMessage:t("user.profile.referral.buttonMessage"),
+        //     name: "referral",
+        //     buttonClick: ()=> showComp('referral'),
+        //     component: <ReferralCode />,
+        // },
         {
             id: 2,
             icon:"/img/add-user.png",
@@ -159,7 +214,7 @@ export default function MyAccount() {
             buttonMessage:t("user.profile.earn.buttonMessage"),
             name: "earn",
             buttonClick: ()=>showComp('earn'),
-            component: <div>HELLOOOOOOOOO earn</div>,
+            component: <MyEarnsProfileComp />,
         },
         {
             id: 13,
@@ -234,37 +289,6 @@ export default function MyAccount() {
             </div>,
         },
     ];
-
-    const [showState,setShowState] = useState({
-        calendar:false,
-        orders:false,
-        bundle:false,
-        wallet:false,
-        draw:false,
-        earn:false,
-        favourites:false,
-        partners:false,
-        redeem:false,
-        redeemed:false,
-        booking:false,
-        address:false,
-        referral:false,
-        influencers:false,
-        businessServices:false,
-        enquiry:false,
-        myChat:false,
-    })
-    
-    const showComp = (name) => {
-        setShowState(Object.keys(showState).reduce((acc,key)=>({
-            ...acc,
-            [key]: key === name
-        }),showState))
-    }
-    // useEffect(()=>{
-    //     dispatch(getProfileAuth(langVal,user.token,currency))
-    // },[])
-
     return (
         <div className='container'>
             <div className="up-profile mt-5">
@@ -288,14 +312,17 @@ export default function MyAccount() {
                             else return ![1, 2, 4].includes(item.id)
                         }).map((item,idx)=>
                         <div key={item.id}>
-                            <div className="col-12 mt-3">
+                            <div className="col-12 mt-3" id={`element${item.id}`}>
                                 <AccountInfo
                                     title={item.title}
                                     subTitle={item.subTitle}
                                     description={item.description}
                                     icon={item.icon}
                                     buttonMessage={item.buttonMessage}
-                                    buttonClick={item.buttonClick}
+                                    buttonClick={(e)=> {
+                                        item.buttonClick();
+                                        scrollToComp(e);
+                                    }}
                                 />
                             </div>
                             {showState[item.name] && <div className="col-12">{item.component}</div>}

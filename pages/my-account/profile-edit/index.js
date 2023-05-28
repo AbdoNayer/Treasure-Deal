@@ -197,8 +197,8 @@ export default function ProfileEdit() {
                                     />
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
                                         <label className='mb-2 fw-light'>{t('register.labels.gender')}</label>
+                                    <div className="select-add select-full">
                                         <Controller
                                             control={control}
                                             name='gender'
@@ -217,8 +217,8 @@ export default function ProfileEdit() {
                                     </div>
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
                                         <label className='mb-2 fw-light'>{t('register.labels.nationality')}</label>
+                                    <div className="select-add select-full">
                                         {
                                             nationalityOptions ?
                                                 <Controller
@@ -243,8 +243,8 @@ export default function ProfileEdit() {
                                     </div>
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
                                         <label className='mb-2 fw-light'>{t('register.labels.country')}</label>
+                                    <div className="select-add select-full">
                                         {
                                             nationalityOptions ?
                                                 <Controller
@@ -269,8 +269,8 @@ export default function ProfileEdit() {
                                     </div>
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
                                         <label className='mb-2 fw-light'>{t('register.labels.identification')}</label>
+                                    <div className="select-add select-full">
                                         <Controller
                                             control={control}
                                             defaultValue={''}

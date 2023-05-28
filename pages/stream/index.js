@@ -25,7 +25,7 @@ export default function Stream() {
                       
                             <div className='my-4'>
                                 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column align-items-center">
                                         <h5 className='text-white'>{t('category.millionaire')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/the-millionaire-voucher/millionaire-lotto')}>
@@ -37,7 +37,7 @@ export default function Stream() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.raffleillionaire')}</h5>
                                         <button className='btn-button bg-white'  onClick={()=>router.push('/raffleillionaire-bundle/raffleillionaire')}>
@@ -56,7 +56,7 @@ export default function Stream() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.cars')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/luxury-cars-voucher/luxury-cars')}>
@@ -75,7 +75,7 @@ export default function Stream() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.villas')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/luxury-villas-voucher/luxury-villas')}>
@@ -94,7 +94,7 @@ export default function Stream() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.watches')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/luxury-watches-voucher/luxury-watches')}>
@@ -113,7 +113,7 @@ export default function Stream() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.bride')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/bride-&-groom-voucher/bride-&-groom')}>

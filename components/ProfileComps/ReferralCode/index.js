@@ -41,6 +41,7 @@ export const ReferralCode = ({...props}) =>  {
                             {t('user.profile.referral.title')}
                         </h4>
                     </div>
+                        <div className="over-x">
                         <table className={'table text-center'}>
                             <thead>
                                 <tr>
@@ -79,6 +80,7 @@ export const ReferralCode = ({...props}) =>  {
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     <Pagination
                         className="pagination-bar"
                         currentPage={currentPage}

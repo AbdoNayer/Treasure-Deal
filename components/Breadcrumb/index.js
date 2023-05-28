@@ -6,7 +6,7 @@ export default function BreadCrumb(props) {
 
     const router                        = useRouter();
     const pathnames                     = router.pathname.split(`/`).filter(x => x);
-    const hiddenPaths = ['auth','results']
+    const hiddenPaths = ['auth','results','details']
     function isLast(index) {
         return index === props.crumbs.length - 1;
     }

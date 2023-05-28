@@ -6,22 +6,29 @@ import {useApi} from "../../hooks/useApi";
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {LoadData} from "../../components";
+import { useRouter } from "next/router";
 
 export default function Winners() {
     
     const { t }          = useTranslation();
+    const router                                            = useRouter();
     const user                                              = useSelector((state) => state.user.user);
     const langVal                                           = useSelector((state) => state.language.language);
     const currency                                          = useSelector((state) => state.currency.currency);
+
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
+
     const {
         data:winnersData,
         isLoading,
-    } = useApi(()=> getWinningShows(user.token,langVal,currency))
+    } = useApi(()=> getWinningShows(user.token,langVal,currency), user !== null)
     useEffect(()=>{
         console.log(winnersData);
     },[winnersData])
 
     if (isLoading) return <LoadData />
+
+    if(user === null) return null;
 
     return (
       <div className='winners py-4'>
@@ -42,30 +49,30 @@ export default function Winners() {
                         </div>
                     </div>
                 </div>
-              <div className='video-play py-4 my-4'>
+              {winnersData.shows.length > 0 &&<div className='video-play py-4 my-4'>
                   <h3 className='text-center my-4'>{t('app.pastShows')}</h3>
                   <div className='row'>
-                      {winnersData.shows.length > 0 &&
-                          winnersData.shows.map(show =>
-                              <div className='col-md-4 col-xs-12' key={show.id}>
-                                  <div className='block-video my-3 overflow-hidden rounded-3 position-relative text-center old-shadow'>
-                                      <div className='video-img position-relative'>
-                                          <Image src={'/img/na_may_18.png'} quality='100' alt='img' width={100} height={100} />
-                                          <div className='over'>
-                                              <span className='icon-youtube' />
-                                          </div>
-                                      </div>
-                                      <div className='video-info'>
-                                          <h5 className='fw-light my-4'>22-12-2022</h5>
-                                          <Link href={'/stream'} className='bgSecondColor px-4 py-2 rounded-2 mb-3 d-inline-block'>{t('app.watchNow')}</Link>
+                      {winnersData.shows.map(show =>
+                          <div className='col-md-4 col-xs-12' key={show.id}>
+                              <div
+                                  className='block-video my-3 overflow-hidden rounded-3 position-relative text-center old-shadow'>
+                                  <div className='video-img position-relative'>
+                                      <Image src={'/img/na_may_18.png'} quality='100' alt='img' width={100}
+                                             height={100}/>
+                                      <div className='over'>
+                                          <span className='icon-youtube'/>
                                       </div>
                                   </div>
+                                  <div className='video-info'>
+                                      <h5 className='fw-light my-4'>22-12-2022</h5>
+                                      <Link href={'/stream'}
+                                            className='bgSecondColor px-4 py-2 rounded-2 mb-3 d-inline-block'>{t('app.watchNow')}</Link>
+                                  </div>
                               </div>
-                          )
-                      }
-
+                          </div>
+                      )}
                   </div>
-              </div>
+              </div>}
                 {/*<div className='video-play py-4 my-4'>*/}
                 {/*    <div className='row'>*/}
                 {/*        <div className='col-md-4 col-xs-12'>*/}

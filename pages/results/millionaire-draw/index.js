@@ -26,7 +26,7 @@ export default  function ResultMillionaireVoucher () {
         isLoading,
         error,
         reFetch
-    } = useApi(()=> getResultsMillionaire(user.token,langVal,currency))
+    } = useApi(()=> getResultsMillionaire(user.token,langVal,currency), user !== null)
     const [dataLoadComplete,setDataLoadComplete] = useState(!!data)
 
     const toggle = () => {
@@ -45,6 +45,8 @@ export default  function ResultMillionaireVoucher () {
     },[dateValue])
 
     if (!dataLoadComplete) return <LoadData/>
+
+    if(user === null) return null;
     return (
         <div className="py-5 container">
             <DrawResult

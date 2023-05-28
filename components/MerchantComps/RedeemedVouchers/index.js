@@ -12,7 +12,7 @@ export const RedeemedVouchers = ({redeems,openModal,refetchRedeems,pagination,up
     const { t }                                         = useTranslation();
     const dispatch = useDispatch();
     const openFeedBackModal = (redeemId) => {
-        dispatch(showModalAction( <ModalForm title={'FeedBack'}>
+        dispatch(showModalAction( <ModalForm title={t('app.feedBack')}>
             <Feedback redeemId={redeemId} refetchRedeems={refetchRedeems}/>
         </ModalForm> ))
     }
@@ -63,15 +63,17 @@ export const RedeemedVouchers = ({redeems,openModal,refetchRedeems,pagination,up
             */}
             <div className='mb-5 mt-3'>
                 {filteredObjs.length > 0
-                    ? <table className="table bg-white text-center border">
+                    ? 
+                    <div className="over-x">
+                    <table className="table bg-white text-center border">
                         <thead>
                         <tr>
                             {/*<th>Sl.No</th>*/}
-                            <th>Barcode</th>
-                            <th>Offer</th>
-                            <th>Voucher</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{t('app.barcode')}</th>
+                            <th>{t('app.offer')}</th>
+                            <th>{t('app.voucher')}</th>
+                            <th>{t('app.ordersProfile')}</th>
+                            <th>{t('app.actions')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -81,7 +83,7 @@ export const RedeemedVouchers = ({redeems,openModal,refetchRedeems,pagination,up
                                 <td>
                                     <Barcode value={item.redeem_num} format={'CODE128'} width={2} height={30} fontSize={12} />
                                 </td>
-                                <td>{item.voucher.discount_per}% discount</td>
+                                <td>{item.voucher.discount_per} % {t('shoppingCart.discount')}</td>
                                 <td>{item.voucher.category}</td>
                                 <td><span className={`${item.status === 'redeemed' ? 'mainColor' : 'text-success'}`}>{item.status_text}</span></td>
                                 <td>
@@ -90,7 +92,7 @@ export const RedeemedVouchers = ({redeems,openModal,refetchRedeems,pagination,up
                                             className='p-0 m-0 bg-transparent mainColor text-decoration-underline'
                                             onClick={() => openFeedBackModal(item.id)}>{t('booking.feedback.rateStars')}
                                         </button>
-                                        : <span className={`text-success`}>Rated</span>
+                                        : <span className={`text-success`}>{t('app.rated')}</span>
                                     }
                                 </td>
                             </tr>
@@ -98,6 +100,7 @@ export const RedeemedVouchers = ({redeems,openModal,refetchRedeems,pagination,up
                         }
                         </tbody>
                     </table>
+                    </div>
                     : <h3 className={'text-center text-danger my-5'}>No Redeems Yet</h3>
                 }
                 <div className="td-pagination mt-3 d-flex justify-content-end">

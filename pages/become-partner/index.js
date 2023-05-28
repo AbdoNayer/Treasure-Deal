@@ -11,15 +11,25 @@ import { InputSelect } from "../../components/Inputs/InputSelect";
 import { InputText } from "../../components/Inputs/InputText";
 import codeCountry from "../../codeCountry.json";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-
+// import { Swiper, SwiperSlide } from "swiper/react";
+//
+// import 'swiper/swiper-bundle.min.css'
+// import 'swiper/swiper.min.css'
+// import "swiper/components/navigation"
+// import "swiper/components/effect-fade"
+//
+// // import required modules
+// import { Navigation, EffectFade } from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
+import SwiperCore, {
+     Navigation,Autoplay
+} from 'swiper';
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
-import "swiper/components/navigation"
-import "swiper/components/effect-fade"
+import "swiper/components/pagination"
+import "swiper/components/autoplay"
+SwiperCore.use([Navigation,Autoplay]);
 
-// import required modules
-import { Navigation, EffectFade } from "swiper";
 import Image from 'next/image';
 import {
     becomePartnerRequest,
@@ -143,11 +153,11 @@ export default function BecomePartner() {
     },[watchCountry])
 
     const submitHandler = data => {
+        setIsLoading(true)
         const partnerObject = {
             ...data,
         };
-        console.log(partnerObject);
-        (async () => await becomePartnerRequest(partnerObject,langVal,currency))().then(r=> console.log(r)).catch(e=> console.log(e));
+        (async () => await becomePartnerRequest(partnerObject,langVal,currency))().then(r=> setIsLoading(false)).catch(e=> setIsLoading(false));
     }
 
     const goToButton = () => {
@@ -162,11 +172,12 @@ export default function BecomePartner() {
     <div className='become-partner'>
         
         <Swiper
-            effect          = {"fade"}
+            // effect          = {"fade"}
             className       = "mySwiper mySwiperBecome"
             navigation      = {true}
             slidesPerView   = {1}
-            modules         = {[EffectFade, Navigation]}
+            autoplay={{delay:5000, waitForTransition: true, pauseOnMouseEnter: true, disableOnInteraction: false, }}
+            modules         = {[Navigation,Autoplay]}
         >
             {
                 imgSlider.map((item, i) => (
@@ -176,13 +187,11 @@ export default function BecomePartner() {
                             <div className='container'>
                                 <div className='over-info px-5'>
                                     <h3 className='text-white'>
-                                        {t('becomePartner.sellWith')}
+                                        Sell more with
                                         <br />
-                                        {t('becomePartner.smartDeals')}
+                                        smarter deals!
                                     </h3>
-                                    <p className='text-white my-3'>
-                                        {t('becomePartner.numbersTalk')}
-                                    </p>
+                                    <p className='text-white my-3'>Numbers talk. So, weâ€™ve created this platform to give you additional insights and help grow your business in all directions.</p>
                                     <button onClick={goToButton} className='btn-button bg-white'>{t('becomePartner.joinNow')}</button>
                                 </div>
                             </div>
@@ -195,12 +204,12 @@ export default function BecomePartner() {
         <div className='py-5'>
             <div className='container'>
                 <div className='head-title py-4'>
-                    <h3>{t('becomePartner.whatWeDo')}</h3>
-                    <p>{t('becomePartner.thingsWell')}</p>
+                    <h3>What We Do</h3>
+                    <p>The things weâ€™ve made happen that work a little too well</p>
                 </div>
                 <div className='row my-4'>
                     <div className='col-md-4 col-xs-12'>
-                        <div className='row'>
+                        <div className='row in-cate-images'>
                             <div className='col-md-4 col-xs-12 text-center'>
                                 <button className={"cate-button bg-transparent"}>
                                     <div className={`icon-cate old-shadow`}>
@@ -313,7 +322,8 @@ export default function BecomePartner() {
                         </div>
                     </div>
                     <div className='col-md-8 col-xs-12'>
-                        <iframe id="video1" width="100%" height="570" src="http://www.youtube.com/embed/TJ2X4dFhAC0?enablejsapi" frameBorder="0" allowtransparency="true" allowFullScreen></iframe>
+                        <Image unoptimized={true} className='d-table m-auto w-100 videoImg' style={{ objectFit : "contain", position  : 'relative', top : '-50px' }} width={570} height={700} alt='shape' src='/img/la2.png' />
+                        {/* <iframe id="video1" width="100%" height="570" src="http://www.youtube.com/embed/TJ2X4dFhAC0?enablejsapi" frameBorder="0" allowtransparency="true" allowFullScreen></iframe> */}
                         {/* <div className='text-center rounded-3 position-relative overflow-hidden'>
                             <Image unoptimized={true} style={{ width: '100%' }} width={100} height={570} alt='shape' src='/img/become.png' />
                             <div className='over-play w-100 h-100'>
@@ -326,7 +336,7 @@ export default function BecomePartner() {
         </div>
 
         <div className='pb-5'>
-            <h3 className='m-0 text-center fw-bold'>{t('becomePartner.ourMerchant')}</h3>
+            <h3 className='m-0 text-center fw-bold'>Our Merchant</h3>
 
             <div className='logos d-flex align-items-center justify-content-center'>
                 <div className=''>
@@ -350,7 +360,7 @@ export default function BecomePartner() {
                     <div className='col-md-6 col-xs-12'></div>
                     <div className='col-md-6 col-xs-12'>
                         <div className='head-title'>
-                            <h4 className='fw-bold'>{t('becomePartner.partnersBenefit')}</h4>
+                            <h4 className='fw-bold'>How Our Partners Benefit</h4>
                         </div>
                         <div className='row'>
                             <div className='col-md-6 col-xs-12'>
@@ -378,7 +388,7 @@ export default function BecomePartner() {
                                 <div className='block-item old-shadow'>
                                     <Image style={{ objectFit : "contain" }} width={70} height={70} alt='444' src='/img/presentation.png' />
                                     <h6 className='fw-bold my-0'>Increased Exposure</h6>
-                                    <p className='fw-light'>Be featured not just on our app, but also on our corporate partners’ apps</p>
+                                    <p className='fw-light'>Be featured not just on our app, but also on our corporate partnersâ€™ apps</p>
                                 </div>
                             </div>
                         </div>
@@ -396,42 +406,42 @@ export default function BecomePartner() {
                                 <div className='block-item'>
                                     <Image style={{ objectFit : "contain" }} width={60} height={60} alt='digital' src='/img/digital-marketing.png' />
                                     <h4 className='text-white fw-bold'>Digital & Social Marketing</h4>
-                                    <p className='text-white fw-light small-font-13'>We’ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
+                                    <p className='text-white fw-light small-font-13'>Weâ€™ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
                                 </div>
                             </div>
                             <div className='col-md-6 col-xs-12'>
                                 <div className='block-item'>
                                     <Image style={{ objectFit : "contain" }} width={60} height={60} alt='website' src='/img/website-content.png' />
                                     <h4 className='text-white fw-bold'>Real-Time Analytics</h4>
-                                    <p className='text-white fw-light small-font-13'>We’ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
+                                    <p className='text-white fw-light small-font-13'>Weâ€™ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
                                 </div>
                             </div>
                             <div className='col-md-6 col-xs-12'>
                                 <div className='block-item'>
                                     <Image style={{ objectFit : "contain" }} width={60} height={60} alt='monitor' src='/img/monitor.png' />
                                     <h4 className='text-white fw-bold'>Booking Management</h4>
-                                    <p className='text-white fw-light small-font-13'>We’ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
+                                    <p className='text-white fw-light small-font-13'>Weâ€™ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
                                 </div>
                             </div>
                             <div className='col-md-6 col-xs-12'>
                                 <div className='block-item'>
                                     <Image style={{ objectFit : "contain" }} width={60} height={60} alt='monitor' src='/img/management.png' />
                                     <h4 className='text-white fw-bold'>Increase Brand Exposure</h4>
-                                    <p className='text-white fw-light small-font-13'>We’ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
+                                    <p className='text-white fw-light small-font-13'>Weâ€™ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
                                 </div>
                             </div>
                             <div className='col-md-6 col-xs-12'>
                                 <div className='block-item'>
                                     <Image style={{ objectFit : "contain" }} width={60} height={60} alt='monitor' src='/img/thumbs-up.png' />
                                     <h4 className='text-white fw-bold'>Showcase Your Offers</h4>
-                                    <p className='text-white fw-light small-font-13'>We’ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
+                                    <p className='text-white fw-light small-font-13'>Weâ€™ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
                                 </div>
                             </div>
                             <div className='col-md-6 col-xs-12'>
                                 <div className='block-item'>
                                     <Image style={{ objectFit : "contain" }} width={60} height={60} alt='monitor' src='/img/offer.png' />
                                     <h4 className='text-white fw-bold'>Delivery Management <span className='small-font-11'>( Coming Soon )</span></h4>
-                                    <p className='text-white fw-light small-font-13'>We’ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
+                                    <p className='text-white fw-light small-font-13'>Weâ€™ll promote your discounts across multiple channels to generate new leads from every potential avenue.</p>
                                 </div>
                             </div>
                         </div>
@@ -445,12 +455,12 @@ export default function BecomePartner() {
             <div className='container pt-5 mw-100 p-0'>
                 <div className='row align-items-center p-0'>
                     <div className='col-md-6 col-xs-12 p-0'>
-                        <Image style={{ objectFit : "contain" }} width={700} height={600} alt='ic1' src='/img/mob.png' />
+                        <Image style={{ objectFit : "contain" }} className='img-friendly' width={700} height={600} alt='ic1' src='/img/mob.png' />
                     </div>
                     <div className='col-md-6 col-xs-12'>
                         <div className='px-5 w-75 my-4'>
-                            <h3 className='fw-bold'>{t('becomePartner.userFriendly')}</h3>
-                            <p>{t('becomePartner.weHaveDesigned')}</p>
+                            <h3 className='fw-bold'>User-Friendly</h3>
+                            <p>We have designed A user-friendly app with a range of customizable offers and loyalty options suited to your business needs. We enhance the customer experience, with an easy-to-redeem system via early booking reservations and lifetime redeems</p>
                         </div>
                     </div>
                 </div>
@@ -477,8 +487,8 @@ export default function BecomePartner() {
                                     />
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
-                                        <label className='mb-2 fw-light'>Business Category</label>
+                                        <label className='mb-2 fw-light'>{t('app.busCategory')}</label>
+                                    <div className="select-add select-full p-0">
                                             <Controller
                                                 control={control}
                                                 defaultValue={''}
@@ -490,12 +500,13 @@ export default function BecomePartner() {
                                                         onChange={val => field.onChange(val.value)}
                                                         isLoading={isCategoriesDataLoading}
                                                         options={categoriesData?.categories.map(item=>({label:item.name,value:item.id}))}
-                                                        errorMessage={errors.category_id && errors.category_id.message}
+                                                        // errorMessage={errors.category_id && errors.category_id.message}
                                                         placeholder={t('register.placeholders.select')}
                                                     />
                                                 }
                                             />
                                     </div>
+                                    {errors.category_id && errors.category_id.message && <small className='text-danger'>{errors.category_id.message}</small>}
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
                                     <InputText 
@@ -514,7 +525,7 @@ export default function BecomePartner() {
                                 <div className='col-md-6 col-xs-12 mb-4'>
                                     <label className='mb-2 fw-light'>{t('register.labels.phone')}</label>
                                     <div className={'d-flex justify-content-center align-items-center'}>
-                                        <div className="select-add phone-select">
+                                        <div className="select-add phone-select p-0">
                                             <Controller
                                                 control={control}
                                                 defaultValue={''}
@@ -550,8 +561,8 @@ export default function BecomePartner() {
                                     />
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
-                                        <label className='mb-2 fw-light'>Country</label>
+                                        <label className='mb-2 fw-light'>{t('booking.Reserve.country')}</label>
+                                    <div className="select-add select-full p-0">
                                         <Controller
                                             control={control}
                                             defaultValue={''}
@@ -563,12 +574,13 @@ export default function BecomePartner() {
                                                     onChange={val => field.onChange(val.value)}
                                                     options={countriesData?.countries.map(item=>({label:item.name,value:item.id}))}
                                                     isLoading={isCountriesDataLoading}
-                                                    errorMessage={errors.country_id && errors.country_id.message}
+                                                    // errorMessage={errors.country_id && errors.country_id.message}
                                                     placeholder={t('register.placeholders.select')}
                                                 />
                                             }
                                         />
                                     </div>
+                                    {errors.country_id && errors.country_id.message && <small className='text-danger'>{errors.country_id.message}</small>}
                                 </div>
                                 {watchCountry && <div className="col-md-6 col-xs-12 mb-4">
                                     <div className="select-add">
@@ -612,4 +624,3 @@ export default function BecomePartner() {
     </div>
   )
 }
-  

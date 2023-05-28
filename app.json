@@ -54,28 +54,28 @@
         },
         {
             "link"      : "/luxury-cars-voucher",
-            "resultLink": "/",
+            "resultLink": "/results/luxury-cars-draw",
             "name"      : "category.cars",
             "color"     : "bgPurpleColor text-white",
             "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
             "link"      : "/luxury-villas-voucher",
-            "resultLink": "/",
+            "resultLink": "/results/luxury-villas-draw",
             "name"      : "category.villas",
             "color"     : "bgGreenColor text-white",
             "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
             "link"      : "/luxury-watches-voucher",
-            "resultLink": "/",
+            "resultLink": "/results/luxury-watches-draw",
             "name"      : "category.watches",
             "color"     : "bgOrangeColor text-white",
             "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
             "link"      : "/bride-&-groom-voucher",
-            "resultLink": "/",
+            "resultLink": "/results/bride-&-groom-draw",
             "name"      : "category.bride",
             "color"     : "bgBlueColor text-white",
             "dis"       : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
@@ -138,6 +138,148 @@
             "date"      : "23-08-2022",
             "series"    : "TDTM-2022-0026",
             "arrNum"    : [ "1", "9", "6", "45", "54", "34" ]
+        }
+    ],
+    "ourQuizz" : [
+        {
+          "merchant": {
+            "id": 1,
+            "type": "booking",
+            "business_name": "H&M",
+            "category": "Restaurant",
+            "category_slug": "restaurant",
+            "logo": "/img/favicon.png",
+            "cover": "/img/banner.png",
+            "lat": "30.04",
+            "lng": "31.24",
+            "map_desc": "dubai second",
+            "brief": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which",
+            "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which"
+          },
+          "title": "quiz title in english",
+          "description": "quiz description in english",
+          "time_sec": 600,
+          "expiry_date": "2023-04-16 23:25:53"
+        },
+        {
+          "merchant": {
+            "id": 1,
+            "type": "booking",
+            "business_name": "H&M",
+            "category": "Restaurant",
+            "category_slug": "restaurant",
+            "logo": "/img/favicon.png",
+            "cover": "/img/banner.png",
+            "lat": "30.04",
+            "lng": "31.24",
+            "map_desc": "dubai second",
+            "brief": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which",
+            "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which"
+          },
+          "title": "quiz title in english",
+          "description": "quiz description in english",
+          "time_sec": 600,
+          "expiry_date": "2023-04-16 23:25:53"
+        },
+        {
+          "merchant": {
+            "id": 1,
+            "type": "booking",
+            "business_name": "H&M",
+            "category": "Restaurant",
+            "category_slug": "restaurant",
+            "logo": "/img/favicon.png",
+            "cover": "/img/banner.png",
+            "lat": "30.04",
+            "lng": "31.24",
+            "map_desc": "dubai second",
+            "brief": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which",
+            "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which"
+          },
+          "title": "quiz title in english",
+          "description": "quiz description in english",
+          "time_sec": 600,
+          "expiry_date": "2023-04-16 23:25:53"
+        },
+        {
+          "merchant": {
+            "id": 1,
+            "type": "booking",
+            "business_name": "H&M",
+            "category": "Restaurant",
+            "category_slug": "restaurant",
+            "logo": "/img/favicon.png",
+            "cover": "/img/banner.png",
+            "lat": "30.04",
+            "lng": "31.24",
+            "map_desc": "dubai second",
+            "brief": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which",
+            "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which"
+          },
+          "title": "quiz title in english",
+          "description": "quiz description in english",
+          "time_sec": 600,
+          "expiry_date": "2023-04-16 23:25:53"
+        },
+        {
+          "merchant": {
+            "id": 1,
+            "type": "booking",
+            "business_name": "H&M",
+            "category": "Restaurant",
+            "category_slug": "restaurant",
+            "logo": "/img/favicon.png",
+            "cover": "/img/banner.png",
+            "lat": "30.04",
+            "lng": "31.24",
+            "map_desc": "dubai second",
+            "brief": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which",
+            "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which"
+          },
+          "title": "quiz title in english",
+          "description": "quiz description in english",
+          "time_sec": 600,
+          "expiry_date": "2023-04-16 23:25:53"
+        },
+        {
+          "merchant": {
+            "id": 1,
+            "type": "booking",
+            "business_name": "H&M",
+            "category": "Restaurant",
+            "category_slug": "restaurant",
+            "logo": "/img/favicon.png",
+            "cover": "/img/banner.png",
+            "lat": "30.04",
+            "lng": "31.24",
+            "map_desc": "dubai second",
+            "brief": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which",
+            "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which"
+          },
+          "title": "quiz title in english",
+          "description": "quiz description in english",
+          "time_sec": 600,
+          "expiry_date": "2023-04-16 23:25:53"
+        },
+        {
+          "merchant": {
+            "id": 1,
+            "type": "booking",
+            "business_name": "H&M",
+            "category": "Restaurant",
+            "category_slug": "restaurant",
+            "logo": "/img/favicon.png",
+            "cover": "/img/banner.png",
+            "lat": "30.04",
+            "lng": "31.24",
+            "map_desc": "dubai second",
+            "brief": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which",
+            "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which"
+          },
+          "title": "quiz title in english",
+          "description": "quiz description in english",
+          "time_sec": 600,
+          "expiry_date": "2023-04-16 23:25:53"
         }
     ]
 }

@@ -18,26 +18,31 @@ export default function BookingSuccess() {
     const { t }                                             = useTranslation();
     const user                                              = useSelector((state) => state.user.user);
     const langVal                                           = useSelector((state) => state.language.language);
-    const { data:categoriesData }                           = useApi(()=> getAllCategories(user.token,langVal));
-    const router                                        = useRouter();
+    const router                                            = useRouter();
     const currency                                          = useSelector((state) => state.currency.currency);
     const {merchant_id} = router.query
+
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
+
+    const { data:categoriesData }     = useApi(()=> getAllCategories(user.token,langVal), user !== null);
 
     //#region Merchant Details
     const {
         data:merchantDetails,
         isLoading:isMerchantLoading,
         reFetch:refetchMerchantDetails
-    } = useApi(()=>  getMerchantDetails(user.token,langVal,currency,merchant_id),router.isReady)
+    } = useApi(()=>  getMerchantDetails(user.token,langVal,currency,merchant_id),user !== null, router.isReady)
 
     useEffect(()=>{
         if (merchant_id) {
-            refetchMerchantDetails(() => getMerchantDetails(user.token, langVal,currency, merchant_id))
+            refetchMerchantDetails()
         }
     },[merchant_id])
     //#endregion
 
     if (isMerchantLoading) return <LoadData/>
+
+    if(user === null) return null;
 
     return (
       <div className="container booking booking-success">

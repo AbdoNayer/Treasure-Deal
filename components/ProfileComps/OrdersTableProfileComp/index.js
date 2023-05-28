@@ -77,7 +77,7 @@ export const OrdersTableProfileComp = ({...props}) => {
     return (
         <div>
             <div className="td_orders_table mb-4">
-                    <div className={'d-flex align-items-center justify-content-between mb-4 px-3'}>
+                    <div className={'t_h_table_order d-flex align-items-center justify-content-between mb-4 px-3'}>
                         <h4 className="td_orders_table_title fw-light">
                             {t('user.profile.orders.title')}
                         </h4>
@@ -94,7 +94,7 @@ export const OrdersTableProfileComp = ({...props}) => {
                                 </div>
                             </div>
                             <div className="td_orders_table_actions_sorting d-flex align-items-center mx-3 fs-5" onClick={updateSorting}>
-                                <span className={'me-2'}>Sort by</span>
+                                <span className={'me-2'}>{t('app.sortBy')}</span>
                                 <span className={checkSortIcon()}/>
                             </div>
                         </div>
@@ -102,30 +102,33 @@ export const OrdersTableProfileComp = ({...props}) => {
                     {!isLoading
                         ? <>
                             {filteredObjs.length > 0
-                                ? <table className={'table text-center'}>
-                                    <thead>
-                                        <tr>
-                                            <th className={'fw-light'}>{t('ordersProfile.confirmationNo')}</th>
-                                            <th className={'fw-light'}>{t('ordersProfile.date')}</th>
-                                            <th className={'fw-light'}>{t('ordersProfile.type')}</th>
-                                            <th className={'fw-light'}>{t('ordersProfile.status')}</th>
-                                            <th className={'fw-light'}>Referral Id</th>
-                                            <th className={'fw-light'}>{t('ordersProfile.paymentMethod')}</th>
-                                            <th className={'fw-light'}>{t('ordersProfile.amount')}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredObjs.map(order=> <tr key={order.id}>
-                                            <td>{order.order_num}</td>
-                                            <td>{order.date}</td>
-                                            <td>{order.type_text}</td>
-                                            <td>{order.status_text}</td>
-                                            <td>{order.refferal_id}</td>
-                                            <td>{order.pay_type_text}</td>
-                                            <td>{order.final_total}</td>
-                                        </tr>)}
-                                    </tbody>
-                                </table>
+                                ? 
+                                <div className="over-x">
+                                    <table className={'table text-center'}>
+                                        <thead>
+                                            <tr>
+                                                <th className={'fw-light'}>{t('ordersProfile.confirmationNo')}</th>
+                                                <th className={'fw-light'}>{t('ordersProfile.date')}</th>
+                                                <th className={'fw-light'}>{t('ordersProfile.type')}</th>
+                                                <th className={'fw-light'}>{t('ordersProfile.status')}</th>
+                                                <th className={'fw-light'}>{t('myEarnsTable.refId')}</th>
+                                                <th className={'fw-light'}>{t('ordersProfile.paymentMethod')}</th>
+                                                <th className={'fw-light'}>{t('ordersProfile.amount')}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {filteredObjs.map(order=> <tr key={order.id}>
+                                                <td>{order.order_num}</td>
+                                                <td>{order.date ? order.date.split('T')[0] : 'N/A'}</td>
+                                                <td>{order.type_text}</td>
+                                                <td>{order.status_text}</td>
+                                                <td>{order.refferal_id}</td>
+                                                <td>{order.pay_type_text}</td>
+                                                <td>{(order.illusion_data? (order.illusion_data.Currency + ' ') : '') + order.final_total}</td>
+                                            </tr>)}
+                                        </tbody>
+                                    </table>
+                                </div>
                                 :<div className={'modal-height-view position-relative text-center d-flex align-items-center justify-content-center'}>
                                     <h4 className="text-danger">{t('ordersProfile.noOrders')}</h4>
                                 </div>

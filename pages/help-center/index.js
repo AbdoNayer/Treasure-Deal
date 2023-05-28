@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import {InputText} from "../../components/Inputs/InputText";
 import {useApi} from "../../hooks/useApi";
-import {getFAQs, getParticipationSteps} from "../../redux-toolkit/actions/axiosCalls";
+import {contactUsMessage, getFAQs, getParticipationSteps} from "../../redux-toolkit/actions/axiosCalls";
 import {useSelector} from "react-redux";
 import {useEffect, useState, useRef} from "react";
 import {FaqQuestion} from "../../components/FaqQuestion";
@@ -11,11 +11,14 @@ import {WinningSteps} from "../../components/WinningSteps";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Toastify from "toastify-js";
+import {t} from "i18next";
 
 export default function HelpCenter() {
     const { t }          = useTranslation();
     const currency       = useSelector((state) => state.currency.currency);
     const langVal        = useSelector((state) => state.language.language);
+    const [isSubmitting,setIsSubmitting] = useState(false)
     const [winningType,setWinningType] = useState('millionaire')
     const didMount                                          = useRef(false);
 
@@ -31,13 +34,30 @@ export default function HelpCenter() {
     });
     //#endregion
     //#region form function
-    const { register, handleSubmit, control, watch, setValue, formState: { errors } } = useForm({
+    const { register, handleSubmit, control, watch, setValue, reset, formState: { errors } } = useForm({
         mode:'onTouched',
         resolver: yupResolver(contactUsValidation),
     });
     const submitHandler = data => {
-        console.log(data);
-        // (async () => await addNewAddresses(user.token,langVal,currency,addressData))().then(r=> console.log(r))
+        setIsSubmitting(true);
+        (async () => await contactUsMessage(data))()
+            .then(r=> {
+                setIsSubmitting(false)
+                reset()
+                Toastify({
+                    text: 'Submitted Successfully',
+                    duration: 3000,
+                    gravity: "top",
+                    position: langVal === 'en' ? "left" : "right",
+                    style: {
+                        background: "#007427",
+                    }
+                }).showToast();
+            })
+            .catch(e=> {
+                // console.log(e)
+                setIsSubmitting(false)
+            })
     }
     //#endregion
     const {
@@ -72,11 +92,11 @@ export default function HelpCenter() {
         <div className={'winners py-4'}>
             <div className={'container'}>
                 <div className="td_header">
-                    <h1>Help Center</h1>
-                    <p className='mt-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto</p>
+                    <h1>{t('app.helpCenter')}</h1>
+                    <p className='mt-4'>{t('app.infoDis')}</p>
                 </div>
                 <div className='how-to-play py-4 my-4'>
-                    <h3 className='text-center my-5'>How to participate</h3>
+                    <h3 className='text-center my-5'>{t('app.howParticipate')}</h3>
                     <div className='row'>
                         <div className='col-md-6 col-xs-12'>
                             <div
@@ -108,9 +128,9 @@ export default function HelpCenter() {
                 <hr />
                 <div className="py-4 my-4 text-center">
                     <div className="mb-5">
-                        <h2>FAQ</h2>
-                        <h5 className={'mt-4'}>Frequently asked questions</h5>
-                        <InputText className={'w-50 mt-4'} placeholder={'Search'} onChange={createSearchHandler(obj=>obj.title)} />
+                        <h2>{t('app.FAQ')}</h2>
+                        <h5 className={'mt-4'}>{t('app.freQuestions')}</h5>
+                        <InputText className={'w-50 mt-4'} placeholder={t('user.profile.myChat.searchChat')} onChange={createSearchHandler(obj=>obj.title)} />
                     </div>
                     {isFaqsLoading
                         ? <div className={'modal-height-view position-relative'}><LoadData/></div>
@@ -119,7 +139,10 @@ export default function HelpCenter() {
                                 ? <div className={'mx-auto w-75'}>
                                     {filteredObjs.map(faq => <FaqQuestion key={faq.id} title={faq.title} description={faq.description}/>)}
                                 </div>
-                                : <div>No Faqs Available</div>
+                                : 
+                                <div className='main-body-mini d-flex justify-content-center align-items-center'>
+                                    <h3 className='text-danger text-center m-0'>{t('app.noFaqsAvailable')}</h3>
+                                </div>
                             }
                         </>
                     }
@@ -128,28 +151,32 @@ export default function HelpCenter() {
                 <hr />
                 <div className="py-4">
                     <div className="pb-5">
-                        <h3 className='text-center my-4'>Still Have Questions?</h3>
-                        <p className='mt-4 text-center fs-5'>cant find the answer you are looking for? please chat with our friendly team</p>
+                        <h3 className='text-center my-4'>{t('app.stillHaveQuestions')}</h3>
+                        <p className='mt-4 text-center fs-5'>{t('app.infoQus')}</p>
                     </div>
                     <form onSubmit={handleSubmit(submitHandler)} className="row mt-4 w-75 m-auto">
-                        <div className="col-4">
-                            <InputText label={'Name'} {...register('name')} errorMessage={errors.name?.message}/>
+                        <div className="col-md-4 col-xs-12 my-2">
+                            <InputText placeholder={t('app.name')} {...register('name')} errorMessage={errors.name?.message}/>
                         </div>
-                        <div className="col-4">
-                            <InputText label={'phone'} {...register('phone')} errorMessage={errors.phone?.message}/>
+                        <div className="col-md-4 col-xs-12 my-2">
+                            <InputText placeholder={t('app.phone')} {...register('phone')} errorMessage={errors.phone?.message}/>
                         </div>
-                        <div className="col-4">
-                            <InputText label={'Email'} {...register('email')} errorMessage={errors.email?.message}/>
+                        <div className="col-md-4 col-xs-12 my-2">
+                            <InputText placeholder={t('app.email')} {...register('email')} errorMessage={errors.email?.message}/>
                         </div>
-                        <div className="col-12 my-3">
-                            <InputText label={'Subject'} {...register('subject')} errorMessage={errors.subject?.message}/>
+                        <div className="col-md-12 col-xs-12 my-2">
+                            <InputText placeholder={t('app.subject')} {...register('subject')} errorMessage={errors.subject?.message}/>
                         </div>
-                        <div className="col-12">
-                            <label className="fw-light mb-2">Message</label>
-                            <textarea className={errors.message?.message && 'border-danger'} {...register('message')}/>
+                        <div className="col-md-12 col-xs-12 my-2">
+                            <textarea placeholder={t('app.message')} className={errors.message?.message && 'border-danger'} {...register('message')}/>
                             {errors.message?.message && <p className={'text-danger'}>{errors.message?.message}</p>}
                         </div>
-                        <button className={'btn-button bgMainColor text-white m-auto mt-4'}>Submit</button>
+                        <button className={'btn-button bgMainColor text-white m-auto mt-4'}>
+                            {isSubmitting
+                                ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
+                                : <>{t('register.register_button')}</>
+                            }
+                        </button>
                     </form>
 
                 </div>

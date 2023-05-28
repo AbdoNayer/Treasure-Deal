@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState,useEffect} from "react";
 import {VoucherCard} from "../VoucherCard";
 import {buyRaffillionaire} from "../../redux-toolkit/actions";
@@ -10,6 +10,7 @@ export const BuyVoucher = ({title,subTitle,brief,description,maxBundles,pricePer
     const { t }                                            = useTranslation();
     const dispatch                                         = useDispatch();
     const router                                           = useRouter();
+    const currency                                      = useSelector((state) => state.currency.currency);
 
     const [ isLoading, setIsLoading ]                      = useState(false);
     const [ bundlesQuantity, setBundlesQuantity ]          = useState(1)
@@ -79,8 +80,8 @@ export const BuyVoucher = ({title,subTitle,brief,description,maxBundles,pricePer
                         <p className="fw-light">{brief}</p>
                         <div className="td-price-info mt-5 d-flex justify-content-between align-items-end">
                             <div className="td-price-info-details">
-                                <div className="td-voucher-price fs-5 fw-bold">{t('millionaire.voucher.price')} {pricePerBundle} x {bundlesQuantity}</div>
-                                <div className="td-voucher-total-price fs-4 fw-bold">{t('millionaire.voucher.total')} {Number(parseFloat(pricePerBundle)*bundlesQuantity).toFixed(2)}</div>
+                                <div className="td-voucher-price fs-5 fw-bold">{t('millionaire.voucher.price')} {currency} {pricePerBundle} x {bundlesQuantity}</div>
+                                <div className="td-voucher-total-price fs-4 fw-bold">{t('millionaire.voucher.total')} {currency} {Number(parseFloat(pricePerBundle)*bundlesQuantity).toFixed(2)}</div>
                             </div>
                             <div className="td-price-info-buttons d-flex align-items-center">
                                 <button onClick={removeBundle} disabled={bundlesQuantity === 1}>

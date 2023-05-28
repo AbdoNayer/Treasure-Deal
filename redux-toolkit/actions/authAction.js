@@ -277,7 +277,7 @@ export const logOut = ( data, router, lang, currency ) => {
     return async(dispatch) => {
         await axios.delete(`${CONST.url}logout?device_id=${data.device_id}`, headerConfig(lang,currency,data.token)).then( (response)=> {
 
-            router.push('/auth/login');
+            router.push('/auth/login').then(() => router.reload())
             dispatch(logoutReducer());
             dispatch(resetCartReducer());
             dispatch(resetMillionVoucherReducer());

@@ -26,6 +26,7 @@ export const RaffelillionaireCart = ({cartData,subscriptions}) => {
     const subToOption = (sub) => ({value:sub?.id||0,label:sub?.discount_per === 0 ? "Single Bundle" : `X${sub.draw_times} (${sub.discount_per}%  Discount)`})
     const currency                                          = useSelector((state) => state.currency.currency);
     const socket = io('https://treasuredeal.com:9090', {
+        transports      : ['websocket'],
         query: "id=" + user.id + "&user_type=User",
     });
 
@@ -37,7 +38,7 @@ export const RaffelillionaireCart = ({cartData,subscriptions}) => {
     }
 
     const editTicket = (line) => {
-        dispatch(showModalAction(<ModalForm title={'Update Ticket'}>
+        dispatch(showModalAction(<ModalForm title={t('app.updateTicket')}>
             <EditTicketModalForm lineId={line.id} prevTicket={line.ticket.join('')} cartType={cartData.cart_data.type} />
         </ModalForm>))
     }

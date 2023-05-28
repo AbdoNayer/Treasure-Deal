@@ -11,16 +11,17 @@ export default  function RaffellionaireDetails ({...props}) {
     const router                                            = useRouter();
     const user                                              = useSelector((state) => state.user.user);
     const langVal                                           = useSelector((state) => state.language.language);
+    const currency                      = useSelector((state) => state.currency.currency);
     const {draw_id} = router.query
 
     const {
         data,
         isLoading,
         reFetch
-    } = useApi(()=>  getRaffellionaireDrawDetails(user.token,langVal,draw_id),router.isReady)
+    } = useApi(()=>  getRaffellionaireDrawDetails(user.token,langVal,currency,draw_id,'raffleillionaire'),router.isReady)
 
     useEffect(()=>{
-        if (draw_id) reFetch(()=>  getRaffellionaireDrawDetails(user.token,langVal,draw_id))
+        if (draw_id) reFetch(()=>  getRaffellionaireDrawDetails(user.token,langVal,currency,draw_id,'raffleillionaire'))
     },[draw_id])
 
     if (isLoading) return <LoadData/>

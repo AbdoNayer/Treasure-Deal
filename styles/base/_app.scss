@@ -612,6 +612,11 @@ header{
             border: 1px solid $main;
         }
     }
+    .td_checkerInput{
+      width: 75px;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
 }
 
 .block-checked{
@@ -718,6 +723,7 @@ header{
         }
     }
     .section-fading{
+        background-color: #E9ECEF;
         .block-img{
             height: 100px;
             border: 1px solid $main;
@@ -739,7 +745,7 @@ header{
         }
     }
     .swiper-wrapper{
-        justify-content: center;
+        //justify-content: center;
         .swiper-slide {
             margin: 0 5px !important;
         }
@@ -800,18 +806,23 @@ header{
         .info-event{
             width: 90%;
             @include positionItem(absolute, initial, 0, 0, 0, initial);
+            height: 180px;
             h4{
                 color: #2F4858;
             }
             p{
-                color: #676768
+                color: #676768;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
             }
         }
     }
     .item-cate{
         height: 280px;
     }
-    .select-active .css-1f43avz-a11yText-A11yText + div {
+    .select-active {
         height: 45px !important;
         width: 225px;
     }
@@ -845,7 +856,7 @@ header{
             @include positionItem(absolute, 50px, initial, 0, 0, initial);
         }
     }
-    .select-active .css-1f43avz-a11yText-A11yText + div {
+    .select-active {
         height: 45px !important;
         padding: 0 !important;
         width: 140px;
@@ -867,22 +878,14 @@ header{
     .welcome-message, .box-form{
         height: 700px;
     }
+    .phone-select{
+        height: 59px;
+    }
     .welcome-message{
         background-image: url('/img/bg-auth.png');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-    }
-    .select-add{
-        .css-1f43avz-a11yText-A11yText + div{
-            height: 57px !important;
-            border: 1px solid #707070 !important;
-            padding: 0 !important;
-            font-size: 18px;
-            &:focus, &:hover{
-                border-color: $main !important;
-            }
-        }
     }
     .continue-with{
         p{
@@ -969,6 +972,9 @@ header{
     .phone-down{
         position: relative;
         top: -150px;
+    }
+    .BG-2{
+        background-image: url('/img/der.png');
     }
 }
 
@@ -1074,15 +1080,13 @@ header{
 
 // Def Select
 .select-active{
-    .css-1f43avz-a11yText-A11yText + div{
-        height: 50px !important;
-        padding: 0 !important;
-        div{
-            font-size: 14px !important;
-        }
-        &:focus, &:hover{
-            border-color: $main !important;
-        }
+    height: 50px !important;
+    padding: 0 !important;
+    div{
+        font-size: 14px !important;
+    }
+    &:focus, &:hover{
+        border-color: $main !important;
     }
 }
 
@@ -1091,27 +1095,33 @@ header{
 }
 
 .select-ponier{
+    height: 45px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
     div{
         font-size: 12px !important;
     }
-    .css-1f43avz-a11yText-A11yText + div{
-        height: 45px !important;
-        padding: 0 !important;
-        div{
-            font-size: 14px !important;
-        }
-        &:focus, &:hover{
-            border-color: $main !important;
-        }
+    &:focus, &:hover{
+        border-color: $main !important;
     }
 }
 
 .td_booking_comp_availability_wrapper{
     .calendar-booking{
         @include positionItem(absolute, 50px, initial, 0, 0, initial);
-        width: 95%;
+        width: 100%;
         z-index: 9;
+        background-color: $white;
+        text-align: center;
+        border: 1px solid #e0e0e0;
     }
+}
+
+.active-user{
+    background-color: #1AB64F;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
 }
 
 // Details Voucher
@@ -1141,6 +1151,16 @@ header{
     }
 }
 
+// Quizz
+.block-quizz{
+    .info-merchant-quizz{
+        @include positionItem(absolute, initial, 0, initial, 0, initial);
+        width: 100%;
+        z-index: 998;
+        background-color: rgba(255,255,255,0.6); 
+    }
+}
+
 // Raffleillionaire
 .raffleillionaire{
     .td-lotto-header-prize{
@@ -1167,17 +1187,15 @@ header{
     .td-lotto-body{
         &-header-buttons{
             .select-num{
-                .css-1f43avz-a11yText-A11yText + div{
-                    height: 50px !important;
-                    border: 0px solid #707070 !important;
-                    padding: 0 !important;
-                    width: 165px;
-                    div{
-                        font-size: 14px !important;
-                    }
-                    &:focus, &:hover{
-                        border-color: $main !important;
-                    }
+                height: 50px !important;
+                border: 0px solid #707070 !important;
+                padding: 0 !important;
+                width: 165px;
+                div{
+                    font-size: 12px;
+                }
+                &:focus, &:hover{
+                    border-color: $main !important;
                 }
             }
             .input-num{
@@ -1273,6 +1291,30 @@ header{
   border-radius: 15px;
   width: 100%;
   margin-bottom: 10px;
+}
+
+.td-quiz-body{
+    .td-quiz-block{
+        h5{
+            &::before{
+                content: "";
+                width: 10px;
+                height: 10px;
+                background-color: $main;
+                border-radius: 2px;
+                display: inline-block;
+                margin: 0 10px;
+            }
+        }
+        ul{
+            li{
+                padding: 10px;
+                border-radius: 5px;
+                margin: 5px;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 // My Draw
@@ -1483,7 +1525,7 @@ header{
             }
         }
     }
-    .select-active .css-1f43avz-a11yText-A11yText + div {
+    .select-active {
         width: 215px;
     }
     .block-search{
@@ -1609,11 +1651,9 @@ header{
         }
     }
     .select-active{
+        height: 40px !important;
         label{
             font-size: 15px;
-        }
-        .css-1f43avz-a11yText-A11yText + div{
-            height: 40px !important;
         }
     }
 }
@@ -1701,13 +1741,15 @@ header{
     }
     .td-modal-form-body{
         padding: 0;
+        max-height: 420px;
+        overflow-y: scroll;
     }
 }
 
 // Map
 #gmap_canvas{
     width: 100%;
-    height: 400px;
+    height: 290px;
 }
 
 // Table In View
@@ -1865,6 +1907,32 @@ header{
     }
 }
 
+.filter-rooms{
+    .select-add{
+        height: 49px !important;
+        border: 1px solid #dee2e6 !important;
+        font-size: 14px !important;
+        div{
+            font-size: 11px !important;
+        }
+    }
+}
+
+.modal-booking-room{
+    .td-modal-form{
+        width: 1000px;
+    }
+    .select-add{
+        height: 49px !important;
+        border: 1px solid #dee2e6 !important;
+        font-size: 14px !important;
+        div{
+            font-size: 11px !important;
+        }
+    }
+}
+
+
 // Modal Addres
 .td_address_modal {
       max-height: 300px;
@@ -1939,15 +2007,40 @@ header{
 }
 
 // Select Add
+// .select-add{
+//     .css-1f43avz-a11yText-A11yText + div{
+//         height: 57px !important;
+//         border: 1px solid #707070 !important;
+//         padding: 0 !important;
+//         font-size: 16px;
+//         &:focus, &:hover{
+//             border-color: $main !important;
+//         }
+//     }
+// }
+
 .select-add{
-    .css-1f43avz-a11yText-A11yText + div{
-        height: 57px !important;
-        border: 1px solid #707070 !important;
-        padding: 0 !important;
-        font-size: 16px;
-        &:focus, &:hover{
-            border-color: $main !important;
-        }
+    height: 58px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid #707070 !important;
+    border-radius: 5px;
+    div{
+        min-height: initial !important;
+        height: auto !important;
+        border: 0px !important;
+        width: auto !important;
+        font-size: 14px !important;
+    }
+    &:focus, &:hover{
+        border-color: $main !important;
+    }
+}
+
+.select-full{
+    > div{
+        width: 100% !important;
     }
 }
 
@@ -1986,7 +2079,22 @@ header{
 
 .slide-details{
     height: 500px;
+}
 
+// Video Style
+#video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+    background-size: cover;
+    transition: 1s opacity;
 }
 
 // Footer

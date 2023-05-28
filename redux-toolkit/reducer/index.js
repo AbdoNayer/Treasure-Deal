@@ -16,6 +16,7 @@ import currencyReducer from "./currencyReducer";
 import notificationsReducer from "./notificationsReducer";
 import selectedTicketsReducer from "./selectedTicketsReducer";
 import chatReducer from "../reducer/chatReducer";
+import chatLastMessageReducer from "../reducer/chatLastMessageReducer";
 
 export default combineReducers({
     user                    : userReducer,
@@ -34,5 +35,6 @@ export default combineReducers({
     partners                : partnersReducer,
     selectedTickets         : selectedTicketsReducer,
     notifications           : notificationsReducer,
+    lastMessage             : chatLastMessageReducer,
     chat                    : chatReducer,
 });

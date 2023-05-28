@@ -279,7 +279,7 @@ export default function MillionaireLotto() {
               }
           </div>
           <div className="td-lotto-footer d-flex align-items-center justify-content-between mb-5">
-            <button className={'btn-button bgMainColor text-white'}>{t('millionaire.lotto.buttons.continueShopping')}</button>
+            <button className={'btn-button bgMainColor text-white'} onClick={()=>router.push('/')}>{t('millionaire.lotto.buttons.continueShopping')}</button>
             <button className={'btn-button bgMainColor text-white'} disabled={isLoading} onClick={checkAndSaveAllNumbers}>
                 {isLoading
                     ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>

@@ -1,10 +1,11 @@
 import {useTranslation} from "react-i18next";
-import {InputSelect} from "../../Inputs/InputSelect";
 import React, {useState} from "react";
 import Image from 'next/image';
+import {useRouter} from "next/router";
 
-export const MerchantVouchers = ({vouchers,openModal,type,updateSlug,updateVoucherId,...props}) => {
+export const MerchantVouchers = ({vouchers,openModal,type,updateSlug,updateVoucherId,shopType,merchantId,...props}) => {
     const { t }                                         = useTranslation();
+    const router                                        = useRouter()
     const voucherSlugs = ['table','car','room','yacht','doctor','barber','sky']
     const [slug,setSlug] = useState('restaurant')
     return (
@@ -34,7 +35,7 @@ export const MerchantVouchers = ({vouchers,openModal,type,updateSlug,updateVouch
                         </div>
                         <div className="col-md-8 col-xs-12">
                             <div className="info-vocher p-3">
-                                <div className='d-flex align-items-center justify-content-between'>
+                                <div className='d-flex align-items-center justify-content-between f-c'>
                                     <div className=''>
                                         <h4>{voucher.category}</h4>
                                         <h6 className="fw-light">{voucher.description}</h6>
@@ -48,10 +49,15 @@ export const MerchantVouchers = ({vouchers,openModal,type,updateSlug,updateVouch
                                         {((type==='booking')||(type==='all')) && <button
                                             className='bgMainColor m-3 px-3 py-2 fw-light rounded-2 text-white'
                                             onClick={()=> {
-                                                updateSlug(voucher.type)
-                                                updateVoucherId(voucher.id)
+                                                if (shopType==='property') {
+                                                    router.push(`/booking/dubai-property?id=${merchantId}&voucherId=${voucher.id}`)
+                                                }
+                                                else {
+                                                    updateSlug(voucher.type)
+                                                    updateVoucherId(voucher.id)
+                                                }
                                             }}
-                                        >Booking</button>}
+                                        >{shopType==='property'? t('app.bookingProperty') : t('app.booking')}</button>}
                                         {/*<InputSelect options={voucherSlugs.map(v=> ({label:v,value:v}))} onChange={v=> setSlug(v.value)}/>*/}
 
                                     </div>

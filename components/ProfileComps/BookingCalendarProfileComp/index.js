@@ -33,6 +33,9 @@ export const BookingCalendarProfileComp = ({...props}) => {
         isLoading:isBookingDataLoading,
         reFetch:refetchBookingData
     } = useApi(()=> getBookingCalendar(user.token,langVal,currency))
+    useEffect(()=>{
+        console.log(bookingData);
+    },[bookingData])
 
     const currentTableData = useMemo(() => {
         if (filteredObjs) {
@@ -80,12 +83,49 @@ export const BookingCalendarProfileComp = ({...props}) => {
         ));
     }
 
+    const checkBookingObject = (obj) => {
+        switch (obj.shop_type) {
+            case 'event':
+                return obj.event.date
+            default:
+                return obj?.date?.split('T')[0];
+        }
+    }
+
+    const bookingCalendarItem = (item) => {
+        switch (item.shop_type) {
+            case 'illusion':
+                return <>
+                    <h5 className='m-0'>Hotel Booking</h5>
+                    <p className='m-0 mt-1'>{item?.illusion_data?.PartyName}</p>
+                </>
+            case 'property':
+                return <>
+                    <h5 className='m-0'>Property Viewing</h5>
+                    <p className='m-0 mt-1'>{item?.services[0]?.service_name}</p>
+                </>
+            case 'event':
+                return <>
+                    <h5 className='m-0'>{item?.event?.title}</h5>
+                    <p className='m-0 mt-1'>{item?.event?.time}</p>
+                </>
+            default:
+                return <>
+                    <h5 className='m-0'>{item?.voucher?.category}</h5>
+                    <p className='m-0 mt-1'>{item?.voucher?.merchant}</p>
+                </>
+        }
+    }
+
     useEffect(()=>{
         checkDate(date)
     },[date]);
     useEffect(()=>{
         if (bookingData) {
-            setNewFortmattedDates(Object.entries(groupBy(bookingData.orders,(obj)=>obj.date.split('T')[0])))
+            // console.log(bookingData)
+            // console.log(Object.entries(groupBy(bookingData.orders,(obj)=>obj?.date?.split('T')[0])))
+            // console.log(Object.entries(groupBy(bookingData.orders,(obj)=> checkBookingObject(obj))))
+            setNewFortmattedDates(Object.entries(groupBy(bookingData.orders,(obj)=>checkBookingObject(obj))))
         }
     },[bookingData])
     useEffect(()=>{
@@ -136,8 +176,7 @@ export const BookingCalendarProfileComp = ({...props}) => {
                                                     : convertIndexToSerial(i,currentPage,PageSize)}
                                             </span>
                                             <div className='mx-2'>
-                                                <h5 className='m-0'>{item.voucher.category}</h5>
-                                                <p className='m-0 mt-1'>{item.voucher.merchant}</p>
+                                                {bookingCalendarItem(item)}
                                             </div>
                                         </div>
                                         <button className='icon-arrow-up bg-transparent rounded-3' onClick={()=> openModal(item.id)}/>

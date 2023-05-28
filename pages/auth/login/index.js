@@ -16,7 +16,7 @@ export default function Login() {
     const { t }                                 = useTranslation();
     const dispatch                              = useDispatch();
     const router                                = useRouter();
-    const currency                               = useSelector((state) => state.currency.currency);
+    const currency                              = useSelector((state) => state.currency.currency);
     const langVal                               = useSelector((state) => state.language.language);
     const [ isLoading, setIsLoading ]           = useState(false);
     const [ isNumber, setIsNumber ]             = useState(false);
@@ -54,7 +54,7 @@ export default function Login() {
             phone_or_email          : data.phone_or_email,
             country_code            : data.code,
             password                : data.password,
-            device_id               : localStorage.getItem('deviceToken'),
+            device_id               : localStorage.getItem('deviceToken') || 'null',
             device_type             : 'web'
         }
 
@@ -137,17 +137,17 @@ export default function Login() {
                                 </div>
 
                                 <div className=''>
-                                    <div className='d-flex justify-content-between align-items-center my-4'>
-                                        <Link href={'/auth/forget-password'}>
+                                    <div className='fleCol d-flex justify-content-between align-items-center my-4'>
+                                        <Link href={'/auth/forget-password'} className='my-2'>
                                             <span className='mainColor fw-light'>{t('login.forgot_password')}</span>
                                         </Link>
                                         { 
                                             isLoading ?
-                                            <button className='btn-button bgMainColor text-white'>
+                                            <button className='btn-button bgMainColor text-white my-2'>
                                                 <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                             </button>
                                             : 
-                                            <button className='btn-button bgMainColor text-white' type={'submit'}>
+                                            <button className='btn-button bgMainColor text-white my-2' type={'submit'}>
                                                 <span>{t('login.login_button')}</span>
                                             </button>
                                         }
@@ -157,17 +157,17 @@ export default function Login() {
                                     </Link>
                                 </div>
                             </form>
-                            <div className='continue-with my-3'>
+                            {/* <div className='continue-with my-3'>
                                 <p className='position-relative text-center my-4 fw-light'>{t('login.continueWith')}</p>
                                 <div className='contact-social d-flex justify-content-center align-items-center'>
                                     <button><Image style={{ objectFit : "contain" }} width={30} height={30} alt='google' src='/img/google.png' /></button>
                                     <button><Image style={{ objectFit : "contain" }} width={30} height={30} alt='apple' src='/img/apple.png' /></button>
                                     <button><Image style={{ objectFit : "contain" }} width={30} height={30} alt='facebook' src='/img/facebook.png' /></button>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
-                    <div className='col-md-6 col-xs-12 none-mobile'>
+                    <div className='col-md-6 col-xs-12 none-mobile-section'>
                         <div className='welcome-message overflow-hidden position-relative d-flex justify-content-center flex-column align-items-center p-4'>
                             <Image style={{ objectFit : "contain" }} width={130} height={130} className='my-3' src="/img/TD.png" alt="TD logo"/>
                             <p className='text-white text-center fw-light'>{t('login.form_message')}</p>

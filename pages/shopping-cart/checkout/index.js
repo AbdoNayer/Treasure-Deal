@@ -62,6 +62,30 @@ export default function CheckOut() {
             })
     }
     const payCartHandler = () => {
+        if (isCard === 'credit' || isCard==='paypal') {
+            Toastify({
+                text: 'Not Supported at the moment',
+                duration: 3000,
+                gravity: "top",
+                position: langVal === 'en' ? "left" : "right",
+                style: {
+                    background: "#F00",
+                }
+            }).showToast();
+            return
+        }
+        if (!isCard) {
+            Toastify({
+                text: 'Select Payment Method',
+                duration: 3000,
+                gravity: "top",
+                position: langVal === 'en' ? "left" : "right",
+                style: {
+                    background: "#F00",
+                }
+            }).showToast();
+            return
+        }
         setPayLoading(true)
         const data = referralChecked ? {
             pay_type: isCard,
@@ -90,6 +114,7 @@ export default function CheckOut() {
                     <h5 className='fw-normal'>{t("millionaire.checkout.yourOrder")}</h5>
 
                     <div className='view-check-num old-shadow'>
+                        <div className='over-x'>
                         <table className="table text-center mt-4">
                             <thead className='bgMainColor'>
                             <tr>
@@ -114,6 +139,7 @@ export default function CheckOut() {
                             )}
                             </tbody>
                         </table>
+                        </div>
 
                         <div className='d-flex align-items-end px-3 justify-content-end flex-column w-100 pb-3'>
                             <div className='d-flex align-items-center justify-content-between w-50'>
@@ -156,7 +182,8 @@ export default function CheckOut() {
                     
                     <div className='d-flex align-items-center'>
                         <div className='flex-fill'>
-                            <InputText 
+                            <InputText
+                                disabled={referralChecked}
                                 label={t('millionaire.checkout.enterReferralCode')}
                                 errorMessage={''}
                                 onChange={(e)=> setReferralId(e.target.value)}
@@ -182,7 +209,7 @@ export default function CheckOut() {
 
                             <label className="check-box d-flex align-items-center" onClick={()=> setIsCard('wallet')}>
                                 <input type="radio" name="radio" />
-                                <span className="checkmark"></span>
+                                <span className="checkmark"/>
                                 <strong className='fw-light mx-2'>{t('millionaire.checkout.TDWallet')}</strong>
                             </label>
 
@@ -193,7 +220,7 @@ export default function CheckOut() {
 
                             <label className="check-box d-flex align-items-center" onClick={()=> setIsCard('coins')}>
                                 <input type="radio" name="radio" />
-                                <span className="checkmark"></span>
+                                <span className="checkmark"/>
                                 <strong className='fw-light mx-2'>{t('millionaire.checkout.TDCoins')}</strong>
                             </label>
 
@@ -204,7 +231,7 @@ export default function CheckOut() {
 
                             <label className="check-box d-flex align-items-center" onClick={()=> setIsCard('credit')}>
                                 <input type="radio" name="radio" />
-                                <span className="checkmark"></span>
+                                <span className="checkmark"/>
                                 <strong className='fw-light mx-2'>{t('millionaire.checkout.creditCard')}</strong>
                             </label>
 
@@ -213,7 +240,7 @@ export default function CheckOut() {
 
                             <label className="check-box d-flex align-items-center" onClick={()=> setIsCard('paypal')}>
                                 <input type="radio" name="radio" />
-                                <span className="checkmark"></span>
+                                <span className="checkmark"/>
                                 <strong className='fw-light mx-2'>{t('millionaire.checkout.paypal')}</strong>
                             </label>
 

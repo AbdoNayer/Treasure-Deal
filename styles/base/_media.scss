@@ -3,12 +3,17 @@
 // Media Grid
 @media (max-width: 1000px) {
 
+    // Use Default
+    .none-mobile{
+        display: none !important
+    }
+
     .tab-mobile, .click-nav, .d-none{
         display: flex !important;
     }
 
-    .col-md-6, .col-md-7, .col-md-8, .col-md-5, .col-md-3, .col-md-4, .td_profile_wrapper .col-md-4, .td_profile_wrapper .col-md-8{
-        flex-basis: 100%;
+    .w-50, .w-75, .btn-button{
+        width: 100% !important;
     }
 
     // Header
@@ -55,7 +60,7 @@
                 font-weight: bold;
             }
         }
-        .dropdown, a{
+        .dropdown, a, .text-start{
             margin: 12px 0;
         }
         .d-flex{
@@ -112,6 +117,23 @@
     .up-category{
         .item-cate{
             flex-basis: 100% !important;
+            .sub-cate{
+                img{
+                    display: none;
+                }
+            }
+        }
+    }
+
+    // Up Bundle
+    .up-bundle{
+        .item-cate{
+            .in-dis{
+                margin: 20px 0;
+            }
+            img{
+                display: none;
+            }
         }
     }
 
@@ -216,6 +238,7 @@
         justify-content: center !important;
         align-items: center !important;
         text-align: center;
+        margin-top: 0 !important;
         .td-price-info-details{
             margin-bottom: 20px;
         }
@@ -307,9 +330,6 @@
                 }
             }
         }
-        .w-50, .w-75, .btn-button{
-            width: 100% !important;
-        }
         .td-result{
             .d-flex{
                 flex-direction: column;
@@ -340,6 +360,8 @@
                 height: 40px;
                 span{
                     font-size: 10px;
+                    text-align: center;
+                    font-weight: bold !important;
                 }
             }
         }
@@ -348,7 +370,7 @@
         }
         .result-items{
             .block-item-cate{
-                // flex-direction: column;
+                flex-direction: column;
                 .img-item{
                     flex-basis: 100%;
                     margin: 10px 0;
@@ -379,6 +401,9 @@
                         div{
                             justify-content: center;
                         }
+                        > .d-flex{
+                            flex-direction: column;
+                        }
                     }
                     a{
                         width: 100%;
@@ -389,17 +414,58 @@
         }
     }
 
+    .f-c{
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+
+    .align-self-end{
+        align-self: center !important;
+    }
+
+    .go-chat{
+        display: none;
+    }
+
+    .up-to-page{
+        bottom: 100px;
+    }
+
+    .cate-button{
+        margin: auto;
+        display: table;
+    }
+
+    .ev-poster {
+        .c-img{
+            height: 130px;
+            width: 130px;
+        }
+    }
+
+    .in-card-loop {
+        height: 320px;
+    }
+
 }
 
 @media (max-width: 1200px){
 
     // Use Default
-    .none-mobile{
+    .none-mobile-section{
         display: none !important
     }
 
-    .col-6, .col-md-6{
+    .col-6{
         flex-basis: 100%;
+    }
+
+    .col-md-6, .col-md-7, .col-md-5, .col-md-3, .col-md-9, .col-md-4, .col-md-10, .col-md-11, .td_profile_wrapper .col-md-4, .td_profile_wrapper .col-md-8{
+        flex-basis: 100%;
+    }
+
+    .td-card-body .body-list-card, .td-card-body .td-voucher-body-content-bundles .in-card-loop {
+        height: auto;
     }
 
     // Our Category
@@ -420,6 +486,9 @@
         .col-md-6{
             height: 400px;
         }
+        .in-mo{
+            text-align: center;
+        }
     }
 
     // Profile
@@ -427,6 +496,50 @@
         .td_account_info_wrapper{
             height: auto;
         }
+    }
+
+    .become-partner{
+        .swiper-button-prev, .swiper-button-next{
+            display: none;
+        }
+        .in-cate-images{
+            justify-content: center;
+            .col-md-4{
+                flex-basis: 33.3%;
+                padding: 0px 3px;
+            }
+        }
+        #video1{
+            height: 300px !important;
+            margin-top: 30px;
+        }
+        .user-friendly{
+            .w-75{
+                width: 100% !important;
+            }
+        }
+        .in-body-info, .head-title, .block-item{
+            text-align: center;
+        }
+        .user-friendly{
+            padding: 0 !important;
+        }
+        .img-friendly{
+            height: 400px;
+            width: 100%;
+        }
+        .videoImg{
+            height: 400px !important;
+            top: 0 !important;
+            margin-top: 20px !important;
+        }
+    }
+
+}
+
+@media (max-width: 1400px){
+    .td-lucky-card-body .td-lucky-nums-wrapper{
+        justify-content: center !important;
     }
 }
 
@@ -443,6 +556,87 @@
             //     text-overflow: ellipsis;            
             // }
         }
+    }
+}
+
+@media (max-width: 768px){
+    .td_bld_type{
+        flex-direction: column;
+        .up-width{
+            margin: 10px 0;
+        }
+    }
+    .px-5 {
+        padding: 0 20px !important;
+    }
+    .notifications{
+        padding: 0 10px;
+    }
+    .form-code{
+        .d-flex{
+            flex-direction: column;
+        }
+    }
+    .td-lotto-footer{
+        flex-direction: column;
+        button{
+            margin: 10px 0;
+        }
+    }
+    .fleCol{
+        flex-direction: column;
+    }
+
+    .flex-30, .flex-70{
+        flex-basis: 100%;
+    }
+
+    .swiper-button-prev.swiper-button-prev, .swiper-button-next.swiper-button-next{
+        display: none !important;
+    }
+    .td_profile_calendar .react-calendar__month-view {
+        padding: 0px 0px 0px;
+    }
+    .td_profile_calendar .react-calendar__month-view__days__day {
+        width: 45px;
+        height: 45px;
+        font-size: 12px;
+    }
+    .td_profile_calendar .react-calendar__month-view__weekdays abbr[title] {
+        font-size: 10px;
+    }
+    .td_profile_calendar .react-calendar__navigation button {
+        font-size: 13px;
+    }
+    .t_h_table_order {
+        flex-direction: column;
+        .td_orders_table_actions{
+            flex-direction: column;
+            .td_orders_table_actions_filters{
+                margin: 10px 0;
+                flex-wrap: wrap;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    }
+    .mySwiper, .events-block{
+        .info{
+            padding: 0 10px !important;
+            margin: 0 !important;
+            text-align: center;
+            max-width: 100% !important;
+            > div{
+                padding: 0 !important;
+                margin: 0 !important;
+                text-align: center;
+            }
+        }
+    }
+    .table-view .table th, .table-view .table td {
+        font-size: 12px !important;
+        font-weight: bold !important;
+        vertical-align: middle;
     }
 }
 

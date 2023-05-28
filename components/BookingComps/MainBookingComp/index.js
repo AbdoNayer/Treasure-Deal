@@ -291,7 +291,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                                         </div>
                                         : (timingsArray.length > 0
                                             ? 
-                                            <div className="select-ponier">
+                                            <div className="select-add">
                                                 <InputSelect
                                                     isLoading={availabilityLoading}
                                                     onChange={e => {
@@ -319,7 +319,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                                 : <>
                                     {(checkVoucherType()==='booking_type_1'||checkVoucherType()==='booking_type_2') && <>
                                         {voucherType==='doctor' &&
-                                            <div className={'select-ponier mt-3 mb-3'}>
+                                            <div className={'select-add select-full mt-3 mb-3'}>
                                                 <InputSelect className={'select-high-zIndex'} options={[{label:'filter1',value:1},{label:'filter2',value:2}]}/>
                                             </div>
                                         }

@@ -77,6 +77,15 @@ export const getOrdersCall = async ( order, type, page, token, lang, currency ) 
 };
 //#endregion
 
+//#region My Earns
+export const getMyEarns = async ( page, token, lang, currency ) => {
+    const res = await axios.get(`${CONST.url}my-earns?page=${page}`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+//#endregion
+
 //#region Bundles
 export const getBundlesCall = async ( page, token, lang, currency ) => {
     const res = await axios.get(`${CONST.url}my-bundles?page=${page}`,
@@ -140,14 +149,14 @@ export const getMillionaireDrawDetails = async ( token, lang, currency, drawId )
 //#endregion
 
 //#region Raffellionaire Results
-export const getResultsRaffellionaire = async ( token, lang, currency, date='' ) => {
-    const res = await axios.get(`${CONST.url}results/raffleillionaire?draw_date=${date}`,
+export const getResultsRaffellionaire = async ( token, lang, currency, date='',type ) => {
+    const res = await axios.get(`${CONST.url}results/raffleillionaire?draw_date=${date}&type=${type}`,
         headerConfig(lang,currency,token)
     )
     return res.data.data
 };
-export const getRaffellionaireDrawDetails = async ( token, lang, currency, drawId ) => {
-    const res = await axios.get(`${CONST.url}results/raffleillionaire/draw/details?draw_id=${drawId}`,
+export const getRaffellionaireDrawDetails = async ( token, lang, currency, drawId, type ) => {
+    const res = await axios.get(`${CONST.url}results/raffleillionaire/draw/details?draw_id=${drawId}&type=${type}`,
         headerConfig(lang,currency,token)
     )
     return res.data.data
@@ -183,30 +192,81 @@ export const getMerchantServices = async ( token, lang, currency, merchantId='' 
 //#endregion
 
 //#region Illusion Booking
-export const getIllusionHotels = async ( page, country='AE' ) => {
-    const res = (await axios.post(`${CONST.illusionUrl}hotellist?pageNumber=${page}&pageSize=4&countryCode=${country}`,
-    illusionBody,
-    {
+// export const getIllusionHotels = async ( page, country='AE' ) => {
+//     const res = (await axios.post(`${CONST.illusionUrl}hotellist?pageNumber=${page}&pageSize=4&countryCode=${country}`
+//         ,illusionBody
+//     ))
+//     return res.data
+// };
+// export const getIllusionHotelDetails = async ( hotelCode ) => {
+//     const res = (await axios.post(`${CONST.illusionUrl}details`
+//         ,illusionDetailsBody(hotelCode)
+//     ))
+//     return res.data
+// };
+export const getIllusionHotelsNative = async ( page=1, country='AE' ) => {
+    const url = `/api/handleHotels`;
+    const method = 'POST';
+    const options = {
+        method,
         headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": "*",
-      },
+        },
+        body: JSON.stringify({'pageNumber':1,'pageSize':400,'countryCode':country}),
     }
-    ))
-    return res.data
+    const res = await fetch(url,options)
+    return await res.json()
 };
-export const getIllusionHotelDetails = async ( hotelCode ) => {
-    const res = (await axios.post(`${CONST.illusionUrl}details`
-        ,illusionDetailsBody(hotelCode)
-    ))
-    return res.data
+export const getIllusionHotelDetailsNative = async ( hotelCode ) => {
+    const url = `/api/handleHotelDetails`;
+    const method = 'POST';
+    const options = {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({'hotelCode':hotelCode}),
+    }
+    const res = await fetch(url,options)
+    return await res.json()
+};
+export const getIllusionHotelSearchDetailsNative = async ( hotelCode, startDate, endDate, nationality, roomConfiguration ) => {
+    const url = `/api/handleHotelSearchDetails`;
+    const method = 'POST';
+    const options = {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            'hotelCode':hotelCode,
+            'startDate':startDate,
+            'endDate':endDate,
+            'nationality':nationality,
+            'roomConfiguration':roomConfiguration
+        }),
+    }
+    const res = await fetch(url,options)
+    return await res.json()
+};
+export const sendIllusionHotelBooking = async ( token, lang, currency, bookingData ) => {
+    const res = await axios.post(`${CONST.url}booking/illusion-booking`,
+        bookingData,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
 };
 //#endregion
 
 //#region Categories and Malls
 export const getAllCategories = async ( token='', lang, currency, parentId='' ) => {
     const res = await axios.get(`${CONST.url}categories?parent_id=${parentId}`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+export const getAllEventsCategories = async ( token='', lang, currency ) => {
+    const res = await axios.get(`${CONST.url}events-categories`,
         headerConfig(lang,currency,token)
     )
     return res.data.data
@@ -252,6 +312,24 @@ export const getAllCities = async ( token='', lang, currency, countryId ) => {
 };
 //#endregion
 
+//#region Events Booking
+export const sendEventBookingRequest = async ( token, lang, currency, bookingData ) => {
+    const res = await axios.post(`${CONST.url}booking/event-booking`,
+        bookingData,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+export const editEventBookingRequest = async ( token, lang, currency, bookingData ) => {
+    const res = await axios.post(`${CONST.url}booking/event-booking`,
+        bookingData,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+
+//#endregion
+
 //#region Booking
 export const checkDateAvailability = async ( token, lang, currency,availabilityData ) => {
     const res = await axios.get(`${CONST.url}booking/check-availability?merchant_id=${availabilityData.merchant_id}&date=${availabilityData.date}`
@@ -286,6 +364,14 @@ export const getOrderDetails = async ( token, lang, currency, orderId='' ) => {
 
 export const sendBookingRequest = async ( token, lang, currency, bookingData ) => {
     const res = await axios.post(`${CONST.url}booking/booking`,
+        bookingData,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+
+export const sendPropertyBookingRequest = async ( token, lang, currency, bookingData ) => {
+    const res = await axios.post(`${CONST.url}booking/property-booking`,
         bookingData,
         headerConfig(lang,currency,token)
     )
@@ -460,6 +546,25 @@ export const getWinningShows = async ( token, lang, currency ) => {
 };
 //#endregion
 
+//#region Help Center
+export const contactUsMessage = async ( contactData ) => {
+    const res = await axios.post(`${CONST.url}contact-us/send-message`,
+        contactData,
+        // headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+//#endregion
+
+//#region Help Center
+export const contactUs = async ( contactData ) => {
+    const res = await axios.get(`${CONST.url}contact-us`,
+        contactData,
+    )
+    return res.data.data
+};
+//#endregion
+
 //#region FAQs
 export const getFAQs = async ( lang, currency ) => {
     const res = await axios.get(`${CONST.url}faqs`
@@ -532,8 +637,9 @@ export const getEnquiryDetailsData = async ( enquiryId, token, lang, currency ) 
     )
     return res.data.data
 };
-export const chaneEnquiryStatus = async ( enquiryId, enquiryData, token, lang, currency ) => {
-    const res = await axios.post(`${CONST.url}enquiries/change-status?id=${enquiryId}`,
+export const chaneEnquiryStatus = async ( enquiryData, token, lang, currency ) => {
+    const res = await axios.post(`${CONST.url}enquiries/change-status`,
+        enquiryData,
         headerConfig(lang,currency,token)
     )
     return res.data.data
@@ -569,6 +675,46 @@ export const getChatRoomUnseenMessages = async ( roomId ,token, lang, currency )
 export const deleteChatRoomMessage = async ( messageId ,token, lang, currency ) => {
     const res = await axios.get(`${CONST.url}delete-message-copy/${messageId}`,
         headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+//#endregion
+
+//#region Quizzes
+export const getAllQuizzes = async ( token, lang, currency, page=1 ) => {
+    const res = await axios.get(`${CONST.url}games/quizzes?page=${page}`,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+export const startQuizApi = async ( token, lang, currency, quizId ) => {
+    const res = await axios.post(`${CONST.url}games/quizzes/start?id=${quizId}`,{},
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+export const submitQuizAnswers = async ( token, lang, currency, quizId, quizBody ) => {
+    const res = await axios.post(`${CONST.url}games/quizzes/send-answers?id=${quizId}`,
+        quizBody,
+        headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+//#endregion
+
+//#region Slides
+export const getSlides = async ( type ) => {
+    const res = await axios.get(`${CONST.url}slides?type=${type}`,
+        // headerConfig(lang,currency,token)
+    )
+    return res.data.data
+};
+//#endregion
+
+//#region Treasure Settings
+export const getTreasureSettings = async () => {
+    const res = await axios.get(`${CONST.url}settings`,
+        // headerConfig(lang,currency,token)
     )
     return res.data.data
 };

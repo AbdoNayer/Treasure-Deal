@@ -83,6 +83,8 @@ export default function ShoppingCart() {
                     
                         <div className='mb-5'>
     
+                            <div className='over-x'>
+
                             <div className='view-check-num old-shadow'>
                                 <table className="table text-center mt-4">
                                     <thead className='bgMainColor'>
@@ -125,6 +127,7 @@ export default function ShoppingCart() {
                                 </div>
 
                             </div>
+                            </div>
 
                             <div className='d-flex align-items-end flex-column justify-content-end mx-2 my-2'>
                                 <div className='d-flex align-items-center justify-content-between w-50'>
@@ -138,7 +141,7 @@ export default function ShoppingCart() {
 
                             <div className='my-5'>
                                 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column align-items-center">
                                         <h5 className='text-white'>{t('category.millionaire')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/the-millionaire-voucher/millionaire-lotto')}>
@@ -150,7 +153,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.raffleillionaire')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/raffleillionaire-bundle/raffleillionaire')}>
@@ -169,7 +172,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.cars')}</h5>
                                         <button className='btn-button bg-white'onClick={()=>router.push('/luxury-cars-voucher/luxury-cars')}>
@@ -188,7 +191,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.villas')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/luxury-villas-voucher/luxury-villas')}>
@@ -207,7 +210,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.watches')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/luxury-watches-voucher/luxury-watches')}>
@@ -226,7 +229,7 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
 
-                                <div className='bg-voukum d-flex align-items-center justify-content-between'>
+                                <div className='bg-voukum d-flex align-items-center justify-content-between f-c'>
                                     <div className="d-flex flex-column text-center align-items-center">
                                         <h5 className='text-white'>{t('category.bride')}</h5>
                                         <button className='btn-button bg-white' onClick={()=>router.push('/bride-&-groom-voucher/bride-&-groom')}>

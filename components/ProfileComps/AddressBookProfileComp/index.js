@@ -16,19 +16,22 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {getProfileAuth, updateProfileAuth} from "../../../redux-toolkit/actions";
 import * as yup from "yup";
 import Image from 'next/image';
+import {useTranslation} from "react-i18next";
 
 export const AddressBookProfileComp = ({...props}) => {
 
     const user                                          = useSelector((state) => state.user.user);
     const langVal                                       = useSelector((state) => state.language.language);
     const location                                      = useSelector((state) => state.location.location);
-    const currency                                          = useSelector((state) => state.currency.currency);
+    const currency                                      = useSelector((state) => state.currency.currency);
+    const { t }     = useTranslation();
 
-    const [showNewAddressForm,setShowNewAddressForm] = useState(false)
-    const [buildingType,setBuildingType] = useState('apartment')
-    const [addressLocation,setAddressLocation] = useState()
-    const [submitMode,setSubmitMode] = useState('');
-    const [selectedAddress,setSelectedAddress] = useState()
+    const [showNewAddressForm,setShowNewAddressForm]    = useState(false)
+    const [buildingType,setBuildingType]                = useState('apartment')
+    const [addressLocation,setAddressLocation]          = useState()
+    const [submitMode,setSubmitMode]                    = useState('');
+    const [selectedAddress,setSelectedAddress]          = useState()
+    const [mapDescription,setMapDescription]            = useState('')
 
     const {
         data:addressData,
@@ -58,7 +61,7 @@ export const AddressBookProfileComp = ({...props}) => {
             floor: data.floor,
             lat: addressLocation.lat,
             lng: addressLocation.lng,
-            map_desc: 'adad',
+            map_desc: mapDescription,
             additional_directions: data.additional_directions,
             is_default:addressData.addresses.length > 0 ? 0 : 1,
         };
@@ -114,42 +117,41 @@ export const AddressBookProfileComp = ({...props}) => {
         }
     },[selectedAddress])
 
-
     if (isAddressLoading) return <div className={'modal-height-view position-relative'}><LoadData/></div>
 
     return (
         <div className={'td_address_book_profile_comp'}>
             <div className="row">
-                {addressData && addressData.addresses.map(add => <div className={'col-4 mb-4'} key={add.id}><AddressComp refetchAddresses={refetchAddress} handleEdit={handleEdit} handleDelete={handleDelete} address={add} /></div>)}
-                <button className="td_add_new_address bg-transparent border-main rounded-2 col-4 mb-4 d-flex align-items-center justify-content-center flex-column"
+                {addressData && addressData.addresses.map(add => <div className={'col-md-4 mb-4'} key={add.id}><AddressComp refetchAddresses={refetchAddress} handleEdit={handleEdit} handleDelete={handleDelete} address={add} /></div>)}
+                <button className="td_add_new_address bg-transparent border-main rounded-2 col-md-4 mb-4 d-flex align-items-center justify-content-center flex-column"
                      onClick={()=> {
                          setSubmitMode('add')
                          setShowNewAddressForm(true)
                      }} >
                     <Image src={'/img/home-address.png'} width={'70'} height={'70'} alt='icon' className={'icon my-3'}/>
-                    <p className="m-0 text-black">Add new Address</p>
+                    <p className="m-0 text-black">{t('booking.addAddress')}</p>
                 </button>
             </div>
             {showNewAddressForm && <form className={'td_new_address_form mx-auto td_booking_form_new_address_wrapper w-75 mt-5'} onSubmit={handleSubmit(submitHandler)}>
-                <div className="td_title mb-4 fs-5">{submitMode==='edit'?'Edit your address':'Add new Address'}</div>
+                <div className="td_title mb-4 fs-5">{submitMode==='edit'? t('booking.editAddress') : t('booking.addAddress')}</div>
                 <div className="td_bld_type d-flex align-items-center justify-content-between my-4">
                     <div
                         onClick={()=> setBuildingType('apartment')}
                         className={`d-flex align-items-center flex-column justify-content-center up-width ${buildingType==='apartment' && 'td_bld_selected'}`}>
                             <span className="icon-apartment fs-3 my-2" />
-                            <p className="m-0">Apartment</p>
+                            <p className="m-0">{t('booking.apartment')}</p>
                     </div>
                     <div
                         onClick={()=> setBuildingType('house')}
                         className={`d-flex align-items-center flex-column justify-content-center up-width ${buildingType==='house' && 'td_bld_selected'}`}>
                             <span className="icon-home-m fs-3 my-2" />
-                            <p className="m-0">House</p>
+                            <p className="m-0">{t('booking.house')}</p>
                     </div>
                     <div
                         onClick={()=> setBuildingType('office')}
                         className={`d-flex align-items-center flex-column justify-content-center up-width ${buildingType==='office' && 'td_bld_selected'}`}>
                             <span className="icon-office fs-3 my-2" />
-                            <p className="m-0">Office</p>
+                            <p className="m-0">{t('booking.office')}</p>
                     </div>
                 </div>
                 <div className="td_new_address_details mb-3">
@@ -175,6 +177,7 @@ export const AddressBookProfileComp = ({...props}) => {
                     </div>
                     <div className="td_map_wrapper">
                         <Map
+                            setMapDescription={setMapDescription}
                             setAddressLocation={setAddressLocation}
                             defaultCenter={submitMode==='edit' ? {lat: parseFloat(selectedAddress.lat),lng: parseFloat(selectedAddress.lng)} : (location.lat ? {lat:location.lat,lng:location.long} : undefined)}
                             defaultMarkerPosition={submitMode==='edit' ? {lat: selectedAddress.lat,lng: selectedAddress.lng} : (location.lat ? {lat:location.lat,lng:location.long} : undefined)}

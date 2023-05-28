@@ -1,10 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from "next/link";
+import Image from 'next/image';
+import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
+import Toastify from 'toastify-js';
+import app from "../../app.json";
+import { contactUs } from "../../redux-toolkit/actions/axiosCalls";
+import {useApi} from "../../hooks/useApi";
 
 export default function Footer() {
   
-  const { t }                         = useTranslation();
+    const { t }                                 = useTranslation();
+    const router                                = useRouter();
+    const langVal                               = useSelector((state) => state.language.language);
+    const user                                  = useSelector((state) => state.user.user);
+
+    const {
+        data:contactData
+    } = useApi(()=> contactUs())
+
+    const chickLink = (link) => {
+        if (user) {
+            router.push(link);
+        }else {
+            Toastify({
+                text: t('auth.loginFirst'),
+                duration: 3000,
+                gravity: "top",
+                position: langVal === 'en' ? "left" : "right",
+                style: {
+                  background: "#F00",
+                }
+            }).showToast();
+        }
+    }
 
   return (
     <footer>
@@ -23,47 +53,36 @@ export default function Footer() {
                     <div className='head-box'>
                         <h2>{t("footer.myAccount")}</h2>
                         <ul className='d-flex flex-column link-footer'>
-                            <Link href={'/'}>
+                            <a onClick={() => chickLink('/my-account')}>
                                 {t('footer.myAccount')}
-                            </Link>
-                            <Link href={'/'}>
+                            </a>
+                            <a onClick={() => chickLink('/shopping-cart')}>
                                 {t('footer.cart')}
-                            </Link>
-                            <Link href={'/'}>
+                            </a>
+                            {/* <Link href={'/about'}>
                                 {t('app.aboutUs')}
-                            </Link>
-                            <Link href={'/'}>
+                            </Link> */}
+                            <a onClick={() => chickLink('/winners')}>
                                 {t('header.winners')}
-                            </Link>
-                            <Link href={'/help-center'}>
+                            </a>
+                            <a onClick={() => chickLink('/help-center')}>
                                 {t('footer.helpCenter')}
-                            </Link>
+                            </a>
                         </ul>
                     </div>
                 </div>
                 <div className='col-md-3 col-xs-12'>
                     <div className='head-box'>
                         <h2>{t("footer.information")}</h2>
-                        <ul className='d-flex flex-column link-footer'>
-                            <Link href={'/'}>
-                                Millionaire Vouchers
-                            </Link>
-                            <Link href={'/'}>
-                                Raffleillionaire Vouchers
-                            </Link>
-                            <Link href={'/'}>
-                                Luxury Villas Vouchers
-                            </Link>
-                            <Link href={'/'}>
-                                Luxury Cars Vouchers
-                            </Link>
-                            <Link href={'/'}>
-                                Luxury Watches Vouchers
-                            </Link>
-                            <Link href={'/'}>
-                                Bride & Groom Vouchers
-                            </Link>
-                        </ul>
+                        <div className='d-flex flex-column link-footer'>
+                            {
+                                app.categoryListHeader.map((item, i) => (
+                                    <a key={i} onClick={() => chickLink(item.link)}>
+                                        {t(item.name)}
+                                    </a>
+                                ))
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className='col-md-3 col-xs-12'>
@@ -71,7 +90,14 @@ export default function Footer() {
                         <h2>{t("footer.followUs")}</h2>
                         <p>{t("footer.text2")}</p>
                         <ul className='social  d-flex align-items-center'>
-                            <Link href={'/'} className="mx-1">
+                            {
+                                contactData && contactData.sociails.map((item) => (
+                                    <Link target='_blank' key={item?.id} href={item.link ? item.link : '/'} className="mx-1">
+                                        <Image src={item?.image} quality='100' alt='img' width={20} height={20} />
+                                    </Link>
+                                ))
+                            }
+                            {/* <Link href={'/'} className="mx-1">
                                 <i className='icon-facebook'></i>
                             </Link>
                             <Link href={'/'} className="mx-1">
@@ -82,7 +108,7 @@ export default function Footer() {
                             </Link>
                             <Link href={'/'} className="mx-1">
                                 <i className='icon-youtube'></i>
-                            </Link>
+                            </Link> */}
                         </ul>
                     </div>
                 </div>

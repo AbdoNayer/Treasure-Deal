@@ -110,6 +110,7 @@ export const RedeemVoucherResult = ({...props}) => {
                         </>
                         :<div className={'modal-height-view position-relative'}><LoadData/></div>
                     } */}
+                        <div className="over-x">
                         <table className={'table text-center'}>
                             <thead>
                                 <tr>
@@ -148,6 +149,7 @@ export const RedeemVoucherResult = ({...props}) => {
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     <Pagination
                         className="pagination-bar"
                         currentPage={currentPage}

@@ -25,7 +25,7 @@ export const CarBookingComp = ({children,selectedServices,setServices,car,...pro
 
     const openGalleryModal = (gallery) => dispatch(showModalAction(<ModalForm title={t('booking.details.gallery')}><GalleryModalForm gallery={gallery}/></ModalForm>))
     const options = [
-        {label:'Choose Duration',value:0,price:0}
+        {label:t('app.chooseDura'),value:0,price:0}
     ]
     return (
         <div>
@@ -33,7 +33,7 @@ export const CarBookingComp = ({children,selectedServices,setServices,car,...pro
                 {(selectedServices.find(service=> service.id === car.id) || (selectedServices && selectedServices[0]?.serviceId)) &&
                     <div className="bgMainColor text-white p-1 py-2 px-3">
                         <span className={'icon-star-full yallowColor'}/>
-                        <strong className="mx-2 fw-light">Selected {car.type.split('_').join(' ')}</strong>
+                        <strong className="mx-2 fw-light">{t('booking.selected')} {car.type.split('_').join(' ')}</strong>
                     </div>
                 }
                 <div className="rounded-1 p-3">
@@ -91,7 +91,7 @@ export const CarBookingComp = ({children,selectedServices,setServices,car,...pro
                         {car.has_price === 0 && <>
                             <div>select rent duration</div>
                             {car.prices &&
-                                <div className="select-ponier">
+                                <div className="select-add select-full">
                                     <InputSelect
                                         onChange={e=> {
                                             setServices({serviceId:car.id,id:e.value,price:e.price})

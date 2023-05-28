@@ -16,7 +16,7 @@ export default function Register() {
     const { t }                         = useTranslation();
     const dispatch                      = useDispatch();
     const router                        = useRouter();
-    const currency                               = useSelector((state) => state.currency.currency);
+    const currency                      = useSelector((state) => state.currency.currency);
     const langVal                       = useSelector((state) => state.language.language);
     const nationalityOptions            = useSelector((state) => state.countries.countries);
     const [ isLoading,setIsLoading ]    = useState(false);
@@ -31,11 +31,7 @@ export default function Register() {
         {label: 'Driving License', value: 'driving-license'},
     ]
 
-    const fetchData = () => {
-
-        dispatch(countries(langVal));
-    
-    }
+    const fetchData = () => { dispatch(countries(langVal)); }
     
     useEffect(() => { fetchData(); }, []);
 
@@ -70,16 +66,15 @@ export default function Register() {
     const watchIdentification = watch('identification_type');
 
     const openModal = modalType => {
-        if (modalType==='terms') dispatch(showModalAction(<ModalForm title={'Terms and conditions'}>
-            <div className="text-center">Terms and conditions</div>
+        if (modalType==='terms') dispatch(showModalAction(<ModalForm title={t('app.termService')}>
+            <p className="text-center mb-5">{t('app.termService')}</p>
         </ModalForm>))
-        if (modalType==='privacy') dispatch(showModalAction(<ModalForm title={'Privacy policy'}>
-            <div className="text-center">Privacy policy</div>
+        if (modalType==='privacy') dispatch(showModalAction(<ModalForm title={t('footer.Policy')}>
+            <p className="text-center mb-5">{t('footer.Policy')}</p>
         </ModalForm>))
     }
 
     const submitHandler = data => {
-        console.log(data)
         const regData = {
             ...data,
             identification_type : data.identification_value ? data.identification_type : null
@@ -159,8 +154,8 @@ export default function Register() {
                         />
                     </div>
                     <div className="col-md-6 col-xs-12 mb-4">
-                        <div className="select-add">
-                            <label className='mb-2 fw-light'>{t('register.labels.gender')}</label>
+                        <label className='mb-2 fw-light'>{t('register.labels.gender')}</label>
+                        <div className="select-add select-full">
                             <Controller
                                 control={control}
                                 defaultValue={''}
@@ -171,12 +166,13 @@ export default function Register() {
                                         value={genderOptions.find(c => c.value === value)}
                                         onChange={val => field.onChange(val.value)}
                                         options={genderOptions}
-                                        errorMessage={errors.gender && errors.gender.message}
+                                        // errorMessage={errors.gender && errors.gender.message}
                                         placeholder={t('register.placeholders.select')}
                                     />
                                 }
                             />
                         </div>
+                        {errors.gender && errors.gender.message && <small className='text-danger'>{errors.gender.message}</small>}
                     </div>
                     <div className="col-md-6 col-xs-12 mb-4">
                         <InputText 
@@ -197,8 +193,8 @@ export default function Register() {
                         />
                     </div>
                     <div className="col-md-6 col-xs-12 mb-4">
-                        <div className="select-add">
                             <label className='mb-2 fw-light'>{t('register.labels.nationality')}</label>
+                        <div className="select-add select-full">
                             {
                                 nationalityOptions ?
                                 <Controller
@@ -211,7 +207,7 @@ export default function Register() {
                                             value={nationalityOptions.find(c => c.id === id)}
                                             onChange={val => field.onChange(val.value)}
                                             options={nationalityOptions.map(item=>({label:item.name,value:item.id}))}
-                                            errorMessage={errors.nationality_id && errors.nationality_id.message}
+                                            // errorMessage={errors.nationality_id && errors.nationality_id.message}
                                             placeholder={t('register.placeholders.select')}
                                         />
                                     }
@@ -220,10 +216,11 @@ export default function Register() {
                                 ''
                             }
                         </div>
+                        {errors.nationality_id && errors.nationality_id.message && <small className='text-danger'>{errors.nationality_id.message}</small>}
                     </div>
                     <div className="col-md-6 col-xs-12 mb-4">
-                        <div className="select-add">
                             <label className='mb-2 fw-light'>{t('register.labels.country')}</label>
+                        <div className="select-add select-full">
                             {
                                 nationalityOptions ?
                                 <Controller
@@ -236,7 +233,7 @@ export default function Register() {
                                             value={nationalityOptions.find(c => c.id === id)}
                                             onChange={val => field.onChange(val.value)}
                                             options={nationalityOptions.map(item=>({label:item.name,value:item.id}))}
-                                            errorMessage={errors.country_id && errors.country_id.message}
+                                            // errorMessage={errors.country_id && errors.country_id.message}
                                             placeholder={t('register.placeholders.select')}
                                         />
                                     }
@@ -245,10 +242,11 @@ export default function Register() {
                                 ''
                             }
                         </div>
+                        {errors.country_id && errors.country_id.message && <small className='text-danger'>{errors.country_id.message}</small>}
                     </div>
                     <div className="col-md-6 col-xs-12 mb-4">
-                        <div className="select-add">
                             <label className='mb-2 fw-light'>{t('register.labels.identification')}</label>
+                        <div className="select-add select-full">
                             <Controller
                                 control={control}
                                 defaultValue={''}
@@ -268,9 +266,9 @@ export default function Register() {
                     </div>
                 </div>
                 <div className="td_disclaimer text-center mt-3">
-                    By signing up you agree to our
-                    <span onClick={()=>openModal('terms')}> terms of service</span> and
-                    <span onClick={()=>openModal('privacy')}> privacy policy</span>
+                    {t('app.bySigningAgree')}
+                    <span onClick={()=>openModal('terms')}> {t('app.termService')}</span>
+                    <span onClick={()=>openModal('privacy')}> {t('footer.Policy')}</span>
                 </div>
                 { 
                     isLoading ?

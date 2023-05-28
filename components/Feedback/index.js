@@ -48,7 +48,7 @@ export default function FeedBack({redeemId,refetchRedeems,...props}) {
     const submitFeedBack = async () => {
         setIsFeedBackLoading(true)
         if (feedBacKContainsZeroRating()) {
-            setErrorMessage('Select Rating before submitting')
+            setErrorMessage(t('app.selectSubmitting'))
             setIsFeedBackLoading(false)
             return
         }
@@ -76,7 +76,7 @@ export default function FeedBack({redeemId,refetchRedeems,...props}) {
 
         <div className=''>
             <h5 className='fw-light text-start'>{t('booking.feedback.rateStars')}</h5>
-            <p className='fw-light text-start'>Lorem ipsum uptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio.</p>
+            <p className='fw-light text-start'>{t('verify_number.disclaimer_message')}</p>
         </div>
 
         <div className=''>

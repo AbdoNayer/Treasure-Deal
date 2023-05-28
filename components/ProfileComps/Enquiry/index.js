@@ -45,7 +45,7 @@ export const Enquiry = ({...props}) =>  {
     const clickView = (id) => {
         dispatch(showModalAction(
             <ModalForm title={t('user.profile.enquiry.title')}>
-                <EnquiryDetails enquiryId={id} />
+                <EnquiryDetails enquiryId={id} refetchEnquires={refetchEnquiresData()} />
             </ModalForm>
         ))
     }
@@ -64,36 +64,38 @@ export const Enquiry = ({...props}) =>  {
 
                 {
                     filteredObjs.length > 0 ? 
-                    <table className={'table text-center'}>
-                        <thead>
-                            <tr>
-                                <th className={'fw-light'}>Si.No</th>
-                                <th className={'fw-light'}>{t('user.profile.enquiry.compo.date')}</th>
-                                <th className={'fw-light'}>{t('user.profile.enquiry.compo.package')}</th>
-                                <th className={'fw-light'}>{t('user.profile.enquiry.compo.merchant')}</th>
-                                <th className={'fw-light'}>{t('ordersProfile.status')}</th>
-                                <th className={'fw-light'}>{t('favouritesProfile.action')}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            filteredObjs.map((enquiry,idx) =>
-                                <tr key={enquiry.id}>
-                                    <td>{convertIndexToSerial(idx,currentPage,enquiresData?.pagination.per_page)}</td>
-                                    <td>{enquiry.date}</td>
-                                    <td>{enquiry.package}</td>
-                                    <td>{enquiry.merchant.name}</td>
-                                    <td className="text-warning">{enquiry.status_text}</td>
-                                    <td>
-                                        <button onClick={()=>clickView(enquiry.id)} className="text-primary bg-transparent">
-                                            <i className="icon-eye mainColor fs-4"/>
-                                        </button>
-                                    </td>
+                    <div className="over-x">
+                        <table className={'table text-center'}>
+                            <thead>
+                                <tr>
+                                    <th className={'fw-light'}>{t('app.SiNo')}</th>
+                                    <th className={'fw-light'}>{t('user.profile.enquiry.compo.date')}</th>
+                                    <th className={'fw-light'}>{t('user.profile.enquiry.compo.package')}</th>
+                                    <th className={'fw-light'}>{t('user.profile.enquiry.compo.merchant')}</th>
+                                    <th className={'fw-light'}>{t('ordersProfile.status')}</th>
+                                    <th className={'fw-light'}>{t('favouritesProfile.action')}</th>
                                 </tr>
-                            )
-                        }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {
+                                filteredObjs.map((enquiry,idx) =>
+                                    <tr key={enquiry.id}>
+                                        <td>{convertIndexToSerial(idx,currentPage,enquiresData?.pagination.per_page)}</td>
+                                        <td>{enquiry.date}</td>
+                                        <td>{enquiry.package}</td>
+                                        <td>{enquiry.merchant.name}</td>
+                                        <td className="text-warning">{enquiry.status_text}</td>
+                                        <td>
+                                            <button onClick={()=>clickView(enquiry.id)} className="text-primary bg-transparent">
+                                                <i className="icon-eye mainColor fs-4"/>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                            </tbody>
+                        </table>
+                    </div>
                 :
                     <div className={'modal-height-view position-relative text-center d-flex align-items-center justify-content-center'}>
                         <h4 className="text-danger">{t('user.profile.enquiry.NEnquiresYet')}</h4>

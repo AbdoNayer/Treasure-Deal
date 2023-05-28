@@ -2,11 +2,11 @@
 
 .td_profile_calendar{
   .react-calendar {
-    padding-top: 20px;
+    padding-top: 0;
     background: $white;
     line-height: 1.125em;
     box-shadow: 0 3px 6px #00000029;
-    border-radius: 23px;
+    border-radius: 20px;
     overflow: hidden;
 
     &--doubleView {
@@ -45,14 +45,13 @@
 
     &__navigation {
       display: flex;
-      height: 21px;
-      margin-bottom: 1em;
+      padding: 20px 0;
       background-color: $input;
 
       button {
         min-width: 44px;
         background: none;
-        font-size: 19px;
+        font-size: 17px;
 
         &:disabled {
           background-color: $input;
@@ -117,7 +116,7 @@
 
       &__days {
         &__day {
-          width: 70px;
+          width: 75px;
           height: 70px;
           border: 0.5px solid #a9a9a9;
           background-color: $white;

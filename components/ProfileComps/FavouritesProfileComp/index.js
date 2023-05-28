@@ -66,22 +66,24 @@ export const FavouritesProfileComp = ({...props}) => {
                         {
                             millionLinesInfo.lucky_numbers.length > 0
                             ? 
-                            <table className="table text-center">
-                                <thead>
-                                    <tr>
-                                        <th className="fw-light">{t('favouritesProfile.name')}</th>
-                                        <th className="fw-light">{t('favouritesProfile.favouriteNumber')}</th>
-                                        <th className="fw-light">{t('favouritesProfile.action')}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        millionLinesInfo.lucky_numbers.map((item) =>(
-                                            <FavouriteLuckyRow editLucky={editLucky} deleteLucky={deleteLucky} key={item.id} item={item}/>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
+                            <div className="over-x">
+                                <table className="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th className="fw-light">{t('favouritesProfile.name')}</th>
+                                            <th className="fw-light">{t('favouritesProfile.favouriteNumber')}</th>
+                                            <th className="fw-light">{t('favouritesProfile.action')}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            millionLinesInfo.lucky_numbers.map((item) =>(
+                                                <FavouriteLuckyRow editLucky={editLucky} deleteLucky={deleteLucky} key={item.id} item={item}/>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                             :
                             <div className={'modal-height-view position-relative text-center d-flex align-items-center justify-content-center w-100'}>
                                 <h4 className="text-danger">{t('favouritesProfile.noFound')}</h4>

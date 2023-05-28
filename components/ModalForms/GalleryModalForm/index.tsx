@@ -31,6 +31,7 @@ export const GalleryModalForm = ({gallery,isMenu=false,...props}) => {
             height={318}
             src={`https://img.youtube.com/vi/${imageSource}/0.jpg`}
             alt="gallery item"
+            unoptimized={true} priority
         />
     }
 
@@ -73,7 +74,7 @@ export const GalleryModalForm = ({gallery,isMenu=false,...props}) => {
                             ? 
                             <iframe className="rounded-3" id="video1" width="100%" height="318" src={galleryItem.video_url} frameBorder="0" allowtransparency="true" allowFullScreen></iframe>
                             : 
-                            <Image onClick={() => isMenu ? setOpen(true) : null} width={318} height={318} src={galleryItem.src||galleryItem.image} alt="gallery item"/>
+                            <Image unoptimized={true} priority onClick={() => isMenu ? setOpen(true) : null} width={318} height={318} src={galleryItem.src||galleryItem.image} alt="gallery item"/>
                         }
                     </SwiperSlide>
                 )}
@@ -96,7 +97,7 @@ export const GalleryModalForm = ({gallery,isMenu=false,...props}) => {
                             ? 
                             videoUrlToThumb(galleryItem.video_url)
                             : 
-                            <Image width={318} height={318} src={galleryItem.src||galleryItem.image} alt="gallery item"/>
+                            <Image unoptimized={true} priority width={318} height={318} src={galleryItem.src||galleryItem.image} alt="gallery item"/>
                         }
                         {(mainSwiperSlide !== idx) && <div className="td_slide_overlay rounded-3"/>}
                     </SwiperSlide>

@@ -35,7 +35,7 @@ export const MillionaireCart = ({cartData,subscriptions}) => {
 
     const editLineClick = (selectedLines,lineId) => {
         dispatch(showModalAction(
-            <ModalForm title={'update line'}>
+            <ModalForm title={t('app.updateLine')}>
                 <EditLuckyNumberModalForm selectedLines={selectedLines} lineId={lineId}/>
             </ModalForm>
         ))
@@ -83,7 +83,7 @@ export const MillionaireCart = ({cartData,subscriptions}) => {
                                 <div className="td-subscription-select-wrapper mx-1">
                                     {subscriptions && <InputSelect
                                         isLoading={isDiscountLoading}
-                                        placeholder={'Multi Bundle'}
+                                        placeholder={t('shoppingCart.multiBundle')}
                                         options={subscriptions.map(sub => subToOption(sub))}
                                         onChange={e => applySubscription(e.value)}
                                         defaultValue={cartData.cart_data.subscription_id && subToOption(subscriptions.find(sub => sub.id === cartData.cart_data.subscription_id))}

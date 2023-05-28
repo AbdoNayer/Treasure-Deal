@@ -14,6 +14,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {MediaUploader} from "../../MediaUploaders/MediaUploader";
 import {IMAGE_FORMATS} from "../../../redux-toolkit/consts";
+import Toastify from 'toastify-js';
 
 export const BusinessServices = ({...props}) =>  {
     const user                                          = useSelector((state) => state.user.user);
@@ -125,7 +126,7 @@ export const BusinessServices = ({...props}) =>  {
                         height={'150'}
                         alt='approve'
                     />
-                    <p className="my-4">Thank you for your submission! Your profile will under looking for our admin team. Profile will be activated as soon as possible</p>
+                    <p className="my-4">{t('app.thankYourSubmission')}</p>
                 </div>
             </ModalForm>
         ))
@@ -188,7 +189,15 @@ export const BusinessServices = ({...props}) =>  {
                 append({}, {focusName:'channelName'})
             }
             else {
-                alert('cant add more channels')
+                Toastify({
+                    text: t('app.cantAddChannels'),
+                    duration: 3000,
+                    gravity: "top",
+                    position: langVal === 'en' ? "left" : "right",
+                    style: {
+                      background: "#F00",
+                    }
+                }).showToast();
             }
         }
     }
@@ -199,15 +208,15 @@ export const BusinessServices = ({...props}) =>  {
 
             <div className="mb-5 text-center w-75 m-auto">
                 <h4>{t('user.profile.referral.title')}</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the</p>
+                <p>{t('app.infoDis')}</p>
             </div>
 
 
             <div className="w-75 m-auto">
 
-                <div className="select-add mb-3">
-                    <label className='mb-2 fw-light'>Business Services</label>
-                    <div className="select-add">
+                <div className="mb-3">
+                    <label className='mb-2 fw-light'>{t('user.profile.businessServices.title')}</label>
+                    <div className="select-add select-full">
                         <Controller
                             control={control}
                             defaultValue={''}
@@ -215,9 +224,9 @@ export const BusinessServices = ({...props}) =>  {
                             render={({field,value,ref}) =>
                                 <InputSelect
                                     {...field}
-                                    placeholder={'select'}
+                                    placeholder={t('hotel.form.select')}
                                     // error={errors?.test[index]?.channelName.message}
-                                    errorMessage={errors && errors.business_service_type_id?.message}
+                                    // errorMessage={errors && errors.business_service_type_id?.message}
                                     inputRef={ref}
                                     // value={freelanceDataTypes.business_services_types.find(c => c.id === value)}
                                     // onChange={val => field.onChange(val.value)}
@@ -227,23 +236,24 @@ export const BusinessServices = ({...props}) =>  {
                             }
                         />
                     </div>
+                    {errors && errors.business_service_type_id?.message && <small className={'text-danger'}>{errors.business_service_type_id?.message}</small>}
                 </div>
 
                 <div className="row">
                     <div className="col-md-12 col-xs-12">
-                        <label className='mb-2 fw-light'>About Me</label>
-                        <div className="select-add">
+                        <label className='mb-2 fw-light'>{t('user.profile.businessServices.aboutMe')}</label>
+                        <div className="">
                             <textarea {...register('about')}/>
                             {errors && errors.about?.message && <small className={'text-danger'}>{errors.about.message}</small>}
                         </div>
                     </div>
                     <div className="col-md-12 col-xs-12 my-3">
-                        <label className="fw-light">My Channels</label>
+                        <label className="fw-light">{t('user.profile.businessServices.myChannels')}</label>
                         {fields.length<1 && addNewField()}
                         {fields.map((fieldObj, index) => (
                             <div key={fieldObj.id} className="row my-3">
-                                <div className="col-md-4 col-xs-12">
-                                    <div className="select-add">
+                                <div className="col-md-4 col-xs-12 my-2">
+                                    <div className="select-add select-full">
                                         <Controller
                                             control={control}
                                             defaultValue={''}
@@ -253,7 +263,7 @@ export const BusinessServices = ({...props}) =>  {
                                                     {...field}
                                                     // placeholder={t('login.country_selector_placeholder')}
                                                     // error={errors?.channels[index]?.channel.message}
-                                                    errorMessage={errors && errors.channels && errors.channels.length > 0 && errors.channels[index]?.channel?.message}
+                                                    // errorMessage={errors && errors.channels && errors.channels.length > 0 && errors.channels[index]?.channel?.message}
                                                     inputRef={ref}
                                                     value={freelanceDataTypes.channels.find(c => c.value === value)}
                                                     onChange={val => {
@@ -268,18 +278,21 @@ export const BusinessServices = ({...props}) =>  {
                                             }
                                         />
                                     </div>
+                                    {errors && errors.channels && errors.channels.length > 0 && errors.channels[index]?.channel?.message && <small className={'text-danger'}>{errors.channels[index]?.channel?.message}</small>}
                                 </div>
                                 <div className="col-md-4 col-xs-12">
                                     <InputText
+                                    className='my-2'
                                         {...register(`channels.${index}.follwers`)}
-                                        placeholder={'follwers'}
+                                        placeholder={t('user.profile.businessServices.follwers')}
                                         errorMessage={errors && errors.channels && errors.channels.length > 0 && errors.channels[index]?.follwers?.message}
                                     />
                                 </div>
                                 <div className="col-md-4 col-xs-12">
                                     <InputText
+                                    className='my-2'
                                         {...register(`channels.${index}.link`)}
-                                        placeholder={'link'}
+                                        placeholder={t('user.profile.businessServices.link')}
                                         errorMessage={errors && errors.channels && errors.channels.length > 0 && errors.channels[index]?.link?.message}
                                     />
                                 </div>
@@ -287,14 +300,15 @@ export const BusinessServices = ({...props}) =>  {
                         ))}
                         <button type={'button'} disabled={!(freelanceDataTypes.channels.length > fields.length)} className="w-auto btn-button bgMainColor text-white px-4 d-flex align-items-center justify-content-center m-auto my-4" onClick={addNewField}>
                             <i className="icon-plus fs-4"/>
-                            <span>Add More Channels</span>
+                            <span>{t('user.profile.businessServices.addMoreChannels')}</span>
                         </button>
                     </div>
                 </div>
 
                 <div className="row mb-3">
                     <div className="col-md-6 col-xs-12">
-                        <div className="select-add mb-3">
+                        <label className="fw-light mb-2">{t('user.profile.businessServices.audienceGender')}</label>
+                        <div className="select-add select-full mb-2">
                             <Controller
                                 control={control}
                                 defaultValue={''}
@@ -302,10 +316,10 @@ export const BusinessServices = ({...props}) =>  {
                                 render={({field,value,ref}) =>
                                     <InputSelect
                                         {...field}
-                                        label={'Audience Gender'}
-                                        placeholder={'select'}
+                                        // label={'Audience Gender'}
+                                        placeholder={t('hotel.form.select')}
                                         // error={errors?.channels[index]?.channel.message}
-                                        errorMessage={errors && errors.audience_gender?.message}
+                                        // errorMessage={errors && errors.audience_gender?.message}
                                         inputRef={ref}
                                         // value={freelanceDataTypes.business_services_types.find(c => c.id === value)}
                                         // onChange={val => field.onChange(val.value)}
@@ -314,9 +328,11 @@ export const BusinessServices = ({...props}) =>  {
                                 }
                             />
                         </div>
+                        {errors && errors.audience_gender?.message && <small className={'text-danger'}>{errors.audience_gender?.message}</small>}
                     </div>
                     <div className="col-md-6 col-xs-12">
-                        <div className="select-add mb-3">
+                        <label className="fw-light mb-2">{t('user.profile.businessServices.audienceCountry')}</label>
+                        <div className="select-add select-full mb-2">
                             <Controller
                                 control={control}
                                 defaultValue={''}
@@ -324,10 +340,10 @@ export const BusinessServices = ({...props}) =>  {
                                 render={({field,value,ref}) =>
                                     <InputSelect
                                         {...field}
-                                        label={'Audience Country'}
-                                        placeholder={'select'}
+                                        // label={'Audience Country'}
+                                        placeholder={t('hotel.form.select')}
                                         // error={errors?.channels[index]?.channel.message}
-                                        errorMessage={errors && errors.country_id?.message}
+                                        // errorMessage={errors && errors.country_id?.message}
                                         inputRef={ref}
                                         // value={freelanceDataTypes.business_services_types.find(c => c.id === value)}
                                         // onChange={val => field.onChange(val.value)}
@@ -337,9 +353,11 @@ export const BusinessServices = ({...props}) =>  {
                                 }
                             />
                         </div>
+                        {errors && errors.country_id?.message && <small className={'text-danger'}>{errors.country_id?.message}</small>}
                     </div>
                     <div className="col-md-6 col-xs-12">
-                        <div className="select-add mb-3">
+                        <label className="fw-light mb-2">{t('user.profile.businessServices.audienceGroups')}</label>
+                        <div className="select-add select-full mb-2">
                             <Controller
                                 control={control}
                                 defaultValue={''}
@@ -347,10 +365,10 @@ export const BusinessServices = ({...props}) =>  {
                                 render={({field,value,ref}) =>
                                     <InputSelect
                                         {...field}
-                                        label={'Audience Age Groups'}
-                                        placeholder={'select'}
+                                        // label={'Audience Age Groups'}
+                                        placeholder={t('hotel.form.select')}
                                         // error={errors?.channels[index]?.channel.message}
-                                        errorMessage={errors && errors.audience_age_groups?.message}
+                                        // errorMessage={errors && errors.audience_age_groups?.message}
                                         inputRef={ref}
                                         // value={freelanceDataTypes.business_services_types.find(c => c.id === value)}
                                         // onChange={val => field.onChange(val.value)}
@@ -360,17 +378,18 @@ export const BusinessServices = ({...props}) =>  {
                                 }
                             />
                         </div>
+                        {errors && errors.audience_age_groups?.message && <small className={'text-danger'}>{errors.audience_age_groups?.message}</small>}
                     </div>
                     <div className="col-md-6 col-xs-12">
                         <InputText
                             label={'Target Audience'}
                             {...register('target_audience')}
-                            placeholder={'ex. Fashion'}
+                            placeholder={t('user.profile.businessServices.fashion')}
                             errorMessage={errors &&  errors.target_audience?.message}
                         />
                     </div>
                     <div className="col-md-6 col-xs-12 mt-2">
-                        <label className='mb-2 fw-light'>Cover Images</label>
+                        <label className='mb-2 fw-light'>{t('user.profile.businessServices.coverImages')}</label>
                         <MediaUploader
                             showUploadMessage={false}
                             updateImage={(file)=> {
@@ -386,7 +405,7 @@ export const BusinessServices = ({...props}) =>  {
                         {coverErrorMessage && <small className={'text-danger'}>{coverErrorMessage}</small>}
                     </div>
                     <div className="col-md-6 col-xs-12 mt-2">
-                        <label className='mb-2 fw-light'>Portfolio Images</label>
+                        <label className='mb-2 fw-light'>{t('user.profile.businessServices.portImages')}</label>
                         <MediaUploader
                             showUploadMessage={false}
                             isMultiple
@@ -408,7 +427,7 @@ export const BusinessServices = ({...props}) =>  {
                 <div className="">
 
                     <div className="d-flex align-items-center justify-content-between">
-                        <h6 className="m-0">My Packages</h6>
+                        <h6 className="m-0">{t('user.profile.businessServices.myPackages')}</h6>
                         {/*<div className="form-check p-0 form-switch d-flex align-items-center">*/}
                         {/*    <label className="form-check-label small-font-13 mx-2" for="flexSwitchCheckDefault">Offers packages</label>*/}
                         {/*    <InputToggle*/}
@@ -421,11 +440,11 @@ export const BusinessServices = ({...props}) =>  {
                     <div className="row">
                         <div className={`${haveOffers ? 'col-md-4' : 'col-md-6 mx-auto'} col-xs-12 p-1`}>
                             <div className="border my-4 p-3">
-                                <h6 className='mb-4 fw-light'>Package <span className="mainColor fw-bold">( Basic )</span></h6>
+                                <h6 className='mb-4 fw-light'>{t('user.profile.enquiry.compo.package')} <span className="mainColor fw-bold">( Basic )</span></h6>
                                 <div className="mb-3">
                                     <InputText
                                         className='small-font-13'
-                                        placeholder='Price'
+                                        placeholder={t('shoppingCart.price')}
                                         {...register('basicPackagePrice')}
                                         errorMessage={errors && errors.basicPackagePrice?.message}
                                     />
@@ -433,25 +452,25 @@ export const BusinessServices = ({...props}) =>  {
                                 <div className="mb-3">
                                     <InputText
                                         className='small-font-13'
-                                        placeholder='Heading'
+                                        placeholder={t('user.profile.businessServices.heading')}
                                         {...register('basicPackageHeading')}
                                         errorMessage={errors && errors.basicPackageHeading?.message}
                                     />
                                 </div>
                                 <div className="mb-3">
-                                    <div className="select-add">
+                                    <div className="">
                                         <textarea
                                             className='small-font-13'
-                                            placeholder="Description"
+                                            placeholder={t('user.profile.businessServices.descr')}
                                             {...register('basicPackageDescription')}
                                         />
                                         {errors && errors.basicPackageDescription?.message && <small className={'text-danger'}>{errors.basicPackageDescription.message}</small>}
                                     </div>
                                 </div>
-                                <div className="select-add">
+                                <div className="">
                                     {/*<label className='mb-2 fw-light small-font-13'>Delivery Time</label>*/}
                                     <InputText
-                                        placeholder={'Delivery Time'}
+                                        placeholder={t('user.profile.businessServices.deliTime')}
                                         className='small-font-13'
                                         {...register('basicPackageDeliveryTime')}
                                         errorMessage={errors && errors.basicPackageDeliveryTime?.message}
@@ -463,36 +482,38 @@ export const BusinessServices = ({...props}) =>  {
                         {haveOffers && <>
                             <div className="col-md-4 col-xs-12 p-1">
                                 <div className="border my-4 p-3">
-                                    <h6 className='mb-4 fw-light'>Package <span className="mainColor fw-bold">( Standard )</span></h6>
+                                    <h6 className='mb-4 fw-light'>{t('user.profile.enquiry.compo.package')} <span className="mainColor fw-bold">( Standard )</span></h6>
                                     <div className="mb-3">
                                         <InputText
                                             {...register('standardPackagePrice')}
                                             errorMessage={errors && errors.standardPackagePrice?.message}
-                                            className='small-font-13' placeholder='Price' />
+                                            className='small-font-13' 
+                                            placeholder={t('shoppingCart.price')}
+                                        />
                                     </div>
                                     <div className="mb-3">
                                         <InputText
                                             {...register('standardPackageHeading')}
                                             errorMessage={errors && errors.standardPackageHeading?.message}
-                                            className='small-font-13' placeholder='Heading' />
+                                            className='small-font-13' placeholder={t('user.profile.businessServices.heading')} />
                                     </div>
                                     <div className="mb-3">
-                                        <div className="select-add">
+                                        <div className="">
                                             <textarea
                                                 {...register('standardPackageDescription')}
-                                                className='small-font-13' placeholder="Description"/>
+                                                className='small-font-13' placeholder={t('user.profile.businessServices.descr')}/>
                                             {errors && errors.standardPackageDescription?.message && <small className={'text-danger'}>{errors.standardPackageDescription.message}</small>}
                                         </div>
                                     </div>
-                                    <div className="select-add ">
+                                    <div className="">
                                         {/*<label className='mb-2 fw-light small-font-13'>Delivery Time</label>*/}
                                         {/*<InputSelect*/}
                                         {/*    value={deliveryOptions.find(c => c.value)}*/}
                                         {/*    options={deliveryOptions}*/}
-                                        {/*    placeholder={'select'}*/}
+                                        {/*    placeholder={t('hotel.form.select')}*/}
                                         {/*/>*/}
                                         <InputText
-                                            placeholder={'Delivery Time'}
+                                            placeholder={t('user.profile.businessServices.deliTime')}
                                             className='small-font-13'
                                             {...register('standardPackageDeliveryTime')}
                                             errorMessage={errors && errors.standardPackageDeliveryTime?.message}
@@ -503,30 +524,30 @@ export const BusinessServices = ({...props}) =>  {
 
                             <div className="col-md-4 col-xs-12 p-1">
                                 <div className="border my-4 p-3">
-                                    <h6 className='mb-4 fw-light'>Package <span className="mainColor fw-bold">( Premium )</span></h6>
+                                    <h6 className='mb-4 fw-light'>{t('user.profile.enquiry.compo.package')} <span className="mainColor fw-bold">( Premium )</span></h6>
                                     <div className="mb-3">
                                         <InputText
                                             {...register('premiumPackagePrice')}
                                             errorMessage={errors && errors.premiumPackagePrice?.message}
-                                            className='small-font-13' placeholder='Price' />
+                                            className='small-font-13' placeholder={t('shoppingCart.price')} />
                                     </div>
                                     <div className="mb-3">
                                         <InputText
                                             {...register('premiumPackageHeading')}
                                             errorMessage={errors && errors.premiumPackageHeading?.message}
-                                            className='small-font-13' placeholder='Heading' />
+                                            className='small-font-13' placeholder={t('user.profile.businessServices.heading')} />
                                     </div>
                                     <div className="mb-3">
-                                        <div className="select-add">
+                                        <div className="">
                                             <textarea
                                                 {...register('premiumPackageDescription')}
-                                                className='small-font-13' placeholder="Description"/>
+                                                className='small-font-13' placeholder={t('user.profile.businessServices.descr')}/>
                                             {errors && errors.premiumPackageDescription?.message && <small className={'text-danger'}>{errors.premiumPackageDescription.message}</small>}
                                         </div>
                                     </div>
-                                    <div className="select-add ">
+                                    <div className="">
                                         <InputText
-                                            placeholder={'Delivery Time'}
+                                            placeholder={t('user.profile.businessServices.deliTime')}
                                             className='small-font-13'
                                             {...register('premiumPackageDeliveryTime')}
                                             errorMessage={errors && errors.premiumPackageDeliveryTime?.message}

@@ -1,6 +1,7 @@
 export default {
     url         : 'https://team-connect.treasuredeal.com/api/v1/',
     illusionUrl : 'https://api.iwtxconnect.com/api/v1/',
+    illusionUrlWithHotels : 'https://api.iwtxconnect.com/hotel/api/v1/',
 };
 
 export const googleMapsApi = 'AIzaSyB3sg_A_7wWVDFQKd8BJ5yjHSHUFO0Kl78'

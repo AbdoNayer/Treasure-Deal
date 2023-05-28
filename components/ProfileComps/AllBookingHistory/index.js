@@ -44,7 +44,7 @@ export const AllBookingHistory = ({...props}) => {
 
     return (
         <div className="result-items">
-            <div className={'w-25 select-ponier my-3'}>
+            <div className={'w-25 select-add select-full my-3'}>
                 <InputSelect
                     className={''}
                     placeholder={'select filter...'}

@@ -2,15 +2,16 @@ import GoogleMapReact from 'google-map-react';
 import {MapMarker} from "../MapMarker";
 import {useEffect, useState} from "react";
 import {googleMapsApi} from "../../redux-toolkit/consts";
+import Geocode from "react-geocode";
 
-export const Map = ({defaultZoom=11,defaultCenter={lat:25.195730, lng:55.290798},defaultMarkerPosition,setAddressLocation,...props}) => {
+export const Map = ({defaultZoom=11,defaultCenter={lat:25.195730, lng:55.290798},defaultMarkerPosition,setAddressLocation,setMapDescription,...props}) => {
     const [markerPosition,setMarkerPosition] = useState({
         lat: (defaultMarkerPosition && defaultMarkerPosition.lat) || null,
         lng: (defaultMarkerPosition && (defaultMarkerPosition.long || defaultMarkerPosition.lng)) || null,
     })
+    Geocode.setApiKey(googleMapsApi);
 
     const handleChange = (e) => {
-        console.log(e);
         const {lat,lng} = e;
         setMarkerPosition({
             lat,
@@ -18,15 +19,16 @@ export const Map = ({defaultZoom=11,defaultCenter={lat:25.195730, lng:55.290798}
         })
     }
     useEffect(()=>{
+        if (markerPosition.lat) {
+            Geocode.fromLatLng(markerPosition.lat, markerPosition.lng).then(
+                (response) => {
+                    const address = response.results[0].formatted_address;
+                    setMapDescription(address);
+                },
+            );
+        }
         setAddressLocation(markerPosition);
     },[markerPosition])
-    const handleApiLoaded = ({map,maps}) => {
-        console.log('map', map);
-        console.log('maps', maps);
-        const Geocoder = new maps.Geocoder();
-        console.log('geo', Geocoder)
-
-    };
     return (
         <div  style={{ height: '100%', width: '100%' }}>
             <GoogleMapReact
@@ -37,8 +39,6 @@ export const Map = ({defaultZoom=11,defaultCenter={lat:25.195730, lng:55.290798}
                 // onClick={e=> console.log(e)}
                 // onChange={e=> console.log(e)}
                 options={{fullscreenControl:false}}
-                onGoogleApiLoaded={handleApiLoaded}
-                yesIWantToUseGoogleMapApiInternals
             >
                 {markerPosition.lat!==0 && markerPosition.lng!==0 && <MapMarker lat={markerPosition.lat} lng={markerPosition.lng}/>}
             </GoogleMapReact>

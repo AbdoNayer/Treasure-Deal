@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
-import {addAllCurrencies, chooseLang, logOut} from '../../redux-toolkit/actions';
+import {addAllCurrencies, chooseLang, logOut, getAllNotifications} from '../../redux-toolkit/actions';
 import app from "../../app.json";
 import { useRouter } from 'next/router';
 import Toastify from 'toastify-js';
@@ -22,6 +22,7 @@ export default function Header() {
     const { currency, currencies }                      = useSelector((state) => state.currency);
     const [ fadeIn, setFadeIn ]                         = useState(false);
     const [ isLoading,setIsLoading ]                    = useState(false);
+    const [ isloadNoty,setIsloadNoty ]                  = useState(false);
     const dispatch                                      = useDispatch();
 
     const {
@@ -30,9 +31,27 @@ export default function Header() {
         reFetch: refetchCurrencies
     } = useApi(()=> getCurrencies(langVal,currency))
 
-    const { data: countNoty, reFetch: refetchNoty } = useApi(()=> getCountNotification(langVal, currency, user.token),false)
+    const { 
+        data: countNoty, 
+        reFetch: refetchNoty 
+    } = useApi(()=> getCountNotification(langVal, currency, user.token),false)
 
-    useEffect(()=>{if (user){if(user.id){refetchNoty(()=> getCountNotification(langVal, currency, user.token))}} },[user])
+    useEffect(()=>{
+        if (user){
+            if(user.id){
+                refetchNoty()
+                dispatch(getAllNotifications(langVal, currency, user.token, '')).then(() => setIsloadNoty(false)).catch(() => setIsloadNoty(false))
+            }
+        } 
+    },[user])
+
+    useEffect(()=>{
+        if (router.pathname === '/notifications'){
+            if(user.id){
+                dispatch(getAllNotifications(langVal, currency, user.token, '')).then(() => setIsloadNoty(false)).catch(() => setIsloadNoty(false))
+            }
+        } 
+    },[router])
     
     useEffect(()=>{
         if (currenciesData){
@@ -60,10 +79,11 @@ export default function Header() {
             }
             const data = {
                 token           : user.token,
-                device_id       : 'iuhasdhaius7218761',
+                device_id       : localStorage.getItem('deviceToken') || 'null',
             }
             dispatch(logOut(data, router, langVal, currency)).then(() => {
                 setIsLoading(false);
+                localStorage.removeItem('deviceToken');
             }).catch((err) => {
                 setIsLoading(false);
             });
@@ -72,7 +92,8 @@ export default function Header() {
 
     const chickLink = (link) => {
         if (user) {
-            router.push(link)
+            router.push(link);
+            fadeMenu();
         }else {
             Toastify({
                 text: t('auth.loginFirst'),
@@ -157,12 +178,12 @@ export default function Header() {
                                     </Link>
                                 </ul>
                             </div>
-                            <Link href={'/booking'} className="mx-2 text-dark" onClick={() => fadeMenu()}>
+                            <button onClick={() => chickLink('/booking')} className="text-start mx-2 text-dark bg-transparent">
                                 {t('app.redeem')}
-                            </Link>
-                            <Link href={'/winners'} className="mx-2 text-dark" onClick={() => fadeMenu()}>
+                            </button>
+                            <button className="text-start mx-2 text-dark bg-transparent" onClick={() => chickLink('/winners')}>
                                 {t('header.winners')}
-                            </Link>
+                            </button>
                         </div>
                         <div className='d-flex align-items-center'>
                             <div className="dropdown mx-2 drop-currency">
@@ -187,22 +208,20 @@ export default function Header() {
                                     <span className='mx-1'>{currencies.find(curr=> curr.code === currency)?.code || currencies[0].code}</span>
                                 </button>
                                 <ul className="drop-lang dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
-                                    {
-                                        app.currency.map((item, i) => (
-                                            <button key={i} className="px-3 py-1 d-flex align-items-center" onClick={()=>changeCurrency(item.val)}>
-                                                <Image width={20} height={20} alt='flag' src={`/flag-icon/${item.flag}.png`} />
-                                                <span className='mx-2'>{item.val}</span>
-                                            </button>
-                                        ))
-                                    }
-                                    {
-                                        currenciesData?.currencies.map((item, i) => (
-                                            <button key={i} className="px-3 py-1 d-flex align-items-center" onClick={()=>changeCurrency(item.code)}>
-                                                <Image width={20} height={20} alt='flag' src={`/flag-icon/${app.currency.find(curr=> curr.val===item.code)?.flag||''}.png`} />
-                                                <span className='mx-2'>{item.code}</span>
-                                            </button>
-                                        ))
-                                    }
+                                    {/*{*/}
+                                    {/*    app.currency.map((item, i) => (*/}
+                                    {/*        <button key={i} className="px-3 py-1 d-flex align-items-center" onClick={()=>changeCurrency(item.val)}>*/}
+                                    {/*            <Image width={20} height={20} alt='flag' src={`/flag-icon/${item.flag}.png`} />*/}
+                                    {/*            <span className='mx-2'>{item.val}</span>*/}
+                                    {/*        </button>*/}
+                                    {/*    ))*/}
+                                    {/*}*/}
+                                    {currenciesData?.currencies.map((item, i) => (
+                                        <button key={i} className="px-3 py-1 d-flex align-items-center" onClick={()=>changeCurrency(item.code)}>
+                                            <Image width={20} height={20} alt='flag' src={`/flag-icon/${app.currency.find(curr=> curr.val===item.code)?.flag||''}.png`} />
+                                            <span className='mx-2'>{item.code}</span>
+                                        </button>
+                                    ))}
                                 </ul>
                             </div>
                                 {
@@ -210,14 +229,14 @@ export default function Header() {
                                     <div className='d-flex align-items-center'>
                                         <div className="dropdown mx-2 drop-currency">
                                             <button className="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span className='icon-user fs-5'></span>
+                                                    <span className='icon-user fs-5'/>
                                                     <span className='mx-1'>{ user.first_name }</span>
                                                 </button>
                                                 <ul className="d-flex align-items-center flex-column justify-content-center dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
-                                                    <Link href={'/my-account'} className='my-2 fw-light text-dark text-center'>{ t('footer.myAccount') }</Link>
+                                                    <Link href={'/my-account'} onClick={() => chickLink('/my-account')} className='my-2 fw-light text-dark text-center'>{ t('footer.myAccount') }</Link>
                                                     {
                                                         isLoading ?
-                                                        <span className="spinner-border spinner-border-sm my-2" role="status" aria-hidden="true"></span>
+                                                        <span className="spinner-border spinner-border-sm my-2" role="status" aria-hidden="true"/>
                                                         :
                                                         <button onClick={isLoading ? null : LogOut() } className='my-2 fw-light text-dark bg-transparent'>
                                                             { t('user.logOut') }
@@ -227,18 +246,18 @@ export default function Header() {
                                         </div>
                                         <div className="dropdown mx-2 drop-currency drop-noty">
                                                 <button className="dropdown-toggle count-num noty text-dark none-mobile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span className='icon-bell fs-5'></span>
+                                                    <span className='icon-bell fs-5'/>
                                                     {countNoty && countNoty.count !== 0 ? <strong>{countNoty.count}</strong> : null}
                                                 </button>
                                                 <ul className="d-flex align-items-center flex-column justify-content-center dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
                                                     {
                                                         allNotifications.length > 0 ?
-                                                        <div>
+                                                        <div className='w-100'>
                                                             {
                                                                 allNotifications.slice(0, 3).map((item, i) => (
-                                                                    <Link key={i} href={'/'} className='borderMainColor w-100 p-2 d-block'>
+                                                                    <Link key={i} href={'/'} className='border-bottom w-100 p-2 d-block'>
                                                                         <div className='info'>
-                                                                            <h6 className='fw-light m-0 mt-1'>{item.title}</h6>
+                                                                            <h6 className='fw-light m-0 mt-1 mainColor'>{item.title}</h6>
                                                                             <h6 className='fw-light m-0 mt-1'>{item.body}</h6>
                                                                             <p className='fw-light m-0 text-end mainColor'>{ item.created_at }</p>
                                                                         </div>
@@ -264,11 +283,11 @@ export default function Header() {
                                     :
                                     <div className='d-flex align-items-center'>
                                         <Link href={'/auth/login'} className="mx-2 text-dark" onClick={() => fadeMenu()}>
-                                            <span className='icon-user'></span>
+                                            <span className='icon-user'/>
                                             <span className='mx-2'>{t('auth.signIn')}</span>
                                         </Link>
                                         <Link href={'/auth/register'} className="mx-2 text-dark" onClick={() => fadeMenu()}>
-                                            <span className='icon-user-plus'></span>
+                                            <span className='icon-user-plus'/>
                                             <span className='mx-2'>{t('auth.signUp')}</span>
                                         </Link>
                                     </div>

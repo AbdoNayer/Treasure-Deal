@@ -44,30 +44,30 @@ export const MyDrawTableProfileComp = ({...props}) => {
 
     return (
         <div className="td_orders_table mb-4">
-            <div className={'d-flex align-items-center justify-content-between'}>
+            <div className={'t_h_table_order d-flex align-items-center justify-content-between'}>
                 <h4 className="td_orders_table_title fw-light mb-4 px-3">
                     My Draw
                 </h4>
                 <div className="td_orders_table_actions">
                     <div className="td_orders_table_actions_filters d-flex align-items-center">
-                        <div className={`td_filter ms-2 me-2 ${currentFilter==='millionaire' && 'td_filter_active'}`} onClick={()=> currentFilter!=='millionaire' && setCurrentFilter('millionaire ')}>
+                        <h6 className={`td_filter ms-2 me-2 ${currentFilter==='millionaire' && 'td_filter_active'}`} onClick={()=> currentFilter!=='millionaire' && setCurrentFilter('millionaire ')}>
                             Millionaire
-                        </div>
-                        <div className={`td_filter ms-2 me-2 ${currentFilter==='raffleillionaire' && 'td_filter_active'}`} onClick={()=> currentFilter!=='raffleillionaire' && setCurrentFilter('raffleillionaire')}>
+                        </h6>
+                        <h6 className={`td_filter ms-2 me-2 ${currentFilter==='raffleillionaire' && 'td_filter_active'}`} onClick={()=> currentFilter!=='raffleillionaire' && setCurrentFilter('raffleillionaire')}>
                             Raffleillionaire
-                        </div>
-                        <div className={`td_filter ms-2 me-2 ${currentFilter==='Luxury Villa' && 'td_filter_active'}`} onClick={()=> currentFilter!=='Luxury Villa' && setCurrentFilter('Luxury Villa')}>
+                        </h6>
+                        <h6 className={`td_filter ms-2 me-2 ${currentFilter==='luxury_villas' && 'td_filter_active'}`} onClick={()=> currentFilter!=='luxury_villas' && setCurrentFilter('luxury_villas')}>
                             Luxury Villa
-                        </div>
-                        <div className={`td_filter ms-2 me-2 ${currentFilter==='Luxury Car' && 'td_filter_active'}`} onClick={()=> currentFilter!=='Luxury Car' && setCurrentFilter('Luxury Car')}>
+                        </h6>
+                        <h6 className={`td_filter ms-2 me-2 ${currentFilter==='luxury_cars' && 'td_filter_active'}`} onClick={()=> currentFilter!=='luxury_cars' && setCurrentFilter('luxury_cars')}>
                             Luxury Car
-                        </div>
-                        <div className={`td_filter ms-2 me-2 ${currentFilter==='Luxury Watches' && 'td_filter_active'}`} onClick={()=> currentFilter!=='Luxury Watches' && setCurrentFilter('Luxury Watches')}>
+                        </h6>
+                        <h6 className={`td_filter ms-2 me-2 ${currentFilter==='luxury_watches' && 'td_filter_active'}`} onClick={()=> currentFilter!=='luxury_watches' && setCurrentFilter('luxury_watches')}>
                             Luxury Watches
-                        </div>
-                        <div className={`td_filter ms-2 me-2 ${currentFilter==='Bride & Groom' && 'td_filter_active'}`} onClick={()=> currentFilter!=='Bride & Groom' && setCurrentFilter('Bride & Groom')}>
+                        </h6>
+                        <h6 className={`td_filter ms-2 me-2 ${currentFilter==='bride_groom' && 'td_filter_active'}`} onClick={()=> currentFilter!=='bride_groom' && setCurrentFilter('bride_groom')}>
                             Bride & Groom
-                        </div>
+                        </h6>
                     </div>
                     {/*<div className="td_orders_table_actions_sorting">Sort</div>*/}
                 </div>
@@ -75,22 +75,25 @@ export const MyDrawTableProfileComp = ({...props}) => {
             {!isLoading
                 ? <>
                     {filteredObjs.length > 0
-                        ? <table className={'table text-center'}>
-                            <thead>
-                                <tr>
-                                    <th className={'fw-light'}>Draw Series</th>
-                                    <th className={'fw-light'}>Draw date</th>
-                                    <th className={'fw-light'}>Results</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {filteredObjs.map(draw=> <tr key={draw.id}>
-                                <td>{draw.series}</td>
-                                <td>{draw.date}</td>
-                                <td className={'text-primary text-decoration-underline'} onClick={()=>router.push(`/my-account/my-draw?draw_id=${draw.id}`)}>{draw.status}</td>
-                            </tr>)}
-                            </tbody>
-                        </table>
+                        ? 
+                        <div className="over-x">
+                            <table className={'table text-center'}>
+                                <thead>
+                                    <tr>
+                                        <th className={'fw-light'}>Draw Series</th>
+                                        <th className={'fw-light'}>Draw date</th>
+                                        <th className={'fw-light'}>Results</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {filteredObjs.map(draw=> <tr key={draw.id}>
+                                    <td>{draw.series}</td>
+                                    <td>{draw.date}</td>
+                                    <td className={'text-primary text-decoration-underline'} onClick={()=>router.push(`/my-account/my-draw?draw_id=${draw.id}`)}>{draw.status}</td>
+                                </tr>)}
+                                </tbody>
+                            </table>
+                        </div>
                         :<div className={'modal-height-view position-relative text-center d-flex align-items-center justify-content-center'}>
                             <h4 className="text-danger">{t('ordersProfile.noOrders')}</h4>
                         </div>

@@ -10,15 +10,16 @@ export default function RaffellionaireDraw ({...props}) {
     const { t }                             = useTranslation();
     const [ isActive, setIsActive]          = useState(false);
     const [ isAct, setIsAct]                = useState(false);
-    const user                                              = useSelector((state) => state.user.user);
-    const langVal                                           = useSelector((state) => state.language.language);
-    const [dateValue,setDateValue] = useState('')
+    const user                              = useSelector((state) => state.user.user);
+    const langVal                           = useSelector((state) => state.language.language);
+    const currency                          = useSelector((state) => state.currency.currency);
+    const [dateValue,setDateValue]          = useState('')
     const {
         data,
         isLoading,
         error,
         reFetch
-    } = useApi(()=> getResultsRaffellionaire(user.token,langVal))
+    } = useApi(()=> getResultsRaffellionaire(user.token,langVal,currency,'','raffleillionaire'), user !== null)
     const [dataLoadComplete,setDataLoadComplete] = useState(!!data)
 
     // const toggle = () => {
@@ -32,12 +33,14 @@ export default function RaffellionaireDraw ({...props}) {
 
     useEffect(()=>{
         if (dateValue) {
-            reFetch(()=>getResultsRaffellionaire(user.token,langVal,dateValue))
+            reFetch(()=>getResultsRaffellionaire(user.token,langVal,currency,dateValue,'raffleillionaire'))
         }
     },[dateValue])
 
 
     if (!dataLoadComplete) return <LoadData/>
+
+    if(user === null) return null;
     return (
         <div className="py-5 container">
             <DrawResult
@@ -46,7 +49,7 @@ export default function RaffellionaireDraw ({...props}) {
                 inVal={val=>setIsActive(val)}
                 updateDate={val=>setDateValue(val.value)}
                 resultType={'raff'}
-                resultDescription={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis tempore voluptates doloremque eligendi provident! Fugiat facere iure temporibus id distinctio. Fugit iste asperiores repellendus voluptate omnis iusto officiis nam praesentium. Add your vouchers more you can play more lotto at the time.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,'}
+                resultDescription={t('app.infoDis')}
             />
         </div>
     )

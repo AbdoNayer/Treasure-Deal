@@ -31,7 +31,8 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
     const [selectedAddress,setSelectedAddress]              = useState(defaultAddressState);
     const router                                            = useRouter();
     const currency                                          = useSelector((state) => state.currency.currency);
-    const [addressTitleState,setAddressTitleState] = useState('Default Address');
+    const [mapDescription,setMapDescription]                = useState('')
+    const [addressTitleState,setAddressTitleState]          = useState('Default Address');
     const {
         data:addressData,
     } = useApi(()=> getMyAddresses(user.token,langVal,currency))
@@ -66,8 +67,8 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
     //#region modal popups
     const cancellationPolicy = () => {
         dispatch(showModalAction(
-        <ModalForm title={'cancellation policy'}>
-            This is cancellation policy
+        <ModalForm title={t('app.titlePolicy')}>
+            {t('millionaire.voucher.description')}
         </ModalForm>))
     }
     const updateAddress = (address) => {
@@ -234,7 +235,7 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
             is_default: defaultAddressState.id ? 0 : 1,
             lat: addressLocation?.lat||'',
             lng: addressLocation?.lng||'',
-            map_desc: 'adad',
+            map_desc: mapDescription,
             additional_directions: data.additional_directions
         };
         if (addressMode !== 'default') {
@@ -266,26 +267,26 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
             <div className="p-4 rounded-3 old-shadow box-result my-5 mt-3 pt-1">
                 <h4>{t('booking.Reserve.bookingRequest')}</h4>
                 <div>{totalPrice > 0 && <h5>{currency} {employeesState.length > 0 ? totalPrice*employeesState.length : totalPrice}</h5>}</div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard</p>
+                <p>{t('millionaire.voucher.description')}</p>
                 <div className="d-flex align-items-center my-3 border-dotted pb-3">
-                    {time && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1">TIME : {time}</h6>}
+                    {time && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1">{t('app.time')} : {time}</h6>}
                     <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mx-3">{checkDateMsg.checkIn} : {checkInDate.toLocaleDateString(undefined,dateOptions)}</h6>
                     {checkVoucherType()==='booking_type_2' && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mx-3">{checkDateMsg.checkOut} : {checkOutDate.toLocaleDateString(undefined,dateOptions)}</h6>}
                 </div>
                 <div className="my-4 border-dotted">
                     <div className="row mt-4">
                         {checkHasAdultsCount() && <>
-                            <div className={`${childrenChair ? 'col-md-6' : 'col-md-12'} col-md-6 col-xs-12 mb-4 select-ponier`}>
+                            <div className={`${childrenChair ? 'col-md-6' : 'col-md-12'} col-md-6 col-xs-12 mb-4 select-add`}>
                                 <InputSelect
                                     onChange={e => setAdultsCount(e.value)}
-                                    label={'Adults Count'}
+                                    label={t('booking.adultsCount')}
                                     options={[...Array(10).keys()].slice(1).map(entry => ({label:entry,value:entry}))}
                                 />
                             </div>
-                            {childrenChair && !smokingArea && <div className="col-md-6 col-xs-12 mb-4 select-ponier">
+                            {childrenChair && !smokingArea && <div className="col-md-6 col-xs-12 mb-4 select-add select-full">
                                 <InputSelect
                                     onChange={e => setChildrenCount(e.value)}
-                                    label={'Children Count'}
+                                    label={t('booking.childrenCount')}
                                     options={[...Array(10).keys()].slice(1).map(entry => ({
                                         label: entry,
                                         value: entry
@@ -294,14 +295,14 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
                             </div>}
                             <div className={'col-md-6 col-xs-12 mb-4 td_radio_select d-flex align-items-center'}>
                                 <label htmlFor={'smoking'}
-                                       className={'fs-6 w-100'}>{'smoking area'}</label>
+                                       className={'fs-6 w-100'}>{t('booking.Reserve.smokingArea')}</label>
                                 <input type={"checkbox"} id={'smoking'} name={'smoking'}
                                        value={'smoking'}
                                        onChange={(e)=> {
                                            if (childrenChair) {
                                                errorPopUp(
-                                                   'Children present',
-                                                   "You can't smoke in the presence of children"
+                                                   t('booking.Reserve.childrenPresent'),
+                                                   t('booking.Reserve.youCantSmoke')
                                                )
                                                e.target.checked = false;
                                                e.preventDefault()
@@ -313,14 +314,14 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
                             </div>
                             <div className={'col-md-6 col-xs-12 mb-4 td_radio_select d-flex align-items-center'}>
                                 <label htmlFor={'children_chair'}
-                                       className={'fs-6 w-100'}>{'children chair'}</label>
+                                       className={'fs-6 w-100'}>{t('booking.Reserve.childrenChair')}</label>
                                 <input type={"checkbox"} id={'children_chair'} name={'children_chair'}
                                        value={'children_chair'}
                                        onChange={(e)=> {
                                            if (smokingArea) {
                                                errorPopUp(
-                                                   'Smoking Selected',
-                                                   "You can't bring children to smoking area"
+                                                t('booking.Reserve.smokingPresent'),
+                                                t('booking.Reserve.youCantBring')
                                                )
                                                e.target.checked = false;
                                                e.preventDefault()
@@ -376,7 +377,7 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
                             {addressData?.addresses.length > 0 && <button
                                 className={`btn-button w-100 px-4 mb-3 border-main border-5 bg-transparent`}
                                 onClick={addressBookList}>
-                                Select From Address book
+                                {t('booking.Reserve.selectFromBook')}
                             </button>}
                             <button
                                 className={`btn-button w-100 px-4 mb-3 border-main border-5 bg-transparent ${addressMode==='new_address'&& 'bgMainColor text-white'}`}
@@ -401,20 +402,20 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
                                 <div className="td_new_address_details mb-3">
                                     <div className="row">
                                         <div className="col-6 mb-2">
-                                            <InputText label={'Building Name'} errorMessage={errors.building_name?.message} {...register('building_name')}/>
+                                            <InputText label={t('booking.Reserve.buildingName')} errorMessage={errors.building_name?.message} {...register('building_name')}/>
                                         </div>
                                         <div className="col-6 mb-2">
-                                            <InputText label={'Street'} errorMessage={errors.street?.message} {...register('street')}/>
+                                            <InputText label={t('booking.Reserve.street')} errorMessage={errors.street?.message} {...register('street')}/>
                                         </div>
                                         <div className="col-6 mb-2">
-                                            <InputText label={'Apartment No.'} errorMessage={errors.apartment_number?.message} {...register('apartment_number')}/>
+                                            <InputText label={t('booking.Reserve.apartmentNo')} errorMessage={errors.apartment_number?.message} {...register('apartment_number')}/>
                                         </div>
                                         <div className="col-6 mb-2">
-                                            <InputText label={'Floor'}errorMessage={errors.floor?.message} {...register('floor')} />
+                                            <InputText label={t('booking.Reserve.floor')}errorMessage={errors.floor?.message} {...register('floor')} />
                                         </div>
                                         <div className="col-12">
                                             <label htmlFor="">{t('booking.additionalDir')}</label>
-                                            <textarea label={'Additional Directions (Optional)'} {...register('additional_directions')} />
+                                            <textarea label={t('booking.Reserve.additDirect')} {...register('additional_directions')} />
                                         </div>
                                     </div>
                                 </div>
@@ -425,6 +426,7 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
                                     </div>
                                     <div className="td_map_wrapper">
                                         <Map
+                                            setMapDescription={setMapDescription}
                                             setAddressLocation={setAddressLocation}
                                             defaultCenter={defaultLocationSelector.lat ? {lat:defaultLocationSelector.lat,lng:defaultLocationSelector.long} : undefined}
                                             defaultMarkerPosition={defaultLocationSelector.lat ? {lat:defaultLocationSelector.lat,lng:defaultLocationSelector.long} : undefined}

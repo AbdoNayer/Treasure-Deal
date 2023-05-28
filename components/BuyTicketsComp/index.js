@@ -30,6 +30,7 @@ import {
     addSelectedTicketReducer,
     removeSelectedTicketReducer, resetSelectedTicketsReducer
 } from "../../redux-toolkit/reducer/selectedTicketsReducer";
+import {cartReducer} from "../../redux-toolkit/reducer/cartReducer";
 
 
 export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,selectedTickets,drawType,backgroundImgClass='BG-2'}) {
@@ -48,6 +49,7 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
     const [ticketCount,setTicketCount]                  = useState(63)
     const [ticketSearch,setTicketSearch]                = useState('')
     const [ticketFilter,setTicketFilter]                = useState('')
+    const [lock,setLock]                                = useState(false)
     const [allSelectedTickets,setAllSelectedTickets]    = useState([])
 
     const [horoscopeState,setHoroscopeState]            = useState(true)
@@ -55,6 +57,7 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
 
     const didMount = useRef(false);
     const socket = io('https://treasuredeal.com:9090', {
+        transports      : ['websocket'],
         query: "id=" + user.id + "&user_type=User",
     });
     useEffect(()=>{
@@ -68,11 +71,8 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
         const deleteListener = data => {
             setAllSelectedTickets(prevState => prevState.filter(ticket=> ticket!==data.ticket))
         }
-        const connectListener = data => {
-            console.log('connect', 'connected to socket from web')
-        }
 
-        socket.once("connect", connectListener);
+        // socket.once("connect", connectListener);
         socket.on("selectLineRes", addListener);
         socket.on("editLineRes", editListener);
         socket.on("deleteLineRes", deleteListener);
@@ -84,16 +84,14 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
         }
     },[]);
 
-    useEffect(()=>{
-        console.log('all selected tickets state',allSelectedTickets);
-        console.log('reducer selected tickets', selectedTicketsReducer)
-        console.log('cart info',
-            cartInfo.filter(cart=> cart.cart_data.type === type).reduce((a,e) =>
-                    a ? [...a,e.lines[0].ticket.join('') ] : e.lines[0].ticket.join('')
-                ,[]
-            )
-        )
-    },[allSelectedTickets,allSelectedTickets,selectedTicketsReducer])
+    // useEffect(()=>{
+    //     console.log('cart info',
+    //         cartInfo.filter(cart=> cart.cart_data.type === type).reduce((a,e) =>
+    //                 a ? [...a,e.lines[0].ticket.join('') ] : e.lines[0].ticket.join('')
+    //             ,[]
+    //         )
+    //     )
+    // },[allSelectedTickets,allSelectedTickets,selectedTicketsReducer])
 
 
     useEffect(()=>{
@@ -103,11 +101,11 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
 
     const selectOptions = [
         {
-            label:'Starts with',
+            label:t('app.startsWith'),
             value:'start_with'
         },
         {
-            label: 'Ends with',
+            label: t('app.endsWith'),
             value: 'end_with'
         }
     ]
@@ -138,6 +136,9 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
     },[allTicketsData])
 
     useEffect(()=>{
+        setTimeout(() =>{
+            if (lock) setLock(false);
+        }, 2000)
         setAllSelectedTickets(prevState =>
             [ ...new Set(
                 [
@@ -155,9 +156,15 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
     const socketAddTicket = ticket => {
         socket.emit('selectLine', {user_id:user.id,type:type,ticket:ticket})
     }
-    const socketDeleteTicket = ticket => {
+    const socketDeleteTicket = async ticket => {
         socket.emit('deleteLine', {user_id:user.id,type:type,ticket:ticket})
     }
+    // useEffect(()=>{
+    //     console.log(cartInfo.filter(cart=> cart.cart_data.type === type).reduce((a,e) =>
+    //             a ? [...a,e.lines[0].ticket.join('') ] : e.lines[0].ticket.join('')
+    //         ,[]
+    //     ));
+    // },[cartInfo])
 
     const addTicket = async ticket => {
         if (selectedTicketsReducer.includes(ticket) || allSelectedTickets.includes(ticket)) {
@@ -177,12 +184,14 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
             }
             else {
                 if (raffillionaireInfo.qty === selectedTicketsReducer.length) {
+                    if(lock) return;
                     dispatch(showModalAction(
                         <ModalForm
                             title={t('millionaire.lotto.buttons.addBundle')}
                             applyText={t('millionaire.lotto.buttons.addBundle')}
                             applyButton
                             applyFunction={async () => {
+                                setLock(true)
                                 await socketAddTicket(ticket)
                                 await dispatch(callCart(user.token,langVal,currency))
                                 dispatch(addSelectedTicketReducer(ticket))
@@ -197,6 +206,8 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
                     )
                 }
                 else {
+                    if(lock) return;
+                    setLock(true)
                     await socketAddTicket(ticket)
                     dispatch(addSelectedTicketReducer(ticket))
                     await dispatch(callCart(user.token,langVal,currency))
@@ -206,8 +217,14 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
         }
     }
     const deleteTicket = async ticket => {
-        await socketDeleteTicket(ticket)
-        dispatch(removeSelectedTicketReducer(ticket))
+        if(lock) return;
+        await socketDeleteTicket(ticket).then(async ()=>{
+            await dispatch(callCart(user.token,langVal,currency)).then(async ()=>{
+                setAllSelectedTickets(prevState => prevState.filter(item=> item!==ticket))
+                await dispatch(removeSelectedTicketReducer(ticket))
+            })
+        })
+        // dispatch(removeSelectedTicketReducer(ticket))
         await refetchType()
     }
 
@@ -239,7 +256,7 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
                         <Image style={{ objectFit : "contain" }} width={120} height={40} src="/img/logo-white.png" alt="treasure deal logo"/>
                     </div>
                     <div className="td-lotto-body-header-buttons d-flex align-items-center">
-                        <div className='select-num m-2'>
+                        <div className='select-add p-0 border-0 m-2'>
                             <InputSelect
                                 options={selectOptions}
                                 placeholder={t('raffleillionaire.selOption')}
@@ -362,7 +379,7 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
                 </div>
             </div>
             <div className="td-lotto-footer d-flex align-items-center justify-content-between mb-5">
-                <button className={'btn-button bgMainColor text-white'} >{t('millionaire.lotto.buttons.continueShopping')}</button>
+                <button className={'btn-button bgMainColor text-white'} onClick={()=>router.push('/')}>{t('millionaire.lotto.buttons.continueShopping')}</button>
                 <button className={'btn-button bgMainColor text-white'} onClick={()=>router.push('/shopping-cart')}>
                     <span>{t('millionaire.lotto.buttons.viewCart')}</span>
                 </button>

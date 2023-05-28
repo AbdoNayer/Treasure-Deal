@@ -8,7 +8,6 @@ import {headerConfig} from "./axiosCalls";
 
 export const getProfileAuth = ( lang, token, currency ) => {
     return async(dispatch) => {
-        console.log('start')
         await axios.get(`${CONST.url}profile`,
             headerConfig(lang,currency,token)
         ).then( (response)=> {
