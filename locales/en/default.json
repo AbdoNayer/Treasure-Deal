@@ -39,6 +39,7 @@
         "changeEmail"           : "Change Email Address",
         "chooseFile"            : "Choose File",
         "TDLibrary"             : "TD Library",
+        "TDServices"            : "TD Services",
         "profile" : {
             "title": "My Account",
             "header": {
@@ -383,7 +384,9 @@
         "invituccessfully" : "Invitation sent successfully",
         "required" : "This Field Is Required",
         "AtLeastCharacters3" : "At least 3 characters",
-        "sendInvitation" : "Send Invitation"
+        "sendInvitation" : "Send Invitation",
+        "influ"  : "If You Are Influencer Digital Media",
+        "showNearby" : "Show Nearby"
     },
     "category" : {
         "millionaire"           : "The Millionaire",

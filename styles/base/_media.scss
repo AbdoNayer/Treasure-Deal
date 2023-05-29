@@ -367,6 +367,7 @@
         }
         .block-search{
             width: 100%;
+            margin-top: 10px;
         }
         .result-items{
             .block-item-cate{
@@ -445,6 +446,17 @@
 
     .in-card-loop {
         height: 320px;
+    }
+
+    .in-fi-cate{
+        flex-direction: column;
+    }
+    .btn-in-select{
+        width: 100%;
+        justify-content: space-between;
+        .links-filter{
+            padding: 0 !important;
+        }
     }
 
 }
@@ -637,6 +649,67 @@
         font-size: 12px !important;
         font-weight: bold !important;
         vertical-align: middle;
+    }
+}
+
+@media (max-width: 500px){
+    .fl-col{
+        flex-direction: column;
+        justify-content: initial !important;
+        align-items: initial !important;
+    }
+    .wrap-center{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .mySwiper {
+        height: 220px;
+    }
+    .events-block{
+        img{
+            height: 220px !important;
+        }
+    }
+    .td_input_otp_wrapper .td_input input {
+        width: 43px;
+        height: 43px;
+        font-size: 12px;
+        padding: 0;
+    }
+    .td-lotto-header-prize-money {
+        font-size: 30px;
+    }
+    .filter-action{
+        width: 100%;
+        .links-filter {
+            padding: 0 !important;
+            text-align: center;
+            width: 100%;
+            button{
+                width: 100%;
+                margin: 5px 0 !important;
+            }
+        }
+    }
+    .in-fi-cate{
+        .select-add{
+            margin-bottom: 10px;
+            width: 100%;
+            > div{
+                width: 100% !important;
+            }
+        }
+    }
+    .btn-in-select{
+        justify-content: center;
+        flex-direction: column;
+        .links-filter{
+            padding: 0 !important;
+        }
+    }
+    .td_orders_table_actions_filters{
+        justify-content: center;
+        padding: 8px 0 !important;
     }
 }
 

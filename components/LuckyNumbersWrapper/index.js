@@ -19,7 +19,7 @@ export const LuckyNumbersWrapper = ({selectedLines,luckyCounter,checkCardEmpty,s
     },[luckyBundle])
     return (
         <div className="td-lotto-body-bundles-wrapper position-relative d-flex align-items-center justify-content-center" {...props}>
-            <div className='control-icon d-flex align-items-center justify-content-end'>
+            <div className='control-icon d-flex align-items-baseline justify-content-end'>
                 <button className='bg-transparent icon-shuffle2 fs-5 mainColor mx-2' onClick={()=>setShuffleWrapper(shuffleWrapper+1)}/>
                 <button className='bg-transparent mainColor mx-2' onClick={deleteBundle}>
                     {isDeleting

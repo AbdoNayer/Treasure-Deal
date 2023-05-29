@@ -323,7 +323,7 @@ export default function Booking() {
                                     textModal           = { 'terms' }
                                 />
                             </div>
-                            <div className="d-flex justify-content-center align-items-center">
+                            <div className="d-flex justify-content-center align-items-center fl-col">
                                 <div className="block-item">
                                     <span className="fw-light mainColor">TD Vouchers</span>
                                 </div>
@@ -464,9 +464,9 @@ export default function Booking() {
                 </div>
             </div>
 
-            <div className="d-flex justify-content-between align-items-center mb-5">
-                <div className='d-flex align-items-center'>
-                    {categoryId && <div className="select-active d-flex align-items-center">
+            <div className="d-flex justify-content-between align-items-center mb-5 in-fi-cate">
+                <div className='d-flex align-items-center btn-in-select'>
+                    {categoryId && <div className="select-add p-0 d-flex align-items-center">
                         {/*{
                             "id": 234,
                             "name": "United Arab Emirates"
@@ -481,7 +481,7 @@ export default function Booking() {
                             placeholder={t('booking.Reserve.country')}
                         />
                     </div>}
-                    {categoryId && categoryId!==2 && selectedCountry && <div className="select-active d-flex align-items-center mx-3">
+                    {categoryId && categoryId!==2 && selectedCountry && <div className="select-add p-0 d-flex align-items-center mx-3">
                         <InputSelect
                             isLoading={isCitiesLoading}
                             options={citiesData?.cities.map(city => ({label:city.name,value:city.id}))}
@@ -491,8 +491,8 @@ export default function Booking() {
                     </div>}
                     {categoryId !== 2 && <div className="filter-action">
                         {categoryId && <div className="links-filter px-4">
-                            <button className={`${userLocation.lat && 'td_active'}`} onClick={checkLocation}>Show
-                                Nearby
+                            <button className={`${userLocation.lat && 'td_active'}`} onClick={checkLocation}>
+                                {t('app.showNearby')}
                             </button>
                         </div>}
                     </div>}

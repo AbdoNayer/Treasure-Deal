@@ -58,6 +58,55 @@
     }
 }
 
+// Style ChickBox
+.in-chick-box {
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: auto;
+        &:checked {
+            ~ .checkmark {
+                background-color: $main;
+                border: 1px solid $main;
+            }
+            ~ .checkmark:after {
+                display: block;
+            }
+        }
+    }
+    .checkmark {
+        @include positionItem(relative, 0, initial, 0, initial, initial);
+        height: 24px;
+        width: 24px;
+        background-color: transparent;
+        border-radius: 3px;
+        border: 1px solid $main;
+        display: inline-block;
+        vertical-align: middle;
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 7px;
+            top: 2px;
+            width: 8px;
+            height: 14px;
+            border: solid $white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+}
+
 // Checkbox
 .box-checkbox{
     width: 24px;

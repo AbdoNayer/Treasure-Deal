@@ -62,8 +62,8 @@ export const MerchantVouchers = ({vouchers,openModal,type,updateSlug,updateVouch
 
                                     </div>
                                 </div>
-                                <div className='d-flex align-items-center justify-content-between'>
-                                    <span className="bgMainColor p-2 rounded-4 text-white m-2 px-3">{parseInt(voucher.discount_per)}% Off</span>
+                                <div className='d-flex align-items-center justify-content-between fl-col'>
+                                    <span className="bgMainColor p-2 rounded-4 text-white m-2 px-3 text-center">{parseInt(voucher.discount_per)}% Off</span>
                                     <button className='p-0 m-0 bg-transparent mainColor' onClick={()=> openModal('terms')}>{t('booking.details.terms')}</button>
                                 </div>
                             </div>

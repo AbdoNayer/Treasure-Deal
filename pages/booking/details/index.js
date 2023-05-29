@@ -239,7 +239,7 @@ export default function BookingDetails() {
                         <div className="info-cate">
                             <div className='d-flex align-items-center justify-content-between'>
                                 <h4>{data.merchants.business_name}</h4>
-                                {data.merchants.branches.length> 0 &&<div className="select-active d-flex align-items-center">
+                                {data.merchants.branches.length> 0 &&<div className="select-add p-0 d-flex align-items-center">
                                     <label className='mainColor fw-light mx-2'>{t('booking.details.branch')}</label>
                                     <InputSelect
                                         options={data.merchants.branches.map(branch=> ({label:branch.map_desc,value:branch.id}))}
@@ -249,8 +249,8 @@ export default function BookingDetails() {
                                 </div>}
                             </div>
                             <p className="fw-light">{data.merchants.brief}</p>
-                            <div className='d-flex align-items-center justify-content-between my-4'>
-                                <div className='icon' onClick={()=>window.open(`tel:[${data.merchants.full_phone}]`)}>
+                            <div className='d-flex align-items-center justify-content-between my-4 fl-col'>
+                                <div className='icon mb-3' onClick={()=>window.open(`tel:[${data.merchants.full_phone}]`)}>
                                     <i className='icon-call mainColor fs-3'/>
                                     <span className='mx-2 fw-light'>{data.merchants.full_phone}</span>
                                 </div>
@@ -259,27 +259,27 @@ export default function BookingDetails() {
                                     <span className='mx-2 fw-light'>{data.merchants.website}</span>
                                 </div>}
                             </div>
-                            <div className='d-flex align-items-center my-4'>
-                                <button className='icon bg-transparent' onClick={()=> openModal('map')}>
+                            <div className='d-flex align-items-center my-4 wrap-center'>
+                                <button className='icon bg-transparent mb-3' onClick={()=> openModal('map')}>
                                     <i className='icon-map-v fs-3'/>
                                     <span className='mx-2 fw-light'>{t('booking.details.map')}</span>
                                 </button>
-                                {data.merchants.amenities.length > 0 && <button className='icon mx-2 bg-transparent' onClick={() => openModal('features')}>
+                                {data.merchants.amenities.length > 0 && <button className='icon mx-2 mb-3 bg-transparent' onClick={() => openModal('features')}>
                                     <i className='icon-book fs-3'/>
                                     <span className='mx-2 fw-light'>{t('booking.details.features')}</span>
                                 </button>}
 
-                                {data.merchants.menus.length > 0 && <button className='icon mx-2 bg-transparent' onClick={() => openModal('menu')}>
+                                {data.merchants.menus.length > 0 && <button className='icon mx-2 mb-3 bg-transparent' onClick={() => openModal('menu')}>
                                     <i className='icon-menu fs-3'/>
                                     <span className='mx-2 fw-light'>{t('booking.details.Menus')}</span>
                                 </button>}
 
 
-                                <button className='icon mx-2 bg-transparent' onClick={()=> openModal('about')}>
+                                <button className='icon mx-2 bg-transparent mb-3' onClick={()=> openModal('about')}>
                                     <i className='icon-info fs-3'/>
                                     <span className='mx-2 fw-light'>{t('booking.details.about')}</span>
                                 </button>
-                                {data.merchants.gallaries.length > 0 && <button className='icon mx-2 bg-transparent' onClick={() => openModal('gallery')}>
+                                {data.merchants.gallaries.length > 0 && <button className='icon mx-2 mb-3 bg-transparent' onClick={() => openModal('gallery')}>
                                     <i className='icon-image-gallery fs-3'/>
                                     <span className='mx-2 fw-light'>{t('booking.details.gallery')}</span>
                                 </button>}

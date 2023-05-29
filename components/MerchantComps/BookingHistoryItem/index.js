@@ -108,7 +108,7 @@ export const BookingHistoryItem = ({order,handleCancelBooking,...props}) => {
                             </button>
                         }
                     </div>
-                    <div className={'d-flex align-items-center my-3'}>
+                    <div className={'d-flex align-items-center my-3 fl-col'}>
                         <button className='bgMainColor px-3 py-2 fw-light rounded-2 text-white' onClick={()=> openModal()}>{t('user.profile.Redeem.bookingDetails')}</button>
                         {(order.shop_type!=='illusion'&&order.shop_type!=='property') && <button className='bgMainColor mx-2 px-3 py-2 fw-light rounded-2 text-white'
                                  onClick={() => router.push(`/booking/edit-reservation?order_id=${order.id}`)}>{t('user.profile.Redeem.editBooking')}</button>}
