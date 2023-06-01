@@ -26,6 +26,7 @@ import {Pagination} from "../../components/Pagination";
 import {getCode} from 'country-list'
 import {HotelItems} from "../../components/MerchantComps/HotelItems";
 import {useTable} from "../../hooks/table-hook";
+import {RecommendedMerchants} from "../../components/MerchantComps/RecommendedMerchants";
 
 export default function Booking() {
     
@@ -117,7 +118,7 @@ export default function Booking() {
     } = useApi(()=> getAllMerchants(user.token,langVal,currency,currentPage
         ,categoryId,subCategoryId,mallId
         ,selectedCountry.value,selectedCity,searchName
-        ,!!userLocation.lat,userLocation.lat,userLocation.long), user !== null)
+        ,!!userLocation.lat,userLocation.lat,userLocation.long,false), user !== null)
 
     const [dataLoadComplete,setDataLoadComplete] = useState(!!merchantsData)
 
@@ -347,7 +348,7 @@ export default function Booking() {
             
             <div className="filter-action my-4">
                 <div className="d-flex justify-content-center align-items-center my-3">
-                    <Swiper grabCursor breakpoints={{ 580:{ slidesPerView:3 }, 768:{ slidesPerView:4 }, 1000:{ slidesPerView:10 }, }} spaceBetween={10} className={'cate-list-swiper p-3'}>
+                    <Swiper grabCursor breakpoints={{ 580:{ slidesPerView:2 }, 768:{ slidesPerView:4 }, 1000:{ slidesPerView:10 }, }} spaceBetween={10} className={'cate-list-swiper p-3'}>
                         <SwiperSlide>
                             <button onClick={() => setCategoryId('')} className={"cate-button bg-transparent"}>
                                 <div className={`icon-cate ${categoryId==='' ? 'td_active' : ''}`}>
@@ -420,49 +421,16 @@ export default function Booking() {
                 </div>}
             </div>
 
-            <div className="">
-                <div className="my-5 border-dotted">
-                    <h4 className="fw-light">{t('booking.header.recommended')}</h4>
-                </div>
-                <div className="">
-                    <Swiper
-                      grabCursor
-                      breakpoints={{
-                            580:{
-                                slidesPerView:1
-                            },
-                            768:{
-                                slidesPerView:2
-                            },
-                            1000:{
-                                slidesPerView:4
-                            },
-                      }}
-                      spaceBetween={25} pagination={true} modules={[Pagination]} className={'cate-swiper px-3'}>
-                        {
-                            data.map((item, i) => (
-                                <SwiperSlide key={i}>
-                                    <div className='block-cate old-shadow rounded-3 my-3 overflow-hidden'>
-                                        <div className="img-cate">
-                                            <Image width={70} height={200} alt='img' src={item.img} className="w-100" />
-                                            <div className="marka old-shadow p-3 rounded-2">
-                                                <Image style={{ objectFit : "contain" }} width={50} height={50} alt='logo' src={item.logo} />
-                                            </div>
-                                        </div>
-                                        <div className="info-cate p-3">
-                                            <h6 className="mt-0">{item.name}</h6>
-                                            <p className="fw-light">{item.cate}</p>
-                                            <div className="d-flex justify-content-end">
-                                                <span className="bgMainColor p-1 rounded-1 text-white">{item.offer}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </SwiperSlide>
-                            ))
-                        }
-                    </Swiper>
-                </div>
-            </div>
+            <RecommendedMerchants
+                catId={categoryId}
+                subCatId={subCategoryId}
+                mallId={mallId}
+                selectedCountry={selectedCountry.value}
+                selectedCity={selectedCity.value}
+                isLocation={!!userLocation.lat}
+                lat={userLocation.lat}
+                lng={userLocation.lat}
+            />
 
             <div className="d-flex justify-content-between align-items-center mb-5 in-fi-cate">
                 <div className='d-flex align-items-center btn-in-select'>

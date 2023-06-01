@@ -67,8 +67,8 @@ export const HotelBookingItem = ({contract,openGalleryModal,galleryOptions,start
                             }
                         </div>
                         <div className="td_car_details col-md-8 col-xs-12 pt-2">
-                            <div className="d-flex align-items-center justify-content-between mb-3">
-                                <h4 className="m-0">{contract.RoomType}</h4>
+                            <div className="d-flex align-items-center justify-content-between fl-col mb-3">
+                                <h4 className="m-0 mb-3">{contract.RoomType}</h4>
                                 {/*<span className="text-danger fw-bold">{contract.TotalRate + ' ' + contract.CurrCode}</span>*/}
                                 <div>
                                     <span className="fw-bold me-2">{((contract.TotalRate + (contract.TotalRate * (commission/100))) - ((contract.TotalRate * (discount/100)))).toFixed(2) + ' ' + contract.CurrCode}</span>

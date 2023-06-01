@@ -143,7 +143,7 @@ export const BookingCalendarProfileComp = ({...props}) => {
         <div className={'td_profile_calendar pb-5'}>
             <h3>Booking Calendar</h3>
             <div className="row">
-                <div className={(checkBookingDate(date) && filteredObjs.length>0) ? "col-8" : "col-12"}>
+                <div className={(checkBookingDate(date) && filteredObjs.length>0) ? "col-md-8" : "col-md-12"}>
                     {/*<div className="calendar-container calendar-pro">*/}
                     <div className="">
                         <Calendar
@@ -161,7 +161,7 @@ export const BookingCalendarProfileComp = ({...props}) => {
                     </div>
                 </div>
                 {checkBookingDate(date) && filteredObjs.length>0 &&
-                    <div className="col-4 td_booking">
+                    <div className="col-md-4 td_booking">
                         <div className="temp-title text-center">
                             <h4 className="fw-light bg-white position-relative m-auto d-table px-3 py-3 fs-6">{formattedToday}</h4>
                         </div>

@@ -20,7 +20,7 @@ export const HotelItems = ({hotelCode,hotel,...props}) => {
             </div>
             <div className="up-info-cate d-flex align-items-center justify-content-between px-2">
                 <div className="info-cate p-3">
-                    <div className="d-flex align-items-center justify-content-between">
+                    <div className="d-flex align-items-center justify-content-between fl-col">
                         <h4 className="m-0 text-overflow">{hotel.Name}</h4>
                         {hotel.StarRating > 0 && <HotelStars starsNumber={hotel.StarRating}/>}
                     </div>

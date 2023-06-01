@@ -237,16 +237,20 @@ export default function BookingDetails() {
                     </div>
                     <div className='col-md-8 col-xs-12'>
                         <div className="info-cate">
-                            <div className='d-flex align-items-center justify-content-between'>
+                            <div className='d-flex align-items-center justify-content-between fl-col'>
                                 <h4>{data.merchants.business_name}</h4>
-                                {data.merchants.branches.length> 0 &&<div className="select-add p-0 d-flex align-items-center">
+                                {data.merchants.branches.length> 0 &&
+                                <div className=''>
                                     <label className='mainColor fw-light mx-2'>{t('booking.details.branch')}</label>
-                                    <InputSelect
-                                        options={data.merchants.branches.map(branch=> ({label:branch.map_desc,value:branch.id}))}
-                                        onChange={(e)=> updateMerchantBranch(e.value)}
-                                        placeholder={t('register.placeholders.select')}
-                                    />
-                                </div>}
+                                    <div className="select-add p-0 d-flex align-items-center">
+                                        <InputSelect
+                                            options={data.merchants.branches.map(branch=> ({label:branch.map_desc,value:branch.id}))}
+                                            onChange={(e)=> updateMerchantBranch(e.value)}
+                                            placeholder={t('register.placeholders.select')}
+                                        />
+                                    </div>
+                                </div>
+                                }
                             </div>
                             <p className="fw-light">{data.merchants.brief}</p>
                             <div className='d-flex align-items-center justify-content-between my-4 fl-col'>
@@ -290,7 +294,7 @@ export default function BookingDetails() {
             </div>
             <div className=''>
 
-                {!showBooking && <div className="my-5 border-dotted d-flex align-items-center justify-content-between pb-3">
+                {!showBooking && <div className="my-5 border-dotted d-flex align-items-center justify-content-between pb-3 fl-col">
                     <h4 className="fw-light">{t('booking.details.myVouchers')}</h4>
                     <div className="td_orders_table_actions">
                         <div className="td_orders_table_actions_filters d-flex align-items-center">

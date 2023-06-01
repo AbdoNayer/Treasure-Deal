@@ -1,0 +1,89 @@
+.chat .head-chat {
+  height: 70px;
+}
+.chat .img-user .active-in {
+  position: absolute;
+  top: 40px;
+  bottom: initial;
+  transform: initial;
+  left: initial;
+  right: 0;
+  margin: auto;
+  background-color: #1AB64F;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+}
+.chat .icon-circle {
+  width: 25px;
+  height: 25px;
+}
+.chat .height-view-scroll {
+  height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.chat .over-section-pepole {
+  height: 500px;
+}
+.chat .over-section-pepole .td-chat-room {
+  cursor: pointer;
+  transition: all 200ms ease-in-out 50ms;
+}
+.chat .over-section-pepole .td-chat-room:hover {
+  background-color: #f3f3f3;
+}
+.chat .over-section-pepole .td-chat-room_active {
+  background-color: #f3f3f3;
+}
+.chat .all-chat {
+  background-color: #EEF1F8;
+}
+.chat .all-chat .sender::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-right: 10px solid #fff;
+  border-bottom: 5px solid transparent;
+  position: absolute;
+  top: 23px;
+  bottom: initial;
+  transform: initial;
+  left: initial;
+  right: initial;
+  margin: auto;
+  left: 7px;
+}
+.chat .all-chat .receive::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-left: 10px solid #f9e8f9;
+  border-bottom: 5px solid transparent;
+  position: absolute;
+  top: 23px;
+  bottom: initial;
+  transform: initial;
+  left: initial;
+  right: initial;
+  margin: auto;
+  right: 7px;
+}
+.chat .box-info-chat {
+  position: absolute;
+  top: 0;
+  bottom: initial;
+  transform: initial;
+  left: 0;
+  right: initial;
+  margin: auto;
+  z-index: 9;
+}
+.chat .td_emojipicker {
+  position: absolute;
+  bottom: 70px;
+  left: 50px;
+}/*# sourceMappingURL=chat.css.map */

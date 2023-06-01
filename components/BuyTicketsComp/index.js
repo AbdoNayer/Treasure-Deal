@@ -31,9 +31,11 @@ import {
     removeSelectedTicketReducer, resetSelectedTicketsReducer
 } from "../../redux-toolkit/reducer/selectedTicketsReducer";
 import {cartReducer} from "../../redux-toolkit/reducer/cartReducer";
+import {t} from "i18next";
+import Toastify from "toastify-js";
 
 
-export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,selectedTickets,drawType,backgroundImgClass='BG-2'}) {
+export default  function BuyTicketsComp ({type,socket,typeDetails,typeName,refetchType,selectedTickets,drawType,backgroundImgClass='BG-2'}) {
 
     const user                                          = useSelector((state) => state.user.user);
     const langVal                                       = useSelector((state) => state.language.language);
@@ -51,15 +53,15 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
     const [ticketFilter,setTicketFilter]                = useState('')
     const [lock,setLock]                                = useState(false)
     const [allSelectedTickets,setAllSelectedTickets]    = useState([])
-
+    const [myLuckyLoading,setMyLuckyLoading]            = useState(false)
     const [horoscopeState,setHoroscopeState]            = useState(true)
     const [bundlesQuantity, setBundlesQuantity]         = useState([]);
 
     const didMount = useRef(false);
-    const socket = io('https://treasuredeal.com:9090', {
-        transports      : ['websocket'],
-        query: "id=" + user.id + "&user_type=User",
-    });
+    // const socket = io('https://treasuredeal.com:9090', {
+    //     transports      : ['websocket'],
+    //     query: "id=" + user.id + "&user_type=User",
+    // });
     useEffect(()=>{
         // dispatch(callCart(user.token,langVal,currency))
         const addListener = data => {
@@ -92,6 +94,93 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
     //         )
     //     )
     // },[allSelectedTickets,allSelectedTickets,selectedTicketsReducer])
+    const socketAddTicket = async (ticket,callbackFn) => {
+        await socket.emit('selectLine', {user_id:user.id,type:type,ticket:ticket},callbackFn)
+    }
+    const addTicket = async ticket => {
+        if (selectedTicketsReducer.includes(ticket) || allSelectedTickets.includes(ticket)) {
+            dispatch(showModalAction(<ModalForm title={t('raffleillionaire.alreadyChosen')}>
+                <div className={'d-flex flex-column align-items-center justify-content-between'}>
+                    <div className={'mb-4'}>{t('raffleillionaire.ticketAlready')}</div>
+                </div>
+            </ModalForm>))
+        }
+        else{
+            if (typeDetails.max_bundles === selectedTicketsReducer.length) {
+                dispatch(showModalAction(<ModalForm title={t('millionaire.lotto.pop_ups.bundle_limit.title')}>
+                    <div className={'text-center mb-4'}>
+                        {t('raffleillionaire.youBundles')}
+                    </div>
+                </ModalForm>))
+            }
+            else {
+                if (raffillionaireInfo.qty === selectedTicketsReducer.length) {
+                    if(lock) {
+                        Toastify({
+                            text: "Handling another ticket please wait",
+                            duration: 3000,
+                            gravity: "top",
+                            position: langVal === 'en' ? "left" : "right",
+                            style: {
+                                background: "#F00",
+                            }
+                        }).showToast();
+                        return
+                    }
+                    dispatch(showModalAction(
+                        <ModalForm
+                            title={t('millionaire.lotto.buttons.addBundle')}
+                            applyText={t('millionaire.lotto.buttons.addBundle')}
+                            applyButton
+                            applyFunction={async () => {
+                                setLock(true)
+                                setMyLuckyLoading(true)
+                                await socketAddTicket(ticket,async (r)=> {
+                                    if (r.status === 'ok') {
+                                        await dispatch(callCart(user.token,langVal,currency))
+                                        dispatch(addSelectedTicketReducer(ticket))
+                                        dispatch(addRaffillionaireBundleReducer(raffillionaireInfo.qty+1))
+                                        await refetchType()
+                                        dispatch(hideModalAction())
+                                        setMyLuckyLoading(false)
+                                        setLock(false)
+                                    }
+                                })
+                            }}>
+                            <div className={'d-flex flex-column align-items-center justify-content-between'}>
+                                <div className={'mb-5'}>{t('raffleillionaire.newBundle')}</div>
+                            </div>
+                        </ModalForm>)
+                    )
+                }
+                else {
+                    if(lock) {
+                        Toastify({
+                            text: "Handling another ticket please wait",
+                            duration: 3000,
+                            gravity: "top",
+                            position: langVal === 'en' ? "left" : "right",
+                            style: {
+                                background: "#F00",
+                            }
+                        }).showToast();
+                        return
+                    }
+                    setMyLuckyLoading(true)
+                    setLock(true)
+                    await socketAddTicket(ticket,async (r)=>{
+                        if (r.status === 'ok') {
+                            dispatch(addSelectedTicketReducer(ticket))
+                            await dispatch(callCart(user.token,langVal,currency))
+                            refetchType()
+                            setMyLuckyLoading(false)
+                            setLock(false)
+                        }
+                    })
+                }
+            }
+        }
+    }
 
 
     useEffect(()=>{
@@ -138,95 +227,22 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
     useEffect(()=>{
         setTimeout(() =>{
             if (lock) setLock(false);
-        }, 2000)
+        }, 1500)
         setAllSelectedTickets(prevState =>
             [ ...new Set(
                 [
                         ...prevState,
                         ...selectedTicketsReducer,
-                        ...cartInfo.filter(cart=> cart.cart_data.type === type).reduce((a,e) =>
-                                a ? [...a,e.lines[0].ticket.join('') ] : e.lines[0].ticket.join('')
-                            ,[]
-                        )
+                        // ...cartInfo.filter(cart=> cart.cart_data.type === type).reduce((a,e) =>
+                        //         a ? [...a,e?.lines[0]?.ticket.join('') ] : e.lines[0].ticket.join('')
+                        //     ,[]
+                        // )
                 ]
             ) ]
         )
     },[selectedTicketsReducer])
 
-    const socketAddTicket = ticket => {
-        socket.emit('selectLine', {user_id:user.id,type:type,ticket:ticket})
-    }
-    const socketDeleteTicket = async ticket => {
-        socket.emit('deleteLine', {user_id:user.id,type:type,ticket:ticket})
-    }
-    // useEffect(()=>{
-    //     console.log(cartInfo.filter(cart=> cart.cart_data.type === type).reduce((a,e) =>
-    //             a ? [...a,e.lines[0].ticket.join('') ] : e.lines[0].ticket.join('')
-    //         ,[]
-    //     ));
-    // },[cartInfo])
 
-    const addTicket = async ticket => {
-        if (selectedTicketsReducer.includes(ticket) || allSelectedTickets.includes(ticket)) {
-            dispatch(showModalAction(<ModalForm title={t('raffleillionaire.alreadyChosen')}>
-                <div className={'d-flex flex-column align-items-center justify-content-between'}>
-                    <div className={'mb-4'}>{t('raffleillionaire.ticketAlready')}</div>
-                </div>
-            </ModalForm>))
-        }
-        else{
-            if (typeDetails.max_bundles === selectedTicketsReducer.length) {
-                dispatch(showModalAction(<ModalForm title={t('millionaire.lotto.pop_ups.bundle_limit.title')}>
-                    <div className={'text-center mb-4'}>
-                        {t('raffleillionaire.youBundles')}
-                    </div>
-                </ModalForm>))
-            }
-            else {
-                if (raffillionaireInfo.qty === selectedTicketsReducer.length) {
-                    if(lock) return;
-                    dispatch(showModalAction(
-                        <ModalForm
-                            title={t('millionaire.lotto.buttons.addBundle')}
-                            applyText={t('millionaire.lotto.buttons.addBundle')}
-                            applyButton
-                            applyFunction={async () => {
-                                setLock(true)
-                                await socketAddTicket(ticket)
-                                await dispatch(callCart(user.token,langVal,currency))
-                                dispatch(addSelectedTicketReducer(ticket))
-                                dispatch(addRaffillionaireBundleReducer(raffillionaireInfo.qty+1))
-                                await refetchType()
-                                dispatch(hideModalAction())
-                            }}>
-                            <div className={'d-flex flex-column align-items-center justify-content-between'}>
-                                <div className={'mb-5'}>{t('raffleillionaire.newBundle')}</div>
-                            </div>
-                        </ModalForm>)
-                    )
-                }
-                else {
-                    if(lock) return;
-                    setLock(true)
-                    await socketAddTicket(ticket)
-                    dispatch(addSelectedTicketReducer(ticket))
-                    await dispatch(callCart(user.token,langVal,currency))
-                    refetchType()
-                }
-            }
-        }
-    }
-    const deleteTicket = async ticket => {
-        if(lock) return;
-        await socketDeleteTicket(ticket).then(async ()=>{
-            await dispatch(callCart(user.token,langVal,currency)).then(async ()=>{
-                setAllSelectedTickets(prevState => prevState.filter(item=> item!==ticket))
-                await dispatch(removeSelectedTicketReducer(ticket))
-            })
-        })
-        // dispatch(removeSelectedTicketReducer(ticket))
-        await refetchType()
-    }
 
     return (
         <div className={'td-lotto container raffleillionaire'}>
@@ -312,8 +328,15 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
                             {selectedTicketsReducer && selectedTicketsReducer.length > 0 && <div
                                 className={'d-flex align-items-center justify-content-center flex-wrap over-card-bundle raffillionaire-selected-tickets'}>
                                 {selectedTicketsReducer.map(item =>
-                                        <TicketCard ticketMode={'delete'} ticket={item} key={item}
-                                                    handleClick={deleteTicket}
+                                        <TicketCard allSelectedTickets={allSelectedTickets} ticketMode={'delete'} ticket={item} key={item}
+                                                    handleClick={()=>{}}
+                                                    socket={socket}
+                                                    typeDetails={typeDetails}
+                                                    lock={lock}
+                                                    setLock={setLock}
+                                                    refetchType={refetchType}
+                                                    setAllSelectedTickets={setAllSelectedTickets}
+                                                    type={type}
                                         />
                                     // <div className='card-bun active text-center' key={item.id}>
                                     //     {
@@ -349,12 +372,12 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
                                                     {allTicketsData.tickets.map((item, i) => (
                                                         <div key={item.value} className='bg-card-one d-flex align-items-center justify-content-center' onClick={()=>addTicket(item.value)}>
                                                             <div className='d-flex align-items-center flex-column justify-content-center text-center'>
-                                                                {false
+                                                                {myLuckyLoading
                                                                     ? <span className="spinner-border spinner-border-sm mainColor" role="status" aria-hidden="true"/>
-                                                                    : <>
+                                                                    : <div>
                                                                         <Image style={{ objectFit : "contain" }} width={50} height={50} alt='img' src='/img/favicon.png'/>
                                                                         <span>{item.value}</span>
-                                                                    </>}
+                                                                    </div>}
                                                             </div>
                                                         </div>
                                                     ))}
@@ -364,7 +387,19 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
                                         </div>
                                         : <div className='over-card-bundle d-flex flex-wrap'>
                                             {allTicketsData.tickets.map((item, i) => (
-                                                <TicketCard ticketMode={allSelectedTickets.includes(item.value) ? 'selected' : 'select'} ticket={item.value} key={item.value} handleClick={addTicket}/>
+                                                <TicketCard
+                                                    allSelectedTickets={allSelectedTickets}
+                                                    ticketMode={allSelectedTickets.includes(item.value) ? 'selected' : 'select'}
+                                                    ticket={item.value}
+                                                    key={item.value}
+                                                    handleClick={()=>{}}
+                                                    socket={socket}
+                                                    typeDetails={typeDetails}
+                                                    lock={lock}
+                                                    setLock={setLock}
+                                                    refetchType={refetchType}
+                                                    type={type}
+                                                />
                                             ))}
                                         </div>
                                 }
@@ -380,7 +415,10 @@ export default  function BuyTicketsComp ({type,typeDetails,typeName,refetchType,
             </div>
             <div className="td-lotto-footer d-flex align-items-center justify-content-between mb-5">
                 <button className={'btn-button bgMainColor text-white'} onClick={()=>router.push('/')}>{t('millionaire.lotto.buttons.continueShopping')}</button>
-                <button className={'btn-button bgMainColor text-white'} onClick={()=>router.push('/shopping-cart')}>
+                <button className={'btn-button bgMainColor text-white'} onClick={()=> {
+                    if (lock) return
+                    router.push('/shopping-cart')
+                }}>
                     <span>{t('millionaire.lotto.buttons.viewCart')}</span>
                 </button>
             </div>

@@ -2,7 +2,6 @@
 
 // Media Grid
 @media (max-width: 1000px) {
-
     // Use Default
     .none-mobile{
         display: none !important
@@ -12,7 +11,7 @@
         display: flex !important;
     }
 
-    .w-50, .w-75, .btn-button{
+    .w-50, .w-75, .w-25, .btn-button{
         width: 100% !important;
     }
 
@@ -203,6 +202,21 @@
     // Modal
     .td-modal-body {
         width: 90% !important;
+        height: 450px;
+        overflow-y: auto;
+        .td-modal-form-body{
+            padding-top: 10px !important;
+        }
+        .box-result{
+            text-align: center;
+            .d-flex {
+                justify-content: center;
+            }
+            label{
+                text-align: start;
+                display: block;
+            }   
+        }
     }
 
     .td-modal-form{
@@ -298,6 +312,9 @@
             top: 20px;
             font-size: 12px;
         }
+    }
+    .slide-voucher{
+        display: none;
     }
 
     .over-card-bundle{
@@ -402,9 +419,9 @@
                         div{
                             justify-content: center;
                         }
-                        > .d-flex{
-                            flex-direction: column;
-                        }
+                        // > .d-flex{
+                        //     flex-direction: column;
+                        // }
                     }
                     a{
                         width: 100%;
@@ -459,6 +476,14 @@
         }
     }
 
+    .slide-de .slider-gallery-up img {
+        height: 350px;
+    }
+    
+    .slide-de .slider-gallery-down{
+        position: relative;
+    }
+
 }
 
 @media (max-width: 1200px){
@@ -472,7 +497,7 @@
         flex-basis: 100%;
     }
 
-    .col-md-6, .col-md-7, .col-md-5, .col-md-3, .col-md-9, .col-md-4, .col-md-10, .col-md-11, .td_profile_wrapper .col-md-4, .td_profile_wrapper .col-md-8{
+    .col, .col-md-6, .col-md-7, .col-md-8, .col-md-5, .col-md-3, .col-md-9, .col-md-4, .col-md-10, .col-md-11, .td_profile_wrapper .col-md-4, .td_profile_wrapper .col-md-8{
         flex-basis: 100%;
     }
 
@@ -572,10 +597,27 @@
 }
 
 @media (max-width: 768px){
+    h1,h2,h3,h4,h5,h6,p, input, label{
+        // font-size: 13px !important;
+        word-break: break-word;
+    }
+    .form{
+        button{
+            margin: 10px 0 !important;
+        } 
+    }
+    .td_orders_table h4, .td_orders_table_actions_sorting span{
+        font-size: 13px;
+    }
     .td_bld_type{
         flex-direction: column;
         .up-width{
             margin: 10px 0;
+        }
+    }
+    .info-vocher{
+        button{
+            margin: 10px 0 !important;
         }
     }
     .px-5 {
@@ -609,10 +651,18 @@
     .td_profile_calendar .react-calendar__month-view {
         padding: 0px 0px 0px;
     }
+    .td_profile_calendar .react-calendar__tile .td_tile_reservation {
+        font-size: 5px;
+    }
     .td_profile_calendar .react-calendar__month-view__days__day {
         width: 45px;
         height: 45px;
-        font-size: 12px;
+        font-size: 11px;
+        line-height: 10px;
+    }
+    .td_booking_events .modal-height-view {
+        height: auto;
+        min-height: auto;
     }
     .td_profile_calendar .react-calendar__month-view__weekdays abbr[title] {
         font-size: 10px;
@@ -631,6 +681,9 @@
                 justify-content: center;
             }
         }
+    }
+    .td_booking_events .modal-height-view h5, .td_booking_events .modal-height-view p {
+        font-size: 12px;
     }
     .mySwiper, .events-block{
         .info{
@@ -657,6 +710,25 @@
         flex-direction: column;
         justify-content: initial !important;
         align-items: initial !important;
+    }
+    .td_car_booking .td_img_wrapper {
+        margin: auto;
+    }
+    .in-ti-date{
+        h6{
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+        }
+    }
+    .btn-button {
+        font-size: 12px;
+    }
+    .td_car_details{
+        text-align: center;
+        button{
+            display: table;
+            margin: auto;
+        }
     }
     .wrap-center{
         flex-wrap: wrap;
@@ -710,6 +782,12 @@
     .td_orders_table_actions_filters{
         justify-content: center;
         padding: 8px 0 !important;
+    }
+    .slide-de .slider-gallery-down .swiper-slide {
+        border-radius: 5px;
+    }
+    .slide-de .slider-gallery-down img {
+        height: 70px;
     }
 }
 

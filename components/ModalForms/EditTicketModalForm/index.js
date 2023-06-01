@@ -16,7 +16,7 @@ import {resetSelectedTicketsReducer} from "../../../redux-toolkit/reducer/select
 import {t} from "i18next";
 import Toastify from "toastify-js";
 
-export const EditTicketModalForm = ({lineId,cartType,prevTicket,...props}) => {
+export const EditTicketModalForm = ({lineId,cartType,socket,prevTicket,...props}) => {
     const { t }                                             = useTranslation();
 
     const dispatch = useDispatch();
@@ -29,29 +29,25 @@ export const EditTicketModalForm = ({lineId,cartType,prevTicket,...props}) => {
     const [allSelectedTickets,setAllSelectedTickets]        = useState([prevTicket])
 
     const didMount = useRef(false);
-    const socket = io('https://treasuredeal.com:9090', {
-        transports      : ['websocket'],
-        query: "id=" + user.id + "&user_type=User",
-    });
 
     useEffect(()=>{
         const addListener = data => {
-            console.log('selectLineRes', data.ticket)
+            // console.log('selectLineRes', data.ticket)
             setAllSelectedTickets(prevState => prevState.includes(data.ticket) ? prevState : [...prevState,data.ticket])
         }
         const editListener = data => {
-            console.log('editLineRes', data)
+            // console.log('editLineRes', data)
             setAllSelectedTickets(prevState => prevState.includes(data.ticket) ? prevState : [...prevState,data.ticket])
         }
         const deleteListener = data => {
-            console.log('deleteLineRes', data)
+            // console.log('deleteLineRes', data)
             setAllSelectedTickets(prevState => prevState.filter(ticket=> ticket!==data.ticket))
         }
         const connectListener = data => {
             console.log('connect', 'connected to socket from web')
         }
 
-        socket.once("connect", connectListener);
+        socket.on("connect", connectListener);
         socket.on("selectLineRes", addListener);
         socket.on("editLineRes", editListener);
         socket.on("deleteLineRes", deleteListener);
@@ -82,32 +78,6 @@ export const EditTicketModalForm = ({lineId,cartType,prevTicket,...props}) => {
             setIsLoading(false)
         }
     },[ticketsData])
-
-
-    const socketAddTicket = ticket => {
-        socket.emit('selectLine', {user_id:user.id,type:cartType,ticket:ticket})
-    }
-    const socketDeleteTicket = ticket => {
-        socket.emit('deleteLine', {user_id:user.id,type:cartType,ticket:ticket})
-    }
-    const editTicket = async (ticket) => {
-        if (allSelectedTickets.includes(ticket)) {
-            Toastify({
-                text: 'Ticket Already Selected',
-                duration: 3000,
-                gravity: "top",
-                position: langVal === 'en' ? "left" : "right",
-                style: {
-                    background: "#F00",
-                }
-            }).showToast();
-        }
-        else {
-            socketDeleteTicket(prevTicket)
-            socketAddTicket(ticket)
-            await dispatch(callCart(user.token,langVal,currency)).then(()=>dispatch(hideModalAction()))
-        }
-    }
     
     return (
         <div>
@@ -135,8 +105,17 @@ export const EditTicketModalForm = ({lineId,cartType,prevTicket,...props}) => {
                         className={'d-flex align-items-center justify-content-center flex-wrap over-card-bundle raffillionaire-selected-tickets'}>
                         <div className='over-card-bundle d-flex flex-wrap'>
                             {ticketsData.tickets.map((item, i) => (
-                                <TicketCard ticketMode={allSelectedTickets.includes(item.value) ? 'selected' : 'select'} isModal ticket={item.value} key={item.value}
-                                            handleClick={() => editTicket(item.value)}/>
+                                <TicketCard
+                                    ticketMode={allSelectedTickets.includes(item.value) ? 'selected' : 'select'}
+                                    isModal
+                                    socket={socket}
+                                    ticket={item.value}
+                                    type={cartType}
+                                    key={item.value}
+                                    handleClick={()=>{}}
+                                    prevTicket={prevTicket}
+                                    allSelectedTickets={allSelectedTickets}
+                                />
                             ))}
                         </div>
                     </div>

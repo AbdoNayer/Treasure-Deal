@@ -480,7 +480,7 @@ export default function BecomePartner2() {
                                     />
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
+                                    <div className="select-add px-0 select-full">
                                         <label className='mb-2 fw-light'>{t('register.labels.nationality')}</label>
                                         {
                                             nationalityOptions ?
@@ -505,7 +505,7 @@ export default function BecomePartner2() {
                                     </div>
                                 </div>
                                 <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
+                                    <div className="select-add px-0 select-full">
                                         <label className='mb-2 fw-light'>{t('register.labels.country')}</label>
                                         {
                                             nationalityOptions ?

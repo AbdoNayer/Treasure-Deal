@@ -1,0 +1,39 @@
+.td_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.td_button_large {
+  font-size: 22px;
+}
+
+.td_purple_button {
+  background-color: #A3159D;
+  color: #FFF;
+}
+
+.td_yellow_button {
+  background-color: #FBBF11;
+  color: #000;
+}
+
+.td_white_button {
+  background-color: #FFF;
+  color: #000;
+}
+
+.td_blue_button {
+  background-color: #65BAEC;
+  color: #FFF;
+}
+
+.td_red_button {
+  background-color: #F65529;
+  color: #FFF;
+}/*# sourceMappingURL=ButtonMain.module.css.map */

@@ -167,6 +167,11 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
     // const [dateEnd, setDateEnd] = useState(defaultOrder ? defaultDateEnd : tomorrow)
     const [dateStart, setDateStart] = useState(today)
     const [dateEnd, setDateEnd] = useState(tomorrow)
+
+    const getDaysCount = (date_1,date_2) => {
+        let diff = date_1.getTime() - date_2.getTime();
+        return Math.ceil(diff / (1000*3600*24))
+    }
     //#endregion
 
     //#region calendar and time state
@@ -215,9 +220,9 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
     return (
         <div className={'td_booking_comp'}>
             <div className="td_booking_comp_header">
-                <div className={'my-5 border-dotted d-flex align-items-center justify-content-between pb-3'}>
-                    <h4 className="fw-light m-0">Book {voucherType.split('_').join(' ')}</h4>
-                    {goBack && <button className={'bgMainColor btn-button text-white w-auto px-4'} onClick={goBack}>{t("booking.Reserve.return")}</button>}
+                <div className={'my-5 border-dotted d-flex align-items-center justify-content-between pb-3 fl-col'}>
+                    <h4 className="fw-light m-0 mb-2">Book {voucherType.split('_').join(' ')}</h4>
+                    {goBack && <button className={'bgMainColor btn-button text-white w-auto px-4 mb-2'} onClick={goBack}>{t("booking.Reserve.return")}</button>}
                 </div>
             </div>
 
@@ -247,7 +252,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                         </div>}
                     </div>
                     <div className="row align-items-start">
-                        <div className="td_booking_comp_availability_wrapper position-relative col-md-6 col-xs-12">
+                        <div className="td_booking_comp_availability_wrapper position-relative col-md-6 col-xs-12 mb-3">
                             <div className={'td_input_date d-flex align-items-center justify-content-between px-3'}>
                                 <div className="td_date">
                                     {checkVoucherType()==='booking_type_2'
@@ -283,7 +288,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                                 />
                             </div>}
                         </div>
-                        <div className={'col-md-6 col-xs-12'}>
+                        <div className={'col-md-6 col-xs-12  mb-3'}>
                             {checkVoucherType() !== 'booking_type_2' &&
                                 (availabilityLoading
                                         ? <div className="select-ponier d-flex align-items-center justify-content-center">
@@ -291,7 +296,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                                         </div>
                                         : (timingsArray.length > 0
                                             ? 
-                                            <div className="select-add">
+                                            <div className="select-add px-0 select-full">
                                                 <InputSelect
                                                     isLoading={availabilityLoading}
                                                     onChange={e => {
@@ -390,6 +395,7 @@ export const MainBookingComp = ({goBack,defaultOrder,voucherId,merchantId='',mer
                                 serviceGender={serviceGender}
                                 time={selectedTime}
                                 checkInDate={dateStart}
+                                daysCount={checkVoucherType() === 'booking_type_2' ? getDaysCount(dateEnd,dateStart) : null}
                                 checkVoucherType={checkVoucherType}
                                 checkHasAdultsCount={checkHasAdultsCount}
                                 voucherType={voucherType}

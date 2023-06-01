@@ -31,7 +31,7 @@ export default function BookingSuccess() {
         data:merchantDetails,
         isLoading:isMerchantLoading,
         reFetch:refetchMerchantDetails
-    } = useApi(()=>  getMerchantDetails(user.token,langVal,currency,merchant_id),user !== null, router.isReady)
+    } = useApi(()=>  getMerchantDetails(user.token,langVal,currency,merchant_id), router.isReady)
 
     useEffect(()=>{
         if (merchant_id) {
@@ -56,13 +56,13 @@ export default function BookingSuccess() {
                         <span className='d-flex justify-content-center align-items-center rounded-circle bgMainColor'>
                             <i className='icon-phone-call text-white fs-4'></i>
                         </span>
-                        <button className='bg-transparent border-main rounded-pill' onClick={()=>window.open(`tel:[+${merchantDetails.merchants.full_phone}]`)}>+{merchantDetails.merchants.full_phone}</button>
+                        <button className='bg-transparent border-main rounded-pill' onClick={()=>window.open(`tel:[+${merchantDetails?.merchants.full_phone}]`)}>+{merchantDetails?.merchants.full_phone}</button>
                     </div>
                     <div className='mx-3 d-flex align-items-center position-relative info-call'>
                         <span className='d-flex justify-content-center align-items-center rounded-circle bgMainColor'>
                             <i className='icon-whatsapp text-white fs-4'></i>
                         </span>
-                        <button className='bg-transparent border-main rounded-pill' onClick={()=>window.open(`https://wa.me/+${merchantDetails.merchants.full_phone}`)}>{t('app.chatWhatsapp')}</button>
+                        <button className='bg-transparent border-main rounded-pill' onClick={()=>window.open(`https://wa.me/+${merchantDetails?.merchants.full_phone}`)}>{t('app.chatWhatsapp')}</button>
                     </div>
                 </div>
                 <Link href='/' className='btn-button bgMainColor text-white d-flex justify-content-center align-items-center m-auto'>

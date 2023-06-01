@@ -340,7 +340,7 @@ export default function HotelDetails() {
                         <h5 className="mt-0 mb-4">{t('hotel.searchRoom')}</h5>
 
                         <div className="row filter-rooms align-items-center">
-                            <div className="col-md-4 col-xs-12">
+                            <div className="col-md-4 col-xs-12 mb-3">
                                 <div className="td_booking_comp_availability_wrapper position-relative">
                                     <div className={'td_input_date d-flex align-items-center justify-content-between px-3'}>
                                             <div className="td_date">
@@ -372,8 +372,8 @@ export default function HotelDetails() {
                                     }
                                 </div>
                             </div>
-                            <div className="col-md-2 col-xs-12">
-                                <div className="select-add">
+                            <div className="col-md-2 col-xs-12 mb-3">
+                                <div className="select-add px-0 select-full">
                                     <InputSelect
                                         placeholder={t('hotel.form.selectRooms')}
                                         options={count.map(item=> ({label:item,value:item}))}
@@ -381,8 +381,8 @@ export default function HotelDetails() {
                                     />
                                 </div>
                             </div>
-                            <div className="col-md-2 col-xs-12">
-                                <div className="select-add">
+                            <div className="col-md-2 col-xs-12 mb-3">
+                            <div className="select-add px-0 select-full">
                                     <InputSelect
                                         placeholder={t('hotel.form.selectAdu')}
                                         options={count.map(item=> ({label:item,value:item}))}
@@ -390,8 +390,8 @@ export default function HotelDetails() {
                                     />
                                 </div>
                             </div>
-                            <div className="col-md-2 col-xs-12">
-                                <div className="select-add">
+                            <div className="col-md-2 col-xs-12 mb-3">
+                            <div className="select-add px-0 select-full">
                                     <InputSelect
                                         placeholder={t('hotel.form.selectChild')}
                                         options={count.map(item=> ({label:item,value:item}))}
@@ -399,7 +399,7 @@ export default function HotelDetails() {
                                     />
                                 </div>
                             </div>
-                            <div className="col-md-2 col-xs-12">
+                            <div className="col-md-2 col-xs-12 mb-3">
                                 <button
                                     onClick={()=> {
                                         setIsCheckingAvailability(true)

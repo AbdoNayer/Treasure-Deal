@@ -8,6 +8,7 @@ import {RaffelillionaireCart} from "../../components/CartComps/RaffelillionaireC
 import {useRouter} from "next/router";
 import {ModalForm} from "../../components/ModalForms/ModalForm";
 import {CountdownTimer} from "../../components/CountdownTimer";
+import io from "socket.io-client";
 
 export default function ShoppingCart() {
     const { t }                                             = useTranslation();
@@ -19,10 +20,20 @@ export default function ShoppingCart() {
     const langVal                                           = useSelector((state) => state.language.language);
     const currency                                          = useSelector((state) => state.currency.currency);
     const [ isLoadData, setIsLoadData ]                     = useState(true);
+    const [isDeleting,setIsDeleting]                        = useState(false)
+
+    useEffect(() => {if(user === null) router.push('/auth/login');}, [user]);
+
+    const socket = io('https://treasuredeal.com:9090', {
+        transports      : ['websocket'],
+        query: "id=" + user?.id + "&user_type=User",
+    });
     useEffect(()=>{
-        dispatch(getSubscriptions(user.token,langVal,currency))
-        dispatch(selectLinesMillionaire(user.token,langVal,currency))
-        dispatch(callCart(user.token,langVal,currency)).then(()=>setIsLoadData(false));
+        if (user) {
+            dispatch(getSubscriptions(user.token,langVal,currency))
+            dispatch(selectLinesMillionaire(user.token,langVal,currency))
+            dispatch(callCart(user.token,langVal,currency)).then(()=>setIsLoadData(false));
+        }
     },[]);
     const [subscriptions,setSubscriptions] = useState([])
 
@@ -39,8 +50,11 @@ export default function ShoppingCart() {
                 />;
             default:
                 return <RaffelillionaireCart
+                    isDeleting={isDeleting}
+                    setIsDeleting={setIsDeleting}
                     subscriptions={subscriptions}
                     cartData={cart}
+                    socket={socket}
                 />;
         }
     }
@@ -54,6 +68,8 @@ export default function ShoppingCart() {
     }
 
     if (isLoadData) return <LoadData/>
+    if(!user) return null;
+
     return (
       <div className='td-card container'>
 

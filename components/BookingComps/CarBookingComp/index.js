@@ -37,7 +37,7 @@ export const CarBookingComp = ({children,selectedServices,setServices,car,...pro
                     </div>
                 }
                 <div className="rounded-1 p-3">
-                    <div className='td_car_info_wrapper d-flex align-items-start pb-3'>
+                    <div className='td_car_info_wrapper d-flex align-items-start pb-3 fl-col'>
                         <div className="td_img_wrapper">
                             <Swiper
 
@@ -73,10 +73,10 @@ export const CarBookingComp = ({children,selectedServices,setServices,car,...pro
                             </div>
                         </div>
                     </div>
-                    <div className='d-flex align-items-center justify-content-between pt-3'>
+                    <div className='d-flex align-items-center justify-content-between pt-3 fl-col'>
                         {car.has_price === 1 && <>
                             <button
-                                className={`btn-button w-auto px-4 ${selectedServices.find(service => service.id === car.id) ? 'bgMainColor text-white' : 'bg-transparent text-black border-main border-5'}`}
+                                className={`btn-button w-auto mb-3 px-4 ${selectedServices.find(service => service.id === car.id) ? 'bgMainColor text-white' : 'bg-transparent text-black border-main border-5'}`}
                                 // onClick={()=>setSelectedCarIds(car.id)}
                                 onClick={() => setServices(car)}
                             >
@@ -89,7 +89,7 @@ export const CarBookingComp = ({children,selectedServices,setServices,car,...pro
                             </div>
                         </>}
                         {car.has_price === 0 && <>
-                            <div>select rent duration</div>
+                            <h6 className="m-0">select rent duration</h6>
                             {car.prices &&
                                 <div className="select-add select-full">
                                     <InputSelect

@@ -249,7 +249,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                     {...field}
                                     // placeholder={t('login.country_selector_placeholder')}
                                     error={errors.paymentType}
-                                    errorMessage={errors.paymentType?.message}
+                                    // errorMessage={errors.paymentType?.message}
                                     inputRef={ref}
                                     value={paymentOptions.find(c => c.value === value)}
                                     onChange={val => field.onChange(val.value)}
@@ -258,6 +258,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                             }
                         />
                     </div>
+                    {errors.paymentType?.message && <small className='text-danger'>{errors.paymentType?.message}</small>}
                 </div>
             </div>
             {fields.length<1&&addNewField()}
@@ -282,7 +283,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                             // placeholder={t('login.country_selector_placeholder')}
                                             // error={errors.paymentType}
                                             // errorMessage={errors.paymentType?.message}
-                                            errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerTitle?.message}
+                                            // errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerTitle?.message}
                                             inputRef={ref}
                                             value={titleOptions.find(c => c.value === value)}
                                             onChange={val => field.onChange(val.value)}
@@ -291,6 +292,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                     }
                                 />
                             </div>
+                            {errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerTitle?.message && <small className='text-danger'>{errors.passengers[idx]?.passenger?.passengerTitle?.message}</small>}
                         </div>
                         <div className="col col-xs-12 mb-3">
                             <label className='fw-light mb-2 small-font-13'>{t('hotel.form.firstName')}</label>
@@ -322,7 +324,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                             // placeholder={t('login.country_selector_placeholder')}
                                             // error={errors.paymentType}
                                             // errorMessage={errors.paymentType?.message}
-                                            errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerTitle?.message}
+                                            // errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerTitle?.message}
                                             inputRef={ref}
                                             value={typeOptions.find(c => c.value === value)}
                                             onChange={val => field.onChange(val.value)}
@@ -331,6 +333,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                     }
                                 />
                             </div>
+                            {errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerTitle?.message && <small className='text-danger'>{errors.passengers[idx]?.passenger?.passengerTitle?.message}</small>}
                         </div>
                         <div className="col col-xs-12 mb-3">
                             <label className='fw-light mb-2 small-font-13'>{t('hotel.form.gender')}</label>
@@ -351,7 +354,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                             // placeholder={t('login.country_selector_placeholder')}
                                             // error={errors.paymentType}
                                             // errorMessage={errors.paymentType?.message}
-                                            errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerGender?.message}
+                                            // errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerGender?.message}
                                             inputRef={ref}
                                             value={genderOptions.find(c => c.value === value)}
                                             onChange={val => field.onChange(val.value)}
@@ -360,6 +363,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                     }
                                 />
                             </div>
+                            {errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerGender?.message && <small className='text-danger'>{errors.passengers[idx]?.passenger?.passengerGender?.message}</small>}
                         </div>
                         <div className="col col-xs-12 mb-3">
                             <label className='fw-light mb-2 small-font-13'>{t('hotel.form.age')}</label>
@@ -369,7 +373,6 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                 type={'number'}
                                 {...register(`passengers.${idx}.passenger.passengerAge`)}
                                 errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerAge?.message}
-
                             />
                         </div>
                         <div className="col col-xs-12 mb-3">
@@ -386,7 +389,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                             // placeholder={t('login.country_selector_placeholder')}
                                             // error={errors.paymentType}
                                             // errorMessage={errors.paymentType?.message}
-                                            errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerNationality?.message}
+                                            // errorMessage={errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerNationality?.message}
                                             inputRef={ref}
                                             value={countriesData?.countries?.find(c => c.name === value)}
                                             onChange={val => field.onChange(val.label)}
@@ -395,6 +398,7 @@ export const ModalBookingRoom = ({contract,startDate,endDate}) => {
                                     }
                                 />
                             </div>
+                            {errors && errors.passengers && errors.passengers.length > 0 && errors.passengers[idx]?.passenger?.passengerNationality?.message && <small className='text-danger'>{errors.passengers[idx]?.passenger?.passengerNationality?.message}</small>}
                         </div>
                         {fields.length > 1 &&
                             <div className="col-md-1 col-xs-12 d-flex align-items-center justify-content-center">

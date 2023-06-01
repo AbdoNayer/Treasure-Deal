@@ -583,7 +583,7 @@ export default function BecomePartner() {
                                     {errors.country_id && errors.country_id.message && <small className='text-danger'>{errors.country_id.message}</small>}
                                 </div>
                                 {watchCountry && <div className="col-md-6 col-xs-12 mb-4">
-                                    <div className="select-add">
+                                    <div className="select-add px-0 select-full">
                                         <label className='mb-2 fw-light'>City</label>
                                         <Controller
                                             control={control}

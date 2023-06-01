@@ -97,7 +97,7 @@ export const InviteInfluencers = ({...props}) =>  {
                 <p>{t('app.infoDis')}</p>
             </div>
             
-            <form onSubmit={handleSubmit(submitHandler)} className="d-flex align-items-center mb-4 form">
+            <form onSubmit={handleSubmit(submitHandler)} className="d-flex align-items-center mb-4 form fl-col">
                 <div className='mx-2'>
                     <InputText
                         className='px-3 py-2'

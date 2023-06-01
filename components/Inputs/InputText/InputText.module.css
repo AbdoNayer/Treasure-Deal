@@ -1,0 +1,35 @@
+.td_input_wrapper .td_input {
+  position: relative;
+}
+.td_input_wrapper .td_input span {
+  position: absolute;
+  top: 50%;
+  bottom: initial;
+  transform: translateY(-50%);
+  left: initial;
+  right: initial;
+  margin: auto;
+  font-size: 25px;
+  cursor: pointer;
+}
+[dir=ltr] .td_input_wrapper .td_input span {
+  right: 20px;
+}
+[dir=rtl] .td_input_wrapper .td_input span {
+  left: 20px;
+}
+
+[dir=ltr] .td_input_with_select .td_input input {
+  padding-left: 5px;
+  border-left-style: none;
+  border-radius: 0 5px 5px 0;
+}
+[dir=rtl] .td_input_with_select .td_input input {
+  padding-right: 5px;
+  border-right-style: none;
+  border-radius: 5px 0 0 5px;
+}
+
+.td_input_error .td_input input {
+  border-color: #F65529;
+}/*# sourceMappingURL=InputText.module.css.map */

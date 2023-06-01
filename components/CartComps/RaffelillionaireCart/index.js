@@ -12,9 +12,11 @@ import {InputSelect} from '../../Inputs/InputSelect'
 import {EditTicketModalForm} from "../../ModalForms/EditTicketModalForm";
 import {AddLuckyPartnerModalForm} from "../../ModalForms/AddLuckyPartnerModalForm";
 import io from "socket.io-client";
+import Toastify from "toastify-js";
+import {removeSelectedTicketReducer} from "../../../redux-toolkit/reducer/selectedTicketsReducer";
 
 
-export const RaffelillionaireCart = ({cartData,subscriptions}) => {
+export const RaffelillionaireCart = ({cartData,subscriptions,isDeleting,setIsDeleting,socket}) => {
 
 
     const { t }                                             = useTranslation();
@@ -25,21 +27,82 @@ export const RaffelillionaireCart = ({cartData,subscriptions}) => {
     const [isDiscountLoading,setIsDiscountLoading]          = useState(false);
     const subToOption = (sub) => ({value:sub?.id||0,label:sub?.discount_per === 0 ? "Single Bundle" : `X${sub.draw_times} (${sub.discount_per}%  Discount)`})
     const currency                                          = useSelector((state) => state.currency.currency);
-    const socket = io('https://treasuredeal.com:9090', {
-        transports      : ['websocket'],
-        query: "id=" + user.id + "&user_type=User",
-    });
+
+    // const withTimeout = (onSuccess, onTimeout, timeout) => {
+    //     let called = false;
+    //     const timer = setTimeout(() => {
+    //         if (called) return;
+    //         called = true;
+    //         onTimeout();
+    //     }, timeout);
+    //     return (...args) => {
+    //         if (called) return;
+    //         called = true;
+    //         clearTimeout(timer);
+    //         onSuccess.apply(this, args);
+    //     }
+    // }
+
+    const deleteTicket = async (ticket) => {
+        await socket.emit('deleteLine', {user_id:user.id,type:cartData.cart_data.type,ticket:ticket},r=> {
+            if (r.status === 'ok'){
+                dispatch(callCart(user.token,langVal,currency))
+                    .then(async ()=> {
+                        setIsDeleteLoading(false)
+                        setIsDeleting(false)
+                        await dispatch(callCart(user.token,langVal,currency))
+                    })
+            }
+        })
+    }
 
     const deleteLine = async (ticket) => {
+        if (isDeleting) {
+            Toastify({
+                text: "Deleting another item please wait",
+                duration: 3000,
+                gravity: "top",
+                position: langVal === 'en' ? "left" : "right",
+                style: {
+                    background: "#F00",
+                }
+            }).showToast();
+            return
+        }
+        setIsDeleting(true)
         setIsDeleteLoading(true)
-        socket.emit('deleteLine', {user_id:user.id,type:cartData.cart_data.type,ticket:ticket})
-        await dispatch(callCart(user.token,langVal,currency))
-            .then(()=>setIsDeleteLoading(false))
+        // socket.emit('deleteLine', {user_id:user.id,type:cartData.cart_data.type,ticket:ticket})
+        await deleteTicket(ticket)
+            // .then(async ()=>{
+            // setTimeout(async ()=>{
+            //     await dispatch(callCart(user.token,langVal,currency))
+            //         .then(async ()=> {
+            //             setIsDeleteLoading(false)
+            //             setIsDeleting(false)
+            //             await dispatch(callCart(user.token,langVal,currency))
+            //         })
+            // },1500)
+            // await dispatch(callCart(user.token,langVal,currency)).then(async ()=>{
+            //     setIsDeleteLoading(false)
+            //     setIsDeleting(false)
+        // })
     }
 
     const editTicket = (line) => {
+        if (isDeleting||isDiscountLoading) {
+            Toastify({
+                text: "Handling another item please wait",
+                duration: 3000,
+                gravity: "top",
+                position: langVal === 'en' ? "left" : "right",
+                style: {
+                    background: "#F00",
+                }
+            }).showToast();
+            return
+        }
         dispatch(showModalAction(<ModalForm title={t('app.updateTicket')}>
-            <EditTicketModalForm lineId={line.id} prevTicket={line.ticket.join('')} cartType={cartData.cart_data.type} />
+            <EditTicketModalForm lineId={line.id} socket={socket} prevTicket={line.ticket.join('')} cartType={cartData.cart_data.type} />
         </ModalForm>))
     }
 
@@ -117,7 +180,7 @@ export const RaffelillionaireCart = ({cartData,subscriptions}) => {
                             <button className={'bg-transparent'}>
                                 {isDeleteLoading
                                     ? <span className={'fs-5 spinner-border spinner-border-sm mainColor'}/>
-                                    : <span className={'icon-bin mainColor fs-5 '} onClick={()=> deleteLine(cartData.lines[0].ticket.join(''))}/>
+                                    : <span className={`icon-bin ${isDeleting ? 'secondColor ' : 'mainColor '}fs-5 `} onClick={()=> deleteLine(cartData.lines[0].ticket.join(''))}/>
                                 }
                             </button>
                         </div>

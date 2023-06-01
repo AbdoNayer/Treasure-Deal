@@ -99,6 +99,7 @@ export const LuckyPartnersProfileComp = ({...props}) => {
                     </button>
               </div>
               <div className="col-md-7 my-4">
+                  <div className="over-x">
                   <div className="td_lucky_partners_table">
                       <h4 className="td_table_title fw-light mb-4 px-3">
                             {t('luckyProfile.savedPartners')}
@@ -143,6 +144,7 @@ export const LuckyPartnersProfileComp = ({...props}) => {
                               }
                           </>
                       }
+                  </div>
                   </div>
               </div>
           </div>

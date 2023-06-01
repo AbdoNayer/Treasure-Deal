@@ -1187,6 +1187,11 @@ header{
     }
 }
 
+small.text-danger {
+    font-size: 10px;
+    font-weight: bold;
+}
+
 .block-table{
     &:nth-child(even){
         .lis-number{
@@ -1958,12 +1963,7 @@ header{
 
 .filter-rooms{
     .select-add{
-        height: 49px !important;
         border: 1px solid #dee2e6 !important;
-        font-size: 14px !important;
-        div{
-            font-size: 11px !important;
-        }
     }
 }
 
@@ -1972,12 +1972,7 @@ header{
         width: 1000px;
     }
     .select-add{
-        height: 49px !important;
         border: 1px solid #dee2e6 !important;
-        font-size: 14px !important;
-        div{
-            font-size: 11px !important;
-        }
     }
 }
 

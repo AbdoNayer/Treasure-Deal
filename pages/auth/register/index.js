@@ -10,6 +10,8 @@ import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import codeCountry from "../../../codeCountry.json";
 import {ModalForm} from "../../../components/ModalForms/ModalForm";
+import {useApi} from "../../../hooks/useApi";
+import {getFreeLanceRequestData} from "../../../redux-toolkit/actions/axiosCalls";
 
 export default function Register() {
 
@@ -267,41 +269,41 @@ export default function Register() {
                     <div className="col-md-6 col-xs-12">
                         {watchIdentification && <div className="mt-4 pt-2"><InputText {...register('identification_value')}/></div>}
                     </div>
-                    <div className="col-md-12 my-3">
-                        <div className="row">
-                            <div className="col-md-6 col-xs-12 d-flex align-items-center">
-                                <div className="d-flex align-items-center">
-                                    <label className="in-chick-box">
-                                        <input type="checkbox" name=""/>
-                                        <span className="checkmark m-0" onClick={()=>setInInfluencer(!inInfluencer)} />
-                                    </label>
-                                    <strong className='fw-light mx-2'>{t('app.influ')}</strong>
-                                </div>
-                            </div>
-                            {
-                                inInfluencer &&
-                                <div className="col-md-6 col-xs-12">
-                                    <label className='mb-2 fw-light'>{t('user.TDServices')}</label>
-                                    <div className="select-add select-full">
-                                        <Controller
-                                            control={control}
-                                            defaultValue={''}
-                                            name='identification_type'
-                                            render={({ field, value, ref })=>
-                                                <InputSelect
-                                                    inputRef={ref}
-                                                    value={identificationOptions.find(c => c.value === value)}
-                                                    onChange={val => field.onChange(val.value)}
-                                                    options={identificationOptions}
-                                                    placeholder={t('register.placeholders.select')}
-                                                />
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
+                    {/*<div className="col-md-12 my-3">*/}
+                    {/*    <div className="row">*/}
+                    {/*        <div className="col-md-6 col-xs-12 d-flex align-items-center">*/}
+                    {/*            <div className="d-flex align-items-center">*/}
+                    {/*                <label className="in-chick-box">*/}
+                    {/*                    <input type="checkbox" name="" onChange={()=>setInInfluencer(!inInfluencer)}/>*/}
+                    {/*                    <span className="checkmark m-0" />*/}
+                    {/*                </label>*/}
+                    {/*                <strong className='fw-light mx-2'>{t('app.influ')}</strong>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*        {*/}
+                    {/*            inInfluencer &&*/}
+                    {/*            <div className="col-md-6 col-xs-12">*/}
+                    {/*                <label className='mb-2 fw-light'>{t('user.TDServices')}</label>*/}
+                    {/*                <div className="select-add select-full">*/}
+                    {/*                    <Controller*/}
+                    {/*                        control={control}*/}
+                    {/*                        defaultValue={''}*/}
+                    {/*                        name='identification_type'*/}
+                    {/*                        render={({ field, value, ref })=>*/}
+                    {/*                            <InputSelect*/}
+                    {/*                                inputRef={ref}*/}
+                    {/*                                value={identificationOptions.find(c => c.value === value)}*/}
+                    {/*                                onChange={val => field.onChange(val.value)}*/}
+                    {/*                                options={identificationOptions}*/}
+                    {/*                                placeholder={t('register.placeholders.select')}*/}
+                    {/*                            />*/}
+                    {/*                        }*/}
+                    {/*                    />*/}
+                    {/*                </div>*/}
+                    {/*            </div>*/}
+                    {/*        }*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
                 <div className="td_disclaimer text-center my-5">
                     {t('app.bySigningAgree')}

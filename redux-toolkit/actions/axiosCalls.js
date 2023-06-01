@@ -167,9 +167,9 @@ export const getRaffellionaireDrawDetails = async ( token, lang, currency, drawI
 export const getAllMerchants = async ( token, lang, currency, page=''
                                        ,catId='', subCatId='', mallId=''
                                        ,country_id='',city_id='',name=''
-                                       ,near_by=false,lat='',lng='' ) => {
+                                       ,near_by=false,lat='',lng='' ,recommended) => {
     const res = await axios.get(`${CONST.url}merchants?category_id=${catId}&page=${page}&mall_id=${mallId}&subcategory_id=${subCatId}
-    &country_id=${country_id}&city_id=${city_id}&near_by=${near_by}&lat=${lat}&lng=${lng}&name=${name}`,
+    &country_id=${country_id}&city_id=${city_id}&near_by=${near_by}&lat=${lat}&lng=${lng}&name=${name}&is_recommended=${recommended}`,
         headerConfig(lang,currency,token)
     )
     return res.data.data

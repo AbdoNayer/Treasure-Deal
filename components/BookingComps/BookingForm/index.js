@@ -21,7 +21,7 @@ import {useApi} from "../../../hooks/useApi";
 import {ErrorModalForm} from "../../ModalForms/ErrorModalForm";
 import {useRouter} from "next/router";
 
-export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId,checkHasAdultsCount,defaultAddressId,defaultOrderId,checkOutDate='',checkVoucherType,checkAddressByVoucherType,serviceState,employeesState,voucherType,...props}) => {
+export const BookingForm = ({time,daysCount,checkInDate,serviceGender,merchantId,voucherId,checkHasAdultsCount,defaultAddressId,defaultOrderId,checkOutDate='',checkVoucherType,checkAddressByVoucherType,serviceState,employeesState,voucherType,...props}) => {
     const { t }                                             = useTranslation();
     const dispatch                                          = useDispatch()
     const dateOptions                                       = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -160,6 +160,7 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
             date:convertDate(checkInDate),
             date_to: checkVoucherType()==='booking_type_2' ? convertDate(checkOutDate) : '',
             gender: (voucherType==='cleaner'||voucherType==='pest_control') ? serviceGender : undefined,
+            days_count:daysCount,
             time,
             table_option: voucherType==='table' ? 'dinner' : undefined,
             voucher_type:voucherType,
@@ -266,37 +267,48 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
         <div>
             <div className="p-4 rounded-3 old-shadow box-result my-5 mt-3 pt-1">
                 <h4>{t('booking.Reserve.bookingRequest')}</h4>
-                <div>{totalPrice > 0 && <h5>{currency} {employeesState.length > 0 ? totalPrice*employeesState.length : totalPrice}</h5>}</div>
+                <div>{totalPrice > 0 && <h5>{currency} {employeesState.length > 0
+                    ? totalPrice*employeesState.length
+                    : daysCount
+                        ? totalPrice * daysCount
+                        : totalPrice
+                }</h5>}</div>
                 <p>{t('millionaire.voucher.description')}</p>
-                <div className="d-flex align-items-center my-3 border-dotted pb-3">
-                    {time && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1">{t('app.time')} : {time}</h6>}
-                    <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mx-3">{checkDateMsg.checkIn} : {checkInDate.toLocaleDateString(undefined,dateOptions)}</h6>
-                    {checkVoucherType()==='booking_type_2' && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mx-3">{checkDateMsg.checkOut} : {checkOutDate.toLocaleDateString(undefined,dateOptions)}</h6>}
+                <div className="d-flex align-items-center my-3 border-dotted pb-3 fl-col in-ti-date">
+                    {time && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mb-3">{t('app.time')} : {time}</h6>}
+                    <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mx-3 mb-3">{checkDateMsg.checkIn} : {checkInDate.toLocaleDateString(undefined,dateOptions)}</h6>
+                    {checkVoucherType()==='booking_type_2' && <h6 className="fw-light m-0 bgMainColor text-white w-auto p-3 rounded-1 mx-3 mb-3">{checkDateMsg.checkOut} : {checkOutDate.toLocaleDateString(undefined,dateOptions)}</h6>}
                 </div>
                 <div className="my-4 border-dotted">
                     <div className="row mt-4">
                         {checkHasAdultsCount() && <>
-                            <div className={`${childrenChair ? 'col-md-6' : 'col-md-12'} col-md-6 col-xs-12 mb-4 select-add`}>
+                            <div className={`${childrenChair ? 'col-md-6' : 'col-md-12'} col-md-6 col-xs-12`}>
+                            <label>{t('booking.adultsCount')}</label>
+                            <div className={`mb-4 select-add select-full`}>
                                 <InputSelect
                                     onChange={e => setAdultsCount(e.value)}
-                                    label={t('booking.adultsCount')}
+                                    // label={t('booking.adultsCount')}
                                     options={[...Array(10).keys()].slice(1).map(entry => ({label:entry,value:entry}))}
                                 />
                             </div>
-                            {childrenChair && !smokingArea && <div className="col-md-6 col-xs-12 mb-4 select-add select-full">
-                                <InputSelect
-                                    onChange={e => setChildrenCount(e.value)}
-                                    label={t('booking.childrenCount')}
-                                    options={[...Array(10).keys()].slice(1).map(entry => ({
-                                        label: entry,
-                                        value: entry
-                                    }))}
-                                />
-                            </div>}
+                            </div>
+                            {childrenChair && !smokingArea && 
+                            <div className="col-md-6 col-xs-12">
+                                <div className="mb-4 select-add select-full">
+                                    <label>{t('booking.childrenCount')}</label>
+                                    <InputSelect
+                                        onChange={e => setChildrenCount(e.value)}
+                                        // label={t('booking.childrenCount')}
+                                        options={[...Array(10).keys()].slice(1).map(entry => ({
+                                            label: entry,
+                                            value: entry
+                                        }))}
+                                    />
+                                </div>
+                            </div>
+                            }
                             <div className={'col-md-6 col-xs-12 mb-4 td_radio_select d-flex align-items-center'}>
-                                <label htmlFor={'smoking'}
-                                       className={'fs-6 w-100'}>{t('booking.Reserve.smokingArea')}</label>
-                                <input type={"checkbox"} id={'smoking'} name={'smoking'}
+                                <input className="w-auto" type={"checkbox"} id={'smoking'} name={'smoking'}
                                        value={'smoking'}
                                        onChange={(e)=> {
                                            if (childrenChair) {
@@ -311,11 +323,10 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
 
                                        }}
                                 />
+                                <label htmlFor={'smoking'} className={'fs-6 mx-2'}>{t('booking.Reserve.smokingArea')}</label>
                             </div>
                             <div className={'col-md-6 col-xs-12 mb-4 td_radio_select d-flex align-items-center'}>
-                                <label htmlFor={'children_chair'}
-                                       className={'fs-6 w-100'}>{t('booking.Reserve.childrenChair')}</label>
-                                <input type={"checkbox"} id={'children_chair'} name={'children_chair'}
+                                <input className="w-auto" type={"checkbox"} id={'children_chair'} name={'children_chair'}
                                        value={'children_chair'}
                                        onChange={(e)=> {
                                            if (smokingArea) {
@@ -329,6 +340,7 @@ export const BookingForm = ({time,checkInDate,serviceGender,merchantId,voucherId
                                            } else setChildrenChair(!childrenChair)
                                        }}
                                 />
+                                <label htmlFor={'children_chair'} className={'fs-6 mx-2'}>{t('booking.Reserve.childrenChair')}</label>
                             </div>
                         </>}
                         <div className="col-md-12 col-xs-12 mb-4">

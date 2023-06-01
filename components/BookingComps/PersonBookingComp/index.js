@@ -13,7 +13,7 @@ export const PersonBookingComp = ({children,person,selectedEmployees,addSelected
                 </div>
             }
             <div className="rounded-1 p-3">
-                <div className='d-flex align-items-start pb-3'>
+                <div className='d-flex align-items-start pb-3 fl-col'>
                     <div className="td_img_wrapper">
                         <Image style={{ width: '100%', height: '100%' }} width={70} height={70} alt='logo' src={person.image} />
                     </div>
